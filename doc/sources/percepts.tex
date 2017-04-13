@@ -277,6 +277,26 @@ These percepts are available to all the units and buildings.
             & \textbf{Type} & \verb|List of Strings| \\
             \cline{2-3} 
 \end{tabularx}\\
+\newpage
+\noindent
+\textbf{UnitAmount percept}\\
+\\
+\begin{tabularx}{\textwidth}{lX}
+ Description & Shows the amount of units for each unit type. \\
+ Type & Send always \\
+ Syntax & \verb|unit(<Type>,<Amount>)| \\
+ Example & \verb|unit(Protoss Gateway, 2)| \\ 
+ \end{tabularx}
+ \begin{tabularx}{\textwidth}{l | c | p{8cm}|}
+ \cline{2-3} 
+ Parameters & \textbf{\verb|<Type>|} & The type of the unit. The type of a unit consists of a string with the race            of the unit and the name of the unit parted by a space. See Section \ref{unittype} for the list of               all the unit types. \\
+            & \textbf{Type} & \verb|String| \\
+            \cline{2-3} 
+            & \textbf{\verb|<Amount>|} & The Amount of units of the given type that are currently in the game.\\ 
+            & \textbf{Type} & \verb|Positivie Integer| \\
+            & \textbf{Range} & [0--400] \\
+            \cline{2-3} 
+\end{tabularx}\\
 
 \newpage
 % \noindent
@@ -523,6 +543,39 @@ These percepts are available to worker units.
             \cline{2-3} 
 \end{tabularx} \\
 \newpage
+\noindent
+\textbf{Mineralfield percept}\\
+\\
+\begin{tabularx}{\textwidth}{lX}
+ Description & Information about a visible mineralfield on the map. \\
+ Type & Send on change \\
+ Syntax & \verb|vespeneGeyser(<ID>,<Resources>,<ResourceGroup>,<X>,<Y>)| \\
+ Example & \verb|vespeneGeyser(57, 5000, 6, 22, 32)| \\ 
+ \end{tabularx}
+ \begin{tabularx}{\textwidth}{l | c | p{8cm}|}
+ \cline{2-3} 
+ Parameters & \textbf{\verb|<ID>|} & The (unique) \textit{ID} of the mineralfield.\\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--$\infty$] \\
+            \cline{2-3} 
+            & \textbf{\verb|<Resources>|} & The amount of resources left in the mineralfield.\\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--5000] \\
+            \cline{2-3} 
+            & \textbf{\verb|<ResourceGroup>|} & The resource group of the mineralfield. \\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--$\infty$] \\
+            \cline{2-3} 
+            & \textbf{\verb|<X>|} & The x-coordinate of the mineralfield.\\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--$\infty$] \\
+            \cline{2-3} 
+            & \textbf{\verb|<Y>|} & The y-coordinate of the mineralfield.\\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--$\infty$] \\
+            \cline{2-3} 
+\end{tabularx} \\
+
 \noindent
 \textbf{ConstructionSite percept}\\
 \\
