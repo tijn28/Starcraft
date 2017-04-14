@@ -42,13 +42,13 @@ public class WorkerPerceiver extends UnitPerceiver {
    */
   private void perceiveWorkerActivity(Set<Percept> percepts, Unit unit) {
     if (unit.isGatheringGas()) {
-      percepts.add(new WorkerActivityPercept(unit.getID(), "gatheringGas"));
+      percepts.add(new WorkerActivityPercept("gatheringGas"));
     } else if (unit.isGatheringMinerals()) {
-      percepts.add(new WorkerActivityPercept(unit.getID(), "gatheringMinerals"));
+      percepts.add(new WorkerActivityPercept("gatheringMinerals"));
     } else if (unit.isConstructing()) {
-      percepts.add(new WorkerActivityPercept(unit.getID(), "constructing"));
+      percepts.add(new WorkerActivityPercept("constructing"));
     } else {
-      percepts.add(new WorkerActivityPercept(unit.getID(), "idling"));
+      percepts.add(new WorkerActivityPercept("idling"));
     }
   }
 
@@ -60,12 +60,12 @@ public class WorkerPerceiver extends UnitPerceiver {
    */
   private void perceiveWorkers(Map<PerceptFilter, Set<Percept>> toReturn) {
     Set<Percept> percepts = new HashSet<>();
-    for (Unit unit : this.api.getMyUnits()) {
-      if (unit.getType().isWorker()) {
+ //   for (Unit unit : this.api.getMyUnits()) {
+ //     if (unit.getType().isWorker()) {
         perceiveWorkerActivity(percepts, unit);
-      }
-    }
-    toReturn.put(new PerceptFilter(Percepts.WORKERACTIVITY, Filter.Type.ALWAYS), percepts);
+ //     }
+ //   }
+    toReturn.put(new PerceptFilter(Percepts.WORKERACTIVITY, Filter.Type.ON_CHANGE), percepts);
   }
 
   @Override
@@ -74,12 +74,12 @@ public class WorkerPerceiver extends UnitPerceiver {
     perceiveWorkers(toReturn);
     resourcesPercepts(toReturn);
 
-    Set<Percept> gatheringpercepts = new HashSet<>();
-    if ((unit.isGatheringGas() || unit.isGatheringMinerals()) && unit.getOrderTarget() != null) {
-      gatheringpercepts.add(new GatheringPercept(unit.getOrderTarget().getID()));
-    }
-
-    toReturn.put(new PerceptFilter(Percepts.GATHERING, Filter.Type.ALWAYS), gatheringpercepts);
+//    Set<Percept> gatheringpercepts = new HashSet<>();
+//    if ((unit.isGatheringGas() || unit.isGatheringMinerals()) && unit.getOrderTarget() != null) {
+//      gatheringpercepts.add(new GatheringPercept(unit.getOrderTarget().getID()));
+//    }
+//
+//    toReturn.put(new PerceptFilter(Percepts.GATHERING, Filter.Type.ALWAYS), gatheringpercepts);
     return toReturn;
   }
 

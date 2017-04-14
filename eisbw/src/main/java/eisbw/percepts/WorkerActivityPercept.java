@@ -20,7 +20,7 @@ public class WorkerActivityPercept extends Percept {
    * @param activity
    *          The current activity of the worker unit.
    */
-  public WorkerActivityPercept(int id, String activity) {
-    super(Percepts.WORKERACTIVITY, new Numeral(id), new Identifier(activity));
+  public WorkerActivityPercept(String activity) {
+    super(Percepts.WORKERACTIVITY, new Identifier(activity));
   }
 }
