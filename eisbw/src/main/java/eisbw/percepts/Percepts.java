@@ -14,7 +14,7 @@ public class Percepts {
   public static final String STATUS = "status";
   public static final String RESOURCES = "resources";
   public static final String MINERALFIELD = "mineralField";
-  public static final String UNITAMOUNT = "unitAmount";
+  //public static final String UNITAMOUNT = "unitAmount";
   public static final String BASE = "base";
   public static final String CHOKEPOINT = "chokepoint";
   public static final String MAP = "map";

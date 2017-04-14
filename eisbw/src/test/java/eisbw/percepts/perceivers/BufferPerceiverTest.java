@@ -99,7 +99,7 @@ public class BufferPerceiverTest {
   @Test
   public void size_test() {
     Map<PerceptFilter, Set<Percept>> toReturn = new HashMap<>();
-    assertEquals(2, perciever.perceive(toReturn).size());
+    assertEquals(1, perciever.perceive(toReturn).size());
   }
 
 }
