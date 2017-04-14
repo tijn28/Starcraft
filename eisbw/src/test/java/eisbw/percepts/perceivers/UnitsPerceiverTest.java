@@ -73,7 +73,7 @@ public class UnitsPerceiverTest {
     when(unit.isMorphing()).thenReturn(true);
     when(unit.isCloaked()).thenReturn(true);
     when(unit.isBeingConstructed()).thenReturn(true);
-    assertEquals(2, perceiver.perceive(ret).size());
+    assertEquals(3, perceiver.perceive(ret).size());
   }
 
   @Test
@@ -82,7 +82,7 @@ public class UnitsPerceiverTest {
     when(unit.isMorphing()).thenReturn(false);
     when(unit.isCloaked()).thenReturn(false);
     when(unit.isBeingConstructed()).thenReturn(false);
-    assertEquals(2, perceiver.perceive(ret).size());
+    assertEquals(3, perceiver.perceive(ret).size());
   }
 
   @Test
@@ -91,17 +91,17 @@ public class UnitsPerceiverTest {
     when(unit.getOrderTarget()).thenReturn(unit2);
     when(unitType2.isAttackCapable()).thenReturn(true);
 
-    assertEquals(2, perceiver.perceive(ret).size());
+    assertEquals(3, perceiver.perceive(ret).size());
     when(unitType.isAttackCapable()).thenReturn(false);
 
-    assertEquals(2, perceiver.perceive(ret).size());
+    assertEquals(3, perceiver.perceive(ret).size());
     when(unitType.isAttackCapable()).thenReturn(true);
     when(unitType2.isAttackCapable()).thenReturn(false);
 
-    assertEquals(2, perceiver.perceive(ret).size());
+    assertEquals(3, perceiver.perceive(ret).size());
     when(unit.getOrderTarget()).thenReturn(null);
 
-    assertEquals(2, perceiver.perceive(ret).size());
+    assertEquals(3, perceiver.perceive(ret).size());
   }
 
 }

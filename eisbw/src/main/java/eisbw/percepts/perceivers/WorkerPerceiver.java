@@ -3,7 +3,6 @@ package eisbw.percepts.perceivers;
 import eis.eis2java.translation.Filter;
 import eis.iilang.Percept;
 import eisbw.UnitTypesEx;
-import eisbw.percepts.GatheringPercept;
 import eisbw.percepts.MineralFieldPercept;
 import eisbw.percepts.Percepts;
 import eisbw.percepts.VespeneGeyserPercept;
