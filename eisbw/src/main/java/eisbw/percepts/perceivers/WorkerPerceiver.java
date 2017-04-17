@@ -94,15 +94,15 @@ public class WorkerPerceiver extends UnitPerceiver {
               u.getResourceGroup(), u.getPosition().getBX(), u.getPosition().getBY());
           minerals.add(mineralfield);
         } else if (UnitTypesEx.isVespeneGeyser(unitType)) {
-          VespeneGeyserPercept mineralfield = new VespeneGeyserPercept(u.getID(), u.getResources(),
+          VespeneGeyserPercept geyser = new VespeneGeyserPercept(u.getID(), u.getResources(),
               u.getResourceGroup(), u.getPosition().getBX(), u.getPosition().getBY());
-          geysers.add(mineralfield);
+          geysers.add(geyser);
 
         }
       }
     }
     toReturn.put(new PerceptFilter(Percepts.MINERALFIELD, Filter.Type.ALWAYS), minerals);
-    toReturn.put(new PerceptFilter(Percepts.VESPENEGEYSER, Filter.Type.ALWAYS), geysers);
+    toReturn.put(new PerceptFilter(Percepts.VESPENEGEYSER, Filter.Type.ON_CHANGE), geysers);
   }
 
 }
