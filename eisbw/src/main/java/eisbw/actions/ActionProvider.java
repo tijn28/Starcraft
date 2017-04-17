@@ -64,5 +64,6 @@ public class ActionProvider {
     actions.put("unloadAll/0", new UnloadAll(api));
     actions.put("morph/1", new Morph(api));
     actions.put("patrol/1", new Patrol(api));
+    actions.put("cancel/0", new Cancel(api));
   }
 }

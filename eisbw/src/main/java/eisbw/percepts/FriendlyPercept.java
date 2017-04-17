@@ -33,9 +33,8 @@ public class FriendlyPercept extends Percept {
 	 * @param conditions
 	 *            The current conditions of the unit
 	 */
-	public FriendlyPercept(String type, int id, int health, int shields, List<Parameter> conditions) {
-		super(Percepts.FRIENDLY, new Identifier(type), new Numeral(id), new Numeral(health), new Numeral(shields),
-				new ParameterList(conditions));
+	public FriendlyPercept(String type, int id, List<Parameter> conditions) {
+		super(Percepts.FRIENDLY, new Identifier(type), new Numeral(id), new ParameterList(conditions));
 	}
 
 }

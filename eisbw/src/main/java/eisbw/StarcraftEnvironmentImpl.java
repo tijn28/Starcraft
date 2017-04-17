@@ -76,6 +76,8 @@ public class StarcraftEnvironmentImpl extends EIDefaultImpl {
               configuration.getEnemyRace().getData());
         }
       }
+      // Have the Environment running from the start.
+      setState(EnvironmentState.RUNNING);
     } catch (Exception ex) {
       Logger.getLogger(StarcraftEnvironmentImpl.class.getName()).log(Level.SEVERE, null, ex);
     }

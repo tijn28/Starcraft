@@ -1,7 +1,6 @@
 package eisbw.percepts;
 
 import eis.iilang.Identifier;
-import eis.iilang.Numeral;
 import eis.iilang.Percept;
 
 /**
@@ -15,8 +14,6 @@ public class WorkerActivityPercept extends Percept {
   /**
    * The WorkerActivityPercept constructor.
    * 
-   * @param id
-   *          The id of te worker unit.
    * @param activity
    *          The current activity of the worker unit.
    */
