@@ -102,7 +102,7 @@ public class WorkerPerceiver extends UnitPerceiver {
       }
     }
     toReturn.put(new PerceptFilter(Percepts.MINERALFIELD, Filter.Type.ALWAYS), minerals);
-    toReturn.put(new PerceptFilter(Percepts.VESPENEGEYSER, Filter.Type.ON_CHANGE), geysers);
+    toReturn.put(new PerceptFilter(Percepts.VESPENEGEYSER, Filter.Type.ALWAYS), geysers);
   }
 
 }
