@@ -4,7 +4,6 @@ import eis.eis2java.translation.Filter;
 import eis.iilang.Identifier;
 import eis.iilang.Parameter;
 import eis.iilang.Percept;
-import eisbw.BwapiUtility;
 import eisbw.percepts.Attacking;
 import eisbw.percepts.Percepts;
 import eisbw.percepts.FriendlyPercept;
@@ -17,8 +16,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import org.w3c.dom.TypeInfo;
 
 /**
  * @author Danny & Harm - The perceiver which handles all the unit percepts.
@@ -71,15 +68,14 @@ public class UnitsPerceiver extends Perceiver {
 					Unit targetUnit = u.getOrderTarget();
 
 					if (targetUnit != null && targetUnit.getType().isAttackCapable()) {
-						attackingpercepts.add(new Attacking(u.getID(), targetUnit.getID(), u.getPosition().getBX(),
-								u.getPosition().getBY()));
+						attackingpercepts.add(new Attacking(u.getID(), targetUnit.getID()));
 					}
 				}
 			} else if (isFriendly) {
-				if(u.getType().getID() == 36)
-				unitpercepts.add(new FriendlyPercept(u.getBuildType().getName(), u.getID() ,conditions));
+				if (u.getType().getID() == 36)
+					unitpercepts.add(new FriendlyPercept(u.getBuildType().getName(), u.getID(), conditions));
 				else
-				unitpercepts.add(new FriendlyPercept(u.getType().getName(), u.getID() ,conditions));
+					unitpercepts.add(new FriendlyPercept(u.getType().getName(), u.getID(), conditions));
 			}
 		}
 	}

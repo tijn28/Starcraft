@@ -7,7 +7,7 @@ import eis.iilang.Percept;
  * @author Danny & Harm - The HasResearched percept.
  *
  */
-public class HasResearchedPercept extends Percept {
+public class ResearchingPercept extends Percept {
 
   private static final long serialVersionUID = 1L;
 
@@ -15,7 +15,7 @@ public class HasResearchedPercept extends Percept {
    * @param name
    *          The name of the tech type.
    */
-  public HasResearchedPercept(String name) {
-    super(Percepts.HASRESEARCHED, new Identifier(name));
+  public ResearchingPercept(String name) {
+    super(Percepts.RESEARCHING, new Identifier(name));
   }
 }

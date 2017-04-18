@@ -35,7 +35,7 @@ public class Percepts {
 	public static final String RALLYUNIT = "rallyUnit";
 	public static final String LOADABLE = "loadable";
 	public static final String UPGRADING = "upgrading";
-	public static final String HASRESEARCHED = "hasResearched";
+	public static final String RESEARCHING = "researching";
 	public static final String WINNER = "winner";
 	public static final String GAMESPEED = "gameSpeed";
 

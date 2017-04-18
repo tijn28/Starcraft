@@ -21,8 +21,7 @@ public class Attacking extends Percept {
    * @param ypos
    *          The y coordinate of the unit.
    */
-  public Attacking(int unit, int targetUnit, int xpos, int ypos) {
-    super(Percepts.ATTACKING, new Numeral(unit), new Numeral(targetUnit), new Numeral(xpos),
-        new Numeral(ypos));
+  public Attacking(int unit, int targetUnit) {
+    super(Percepts.ATTACKING, new Numeral(unit), new Numeral(targetUnit));
   }
 }
