@@ -131,7 +131,7 @@ These percepts are available to all the units and buildings.
 \\
 \begin{tabularx}{\textwidth}{lX}
  Description & The race of your opponent. \\
- Type & Send once \\
+ Type & Send on change \\
  Syntax &  \verb|enemyRace(<Race>)| \\
  Example & \verb|enemyRace(protoss)|   \\ 
  \end{tabularx}
@@ -141,6 +141,34 @@ These percepts are available to all the units and buildings.
              & \textbf{Type} & \verb|String| \\
             \cline{2-3} 
 \end{tabularx}
+\\\\
+\noindent
+\textbf{GameSpeed percept}\\
+\\
+\begin{tabularx}{\textwidth}{lX}
+ Description & The current game speed in frames per seconds. For more information see Section \ref{game speed}. \\
+ Type & Send on change \\
+ Syntax &  \verb|gameSpeed(<FPS>)| \\
+ Example & \verb|gameSpeed(50)|   \\ 
+ \end{tabularx}
+ \begin{tabularx}{\textwidth}{l | c | p{8cm}|}
+ \cline{2-3} 
+  Parameters & \textbf{\verb|<FPS>|} & The current amount of frames per second the game is updated by. \\
+             & \textbf{Type} & \verb|Positive Integer| \\
+             & \textbf{Range} & [0--$\infty$] \\
+            \cline{2-3} 
+\end{tabularx}
+\\\\
+\noindent
+\textbf{Winner percept}\\
+\\
+\begin{tabularx}{\textwidth}{lX}
+ Description & At the end of the game all units will perceive this if you have won the game. \\
+ Type & always \\
+ Syntax &  \verb|winner| \\
+ Example & \verb|winner|   \\ 
+ \end{tabularx}
+
 
 \subsection{Map Percepts}
 \textbf{Map percept}\\
@@ -162,7 +190,7 @@ These percepts are available to all the units and buildings.
             & \textbf{Range} & [0--$\infty$] \\
             \cline{2-3} 
 \end{tabularx}\\
- 
+ \newpage
 \noindent
 \textbf{Base percept}\\
 \\
@@ -218,7 +246,7 @@ These percepts are available to all the units and buildings.
 \textbf{Attacking percept}\\
 \\
 \begin{tabularx}{\textwidth}{lX}
- Description & Shows the units which are attacking and which units they have targeted. \\
+ Description & Shows the enemy units which are attacking and which units they have targeted. \\
  Type & Send always \\
  Syntax & \verb|attacking(<ID>,<TargetID>,<X>,<Y>)| \\
  Example & \verb|attacking(123, 177, 120, 96)| \\ 
@@ -245,20 +273,63 @@ These percepts are available to all the units and buildings.
 
 \newpage
 \noindent
-\textbf{Unit percept}\\
+\textbf{Friendly percept}\\
 \\
 \begin{tabularx}{\textwidth}{lX}
  Description & Shows all units that are currently visible to the player. \\
  Type & Send always \\
- Syntax & \verb|unit(<IsFriendly>,<Type>,<ID>,<Health>,<Shield>,<Condition>)| \\
- Example & \verb|unit(true, Protoss Gateway, 26, 255, 255, [isBeingConstructed])| \\ 
+ Syntax & \verb|unit(<Type>,<ID>,<Condition>)| \\
+ Example & \verb|unit(Protoss Gateway, 26, [isBeingConstructed])| \\ 
  \end{tabularx}
  \begin{tabularx}{\textwidth}{l | c | p{8cm}|}
  \cline{2-3} 
- Parameters & \textbf{\verb|<IsFriendly>|} & Indicates whether the unit is friendly or not. \\
-            & \textbf{Type} & \verb|Boolean| (true or false) \\
-            \cline{2-3} 
+ Parameters 
             & \textbf{\verb|<Type>|} & The type of the unit. The type of a unit consists of a string with the race of the unit and the name of the unit parted by a space. See Section \ref{unittype} for the list of all the unit types. \\
+            & \textbf{Type} & \verb|String| \\
+            \cline{2-3} 
+            & \textbf{\verb|<ID>|} & The (unique) \textit{ID} of the unit.\\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--$\infty$] \\
+            \cline{2-3} 
+            & \textbf{\verb|<Cond>|} & The current condition of the unit. Each unit can have multiple or no conditions depending on the unit and situation. See Section \ref{conditions} for the list of all actual conditions.\\ 
+            & \textbf{Type} & \verb|List of Strings| \\
+            \cline{2-3} 
+\end{tabularx}\\
+\newpage
+\noindent
+
+% \textbf{UnitAmount percept}\\
+% \\
+% \begin{tabularx}{\textwidth}{lX}
+%  Description & Shows the amount of units for each unit type. \\
+%  Type & Send always \\
+%  Syntax & \verb|unit(<Type>,<Amount>)| \\
+%  Example & \verb|unit(Protoss Gateway, 2)| \\ 
+%  \end{tabularx}
+%  \begin{tabularx}{\textwidth}{l | c | p{8cm}|}
+%  \cline{2-3} 
+%  Parameters & \textbf{\verb|<Type>|} & The type of the unit. The type of a unit consists of a string with the race            of the unit and the name of the unit parted by a space. See Section \ref{unittype} for the list of               all the unit types. \\
+%             & \textbf{Type} & \verb|String| \\
+%             \cline{2-3} 
+%             & \textbf{\verb|<Amount>|} & The Amount of units of the given type that are currently in the game.\\ 
+%             & \textbf{Type} & \verb|Positivie Integer| \\
+%             & \textbf{Range} & [0--400] \\
+%             \cline{2-3} 
+% \end{tabularx}\\
+
+%\newpage
+\noindent
+\textbf{Enemy percept}\\
+\\
+\begin{tabularx}{\textwidth}{lX}
+ Description & Shows all enemy units that are currently visible to the player. \\
+ Type & Send always \\
+ Syntax & \verb|enemy(<Type>,<ID>,<Health>,<Shield>,<Condition>,<X>,<Y>)| \\
+ Example & \verb|enemy(Zerg Overlord, 12, 200, 0, [flying], 120, 96)| \\ 
+ \end{tabularx}
+ \begin{tabularx}{\textwidth}{l | c | p{8cm}|}
+ \cline{2-3} 
+ Parameters & \textbf{\verb|<Type>|} & The type of the unit. The type of a unit consists of a string with the race of            the unit and the name of the unit parted by a space. \\
             & \textbf{Type} & \verb|String| \\
             \cline{2-3} 
             & \textbf{\verb|<ID>|} & The (unique) \textit{ID} of the unit.\\
@@ -276,63 +347,15 @@ These percepts are available to all the units and buildings.
             & \textbf{\verb|<Cond>|} & The current condition of the unit. Each unit can have multiple or no conditions depending on the unit and situation. See Section \ref{conditions} for the list of all actual conditions.\\ 
             & \textbf{Type} & \verb|List of Strings| \\
             \cline{2-3} 
-\end{tabularx}\\
-\newpage
-\noindent
-\textbf{UnitAmount percept}\\
-\\
-\begin{tabularx}{\textwidth}{lX}
- Description & Shows the amount of units for each unit type. \\
- Type & Send always \\
- Syntax & \verb|unit(<Type>,<Amount>)| \\
- Example & \verb|unit(Protoss Gateway, 2)| \\ 
- \end{tabularx}
- \begin{tabularx}{\textwidth}{l | c | p{8cm}|}
- \cline{2-3} 
- Parameters & \textbf{\verb|<Type>|} & The type of the unit. The type of a unit consists of a string with the race            of the unit and the name of the unit parted by a space. See Section \ref{unittype} for the list of               all the unit types. \\
-            & \textbf{Type} & \verb|String| \\
+            & \textbf{\verb|<X>|} & The x-coordinate of the unit.\\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--$\infty$] \\
             \cline{2-3} 
-            & \textbf{\verb|<Amount>|} & The Amount of units of the given type that are currently in the game.\\ 
-            & \textbf{Type} & \verb|Positivie Integer| \\
-            & \textbf{Range} & [0--400] \\
+            & \textbf{\verb|<Y>|} & The y-coordinate of the unit.\\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--$\infty$] \\
             \cline{2-3} 
 \end{tabularx}\\
-
-\newpage
-% \noindent
-% \textbf{Enemy percept}\\
-% \\
-% \begin{tabularx}{\textwidth}{lX}
-%  Description & Shows all enemy units that are currently visible to the player. \\
-%  Type & Send always \\
-%  Syntax & \verb|enemy(<Type>,<Health>,<Shield>,<Condition>,<X>,<Y>)| \\
-%  Example & \verb|enemy(Zerg Overlord, 200, 0, [flying], 120, 96)| \\ 
-%  \end{tabularx}
-%  \begin{tabularx}{\textwidth}{l | c | p{8cm}|}
-%  \cline{2-3} 
-%  Parameters & \textbf{\verb|<Type>|} & The type of the unit. The type of a unit consists of a string with the race of            the unit and the name of the unit parted by a space. \\
-%             & \textbf{Type} & \verb|String| \\
-%             \cline{2-3} 
-%             & \textbf{\verb|<Health>|} & The current amount of health of the unit.\\
-%             & \textbf{Type} & \verb|Positive Integer| \\
-%             & \textbf{Range} & [0--\verb|<maxHealth>|] where \verb|<maxHealth>| is the maximum health of the given unit.\\
-%             \cline{2-3} 
-%             & \textbf{\verb|<Shield>|} & The current amount of shields of the unit. \\
-%             & \textbf{Type} & \verb|Positive Integer| \\
-%             & \textbf{Range} & [0--\verb|<maxShield>|] where \verb|<maxShield>| is the maximum shield of the given unit. \\
-%             \cline{2-3} 
-%             & \textbf{\verb|<Cond>|} & The current condition of the unit. Each unit can have multiple or no conditions depending on the unit and situation. See Section \ref{conditions} for the list of all actual conditions.\\ 
-%             & \textbf{Type} & \verb|List of Strings| \\
-%             \cline{2-3} 
-%             & \textbf{\verb|<X>|} & The x-coordinate of the unit.\\
-%             & \textbf{Type} & \verb|Positive Integer| \\
-%             & \textbf{Range} & [0--$\infty$] \\
-%             \cline{2-3} 
-%             & \textbf{\verb|<Y>|} & The y-coordinate of the unit.\\
-%             & \textbf{Type} & \verb|Positive Integer| \\
-%             & \textbf{Range} & [0--$\infty$] \\
-%             \cline{2-3} 
-% \end{tabularx}\\
 
 
 
@@ -476,39 +499,39 @@ These percepts are available to worker units.
 \textbf{Worker Activity Percept}
 \\
 \begin{tabularx}{\textwidth}{lX}
- Description & Shows the current activity of all friendly workers. \\
- Type & Send always \\
- Syntax & \verb|workerActivity(<ID>, <Activity>)| \\
- Example & \verb|workerActivity(146, gatheringGas)| \\ 
+ Description & Shows the current activity of the worker. \\
+ Type & Send on change \\
+ Syntax & \verb|workerActivity(<Activity>)| \\
+ Example & \verb|workerActivity(gatheringGas)| \\ 
  \end{tabularx}
  \begin{tabularx}{\textwidth}{l | c | p{8cm}|}
  \cline{2-3} 
- Parameters & \textbf{\verb|<ID>|} & The (unique) \textit{ID} of the worker unit. \\
-            & \textbf{Type} & \verb|Positive Integer| \\
-            & \textbf{Range} & [0--$\infty$] \\
-            \cline{2-3} 
-            & \textbf{\verb|<Activity>|} & The current activity of the worker unit. Can take values: gatheringGas, gatheringMinerals, constructing or idling. \\
+ Parameters  & \textbf{\verb|<Activity>|} & The current activity of the worker unit. Can take values: gatheringGas, gatheringMinerals, constructing or idling. \\
             & \textbf{Type} & \verb|String| \\
             \cline{2-3} 
 \end{tabularx}\\
 \\
 \newpage
 \noindent
-\textbf{Gathering Percept} \\
-\\
-\begin{tabularx}{\textwidth}{lX}
- Description & Shows which mineral or vespene ID the worker is currently gathering from. \\
- Type & Send always \\
- Syntax & \verb|gathering(<ID>)| \\
- Example & \verb|gathering(110)| \\ 
- \end{tabularx}
- \begin{tabularx}{\textwidth}{l | c | p{8cm}|}
- \cline{2-3} 
- Parameters & \textbf{\verb|<ID>|} & The (unique) \textit{ID} of the mineral or vespene geyser. \\
-            & \textbf{Type} & \verb|Positive Integer| \\
-            & \textbf{Range} & [0--$\infty$] \\
-            \cline{2-3} 
-\end{tabularx}\\
+
+
+%\textbf{Gathering Percept} \\
+%\\
+%\begin{tabularx}{\textwidth}{lX}
+ %Description & Shows which mineral or vespene ID the worker is currently gathering from. \\
+ %Type & Send always \\
+ %Syntax & \verb|gathering(<ID>)| \\
+ %Example & \verb|gathering(110)| \\ 
+ %\end{tabularx}
+ %\begin{tabularx}{\textwidth}{l | c | p{8cm}|}
+ %\cline{2-3} 
+ %Parameters & \textbf{\verb|<ID>|} & The (unique) \textit{ID} of the mineral or vespene geyser. \\
+ %           & \textbf{Type} & \verb|Positive Integer| \\
+ %           & \textbf{Range} & [0--$\infty$] \\
+ %           \cline{2-3} 
+%\end{tabularx}\\
+
+
 
 \subsection{Builder Percepts}
 \textbf{Vespene Geyser percept}\\
@@ -549,8 +572,8 @@ These percepts are available to worker units.
 \begin{tabularx}{\textwidth}{lX}
  Description & Information about a visible mineralfield on the map. \\
  Type & Send on change \\
- Syntax & \verb|vespeneGeyser(<ID>,<Resources>,<ResourceGroup>,<X>,<Y>)| \\
- Example & \verb|vespeneGeyser(57, 5000, 6, 22, 32)| \\ 
+ Syntax & \verb|mineralField(<ID>,<Resources>,<ResourceGroup>,<X>,<Y>)| \\
+ Example & \verb|mineralField(57, 5000, 6, 22, 32)| \\ 
  \end{tabularx}
  \begin{tabularx}{\textwidth}{l | c | p{8cm}|}
  \cline{2-3} 

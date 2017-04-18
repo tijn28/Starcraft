@@ -173,6 +173,31 @@ This section will list all the actions that are usable in the Starcraft environm
  Post & The targeted unit starts walking to the loadable unit and loads into it.
 \end{tabularx}
 
+\section{Unload action}
+\begin{tabularx}{\textwidth}{lX}
+ Desription & Order a unit to unload from this (loadable) unit. \\
+ Syntax & \verb|unload(<ID>)| \\
+ Parameters & \verb|<ID>|: The \textit{ID} of the unit to unload from this (loadable) unit.\\
+ Pre & The unit is capable of loading other units inside it. \\
+ Post & The targeted unit is unloaded and stands next to the (loadable) unit.
+\end{tabularx}
+
+\section{UnloadAll action}
+\begin{tabularx}{\textwidth}{lX}
+ Desription & Order all units to unload from this (loadable) unit. \\
+ Syntax & \verb|unloadAll| \\
+ Pre & The unit is capable of loading other units inside it. \\
+ Post & All units are unloaded and stand next to the (loadable) unit.
+\end{tabularx}
+
+\section{Cancel action}
+\begin{tabularx}{\textwidth}{lX}
+ Desription & Cancels the construction of the unit. \\
+ Syntax & \verb|cancel| \\
+ Pre & The unit is morphing or beingConstructed. \\
+ Post & The morphing or construction is cancelled.
+\end{tabularx}
+
 %Kweet niet of ik deze action wil houden
 %\section{RightClick action}
 %\begin{tabularx}{\textwidth}{lX}
