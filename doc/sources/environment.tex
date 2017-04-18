@@ -50,8 +50,8 @@ The enemy race parameter can be used for specifying which race you want to play 
 \label{game speed}
 The game speed parameter can be used to set the initial speed of the game when the StarCraft game is launched. StarCraft makes use of a logical frame rate, which means that the game\_speed depends on the amount of frames per second (fps) used to update the game. So the higher the fps, the faster the game will go. For using the game\_speed parameter you can insert the following line: \textit{game\_speed=<FPS>}, where \textit{<FPS>} is a positive integer. If the integer 0 is used, there will be no limit on the amount of FPS used and the game will thus run as fast as it possibly can. \textbf{Please note that when integer 0 is used the gameSpeed/1 percept will not give accurate results.} The default (tournament-speed) FPS is 50.
 
-\subsection{Defining an agent}
-When defining an agent it is important that a correct entity type is use. This value has to be the same type of the StarCraft unit without spaces and where the first letter is uncapitalised. So when you for example want to connect an agent to a \texttt{terran SCV}, this can be done by using the entity type \textit{terranSCV}. Note that each unit type starts with the race of the unit, followed by the exact name of the unit type.
+\subsection{Entity Types}
+When defining a launch rule it is important that a correct entity type is used. This value has to be the same type of the StarCraft unit without spaces and where the first letter is uncapitalised. So when you for example want to connect an agent to a \texttt{terran SCV}, this can be done by using the entity type \textit{terranSCV}. Note that each unit type starts with the race of the unit, followed by the exact name of the unit type.
 
 \begin{verbatim}
     define myAgent as agent {
@@ -82,5 +82,5 @@ The Game Speed slider can be found at the top of the development tool window. Th
 \subsection{Cheat Actions}
 The development tool offers 3 buttons which instantly enable StarCraft cheats. Note that these cheats should be used for testing purposes only. The first cheat is called: \textit{Give resources} which gives the player 10000 minerals and 10000 gas. The second cheat is called: \textit{Enemy attacks deal 0 damager} which makes the units of the player immune for damage. The last cheat is called: \textit{Show map} which makes the whole map visible for the player. Note that  all your agents will then also perceive everything on the map.
 
-\subsection{Map drawing}
+\subsection{Map Drawing}
 The development tool can also be used to show map or unit details. There are 4 buttons which can be used. First there is the \textit{Unit Details} button which shows the health and \textit{ID} of every unit. There is also the \textit{Base Locations} button which shows all the starting locations of the map and also all the base locations on the map where players could be expanding to. There is also the \textit{Chokepoints} button which shows all the chokepoints (which are the narrow points where not many units can go through at the same time) on the map. Finally there is the \textit{Build Locations} button which shows all the non-obstructed and explored building locations of the map which the worker units perceive with the \textit{constructionSite} percept.

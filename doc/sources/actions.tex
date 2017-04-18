@@ -3,7 +3,7 @@ This section will list all the actions that are usable in the Starcraft environm
 
 \section{Attack action}
 \begin{tabularx}{\textwidth}{lX}
- Desription & This action makes a unit which is attack capable, attack the chosen unit. \\
+ Description & Attack the given enemy unit. \\
  Syntax & \verb|attack(<TargetID>)| \\
  Parameters & \verb|<TargetID>|: The \textit{ID} of the target that will be attacked.\\
  Pre & The targeted unit is attack capable. \\
@@ -12,7 +12,7 @@ This section will list all the actions that are usable in the Starcraft environm
 
 \section{Move action}
 \begin{tabularx}{\textwidth}{lX}
- Desription & Instruct a unit to move to a chosen location. \\
+ Description & Move to the chosen location. \\
  Syntax & \verb|move(<X>,<Y>)| \\
  Parameters & \verb|<X>|: The x-coordinate of the chosen location \\
             &  \verb|<Y>|: The y-coordinate of the chosen location \\
@@ -22,7 +22,7 @@ This section will list all the actions that are usable in the Starcraft environm
 
 \section{Attack move action}
 \begin{tabularx}{\textwidth}{lX}
- Desription & Go to a location and attack everything you encounter. \\
+ Description & Go to the given location and attack everything you encounter. \\
  Syntax & \verb|attack(<X>,<Y>)| \\
  Parameters & \verb|<X>|: The x-coordinate of the chosen location \\
             & \verb|<Y>|: The y-coordinate of the chosen location \\
@@ -32,7 +32,7 @@ This section will list all the actions that are usable in the Starcraft environm
 
 \section{Upgrade action}
 \begin{tabularx}{\textwidth}{lX}
- Desription & Starts working on the chosen upgrade. \\
+ Description & Starts working on the chosen upgrade. \\
  Syntax & \verb|upgrade(<UpgradeName>)| \\
  Parameters & \verb|<UpgradeName>|: The name of the upgrade you want to upgrade.\\
  Pre & The unit is capable of upgrading and has sufficient resources to do so. \\
@@ -41,7 +41,7 @@ This section will list all the actions that are usable in the Starcraft environm
 
 \section{Build action}
 \begin{tabularx}{\textwidth}{lX}
- Desription & Build a building on a given, not obstructed location. \\
+ Desription & Build a building on the given location. \\
  Syntax & \verb|build(<Type>,<X>,<Y>)| \\
  Parameters & \verb|<Type>|: The Type of the building that has to be built.\\
             & \verb|<X>|: The x-coordinate of the chosen build location \\
@@ -52,16 +52,16 @@ This section will list all the actions that are usable in the Starcraft environm
 
 \section{Gather action}
 \begin{tabularx}{\textwidth}{lX}
- Desription & Instruct a unit to gather the chosen resource. This can either be minerals or vespene gas. \\
+ Description & Gather the chosen resource (minerals or vespene gas). \\
  Syntax & \verb|gather(<ID>)| \\
  Parameters & \verb|<ID>|: The \textit{ID} of the chosen resource. \\
  Pre & The unit is capable of performing the gather action and a valid resource unit is selected. \\
- Post & The unit starts gatering the chosen resource. 
+ Post & The unit starts gathering the chosen resource.
 \end{tabularx}
 
 \section{Train action}
 \begin{tabularx}{\textwidth}{lX}
- Desription & Train a chosen unit with a production facility capable of producing the chosen unit. \\
+ Description & Train the chosen unit. \\
  Syntax & \verb|train(<Type>)| \\
  Parameters & \verb|<Type>|: The type of unit to train.\\
  Pre & The production facility is capable of producing the chosen unit and has sufficient resources to do so. \\
@@ -70,7 +70,7 @@ This section will list all the actions that are usable in the Starcraft environm
 
 \section{Stop action}
 \begin{tabularx}{\textwidth}{lX}
- Desription & The unit stops performing the action he was busy with. \\
+ Description & Stop performing the current action. \\
  Syntax & \verb|stop| \\
  Pre & The unit is performing some kind of action. \\
  Post & The unit stops performing the action.
@@ -78,7 +78,7 @@ This section will list all the actions that are usable in the Starcraft environm
 
 \section{Ability action}
 \begin{tabularx}{\textwidth}{lX}
- Desription & Use an (researched) ability. \\
+ Description & Use an (researched) ability. \\
  Syntax & \verb|use(<Type>)| \\
  Parameters & \verb|<Type>|: The type of technology to use.\\
  Pre & The chosen tech type is researched and the unit is capable of performing the chosen tech type. \\
@@ -87,7 +87,7 @@ This section will list all the actions that are usable in the Starcraft environm
 
 \section{Ability on target action}
 \begin{tabularx}{\textwidth}{lX}
- Desription & Use an (researched) ability on a target. \\
+ Description & Use an (researched) ability on a target. \\
  Syntax & \verb|use(<Type>, <Target>)| \\
  Parameters & \verb|<Type>|: The type of technology to use.\\
             & \verb|<Target>|: The target to use the technology on.\\
@@ -97,7 +97,7 @@ This section will list all the actions that are usable in the Starcraft environm
 
 \section{Ability on location action}
 \begin{tabularx}{\textwidth}{lX}
- Desription & use an (researched) ability on a location. \\
+ Description & use an (researched) ability on a location. \\
  Syntax & \verb|use(<Type>, <X>, <Y>)| \\
  Parameters & \verb|<Type>|: The type of technology to use.\\
             & \verb|<X>|: The x-coordinate of the chosen location \\
@@ -108,7 +108,7 @@ This section will list all the actions that are usable in the Starcraft environm
 
 \section{Research action}
 \begin{tabularx}{\textwidth}{lX}
- Desription & Research a chosen tech type. \\
+ Description & Research a chosen tech type. \\
  Syntax & \verb|research(<Type>)| \\
  Parameters & \verb|<Type>|: The type of tech to research.\\
  Pre & The building is capable of researching the chosen tech type and has sufficient resources to do so. \\
@@ -117,7 +117,7 @@ This section will list all the actions that are usable in the Starcraft environm
 
 \section{Set rally point action}
 \begin{tabularx}{\textwidth}{lX}
- Desription & Set the rally point of a building on a specific location. When the rally point is set, produced units of this production facility will automatically move to this location. \\
+ Description & Set the rally point on a specific location. When the rally point is set, produced units of this production facility will automatically move to this location. \\
  Syntax & \verb|setRallyPoint(<X>, <Y>)| \\
  Parameters & \verb|<X>|: The x-coordinate of the chosen rally location \\
             & \verb|<Y>|: The y-coordinate of the chosen rally location. \\
@@ -127,7 +127,7 @@ This section will list all the actions that are usable in the Starcraft environm
 
 \section{Set rally point to unit action}
 \begin{tabularx}{\textwidth}{lX}
- Desription & Set the rally point of a building on a unit. When the rally point is set, produced units of this production facility will automatically move to this unit. \\
+ Description & Set the rally point on a unit. When the rally point is set, produced units of this production facility will automatically move to this unit. \\
  Syntax & \verb|setRallyPoint(<Unit>)| \\
  Parameters & \verb|<Unit>|: The unit to set the rally point on.\\
  Pre & The building is capable of setting up a rally point and the chosen unit is on a valid location where units can move to. \\
@@ -136,7 +136,7 @@ This section will list all the actions that are usable in the Starcraft environm
 
 \section{Lift action}
 \begin{tabularx}{\textwidth}{lX}
- Desription & Lifts a building which is capable of lifting. \\
+ Description & Lift into the air. \\
  Syntax & \verb|lift| \\
  Pre & The building is capable of flying and is not busy performing any other action. \\
  Post & The building starts flying. \\
@@ -145,7 +145,7 @@ This section will list all the actions that are usable in the Starcraft environm
 
 \section{Land action}
 \begin{tabularx}{\textwidth}{lX}
- Desription & Land the unit on a specific, not obstructed location. \\
+ Desription & Land on the given location. \\
  Syntax & \verb|land(<X>, <Y>)| \\
  Parameters & \verb|<X>|: The x-coordinate of the chosen land location \\
             & \verb|<Y>|: The y-coordinate of the chosen land location. \\
@@ -156,7 +156,7 @@ This section will list all the actions that are usable in the Starcraft environm
 
 \section{Build addon action}
 \begin{tabularx}{\textwidth}{lX}
- Desription & Order a building to build a chosen addon. \\
+ Desription & Build the chosen addon. \\
  Syntax & \verb|buildAddon(<Name>)| \\
  Parameters & \verb|<Name>|: The name of the chosen addon.\\
  Pre & The building is capable of building the addon and does not already have the addon. \\
@@ -166,7 +166,7 @@ This section will list all the actions that are usable in the Starcraft environm
 
 \section{Load action}
 \begin{tabularx}{\textwidth}{lX}
- Desription & Order a unit to load into this (loadable) unit. \\
+ Desription & Load a unit. \\
  Syntax & \verb|load(<ID>)| \\
  Parameters & \verb|<ID>|: The \textit{ID} of the unit to load into this (loadable) unit.\\
  Pre & The unit is capable of loading other units inside it and still has enough space prodivded for the targeted unit. \\
@@ -175,16 +175,16 @@ This section will list all the actions that are usable in the Starcraft environm
 
 \section{Unload action}
 \begin{tabularx}{\textwidth}{lX}
- Desription & Order a unit to unload from this (loadable) unit. \\
+ Desription & Unload a unit. \\
  Syntax & \verb|unload(<ID>)| \\
  Parameters & \verb|<ID>|: The \textit{ID} of the unit to unload from this (loadable) unit.\\
  Pre & The unit is capable of loading other units inside it. \\
  Post & The targeted unit is unloaded and stands next to the (loadable) unit.
 \end{tabularx}
 
-\section{UnloadAll action}
+\section{Unload all action}
 \begin{tabularx}{\textwidth}{lX}
- Desription & Order all units to unload from this (loadable) unit. \\
+ Desription & Unload all units. \\
  Syntax & \verb|unloadAll| \\
  Pre & The unit is capable of loading other units inside it. \\
  Post & All units are unloaded and stand next to the (loadable) unit.
@@ -192,7 +192,7 @@ This section will list all the actions that are usable in the Starcraft environm
 
 \section{Cancel action}
 \begin{tabularx}{\textwidth}{lX}
- Desription & Cancels the construction of the unit. \\
+ Desription & Cancel the construction of the unit. \\
  Syntax & \verb|cancel| \\
  Pre & The unit is morphing or beingConstructed. \\
  Post & The morphing or construction is cancelled.

@@ -5,7 +5,7 @@
 This section will list all the percepts that are usable in the StarCraft environment. The percepts vary per unit, for example: an attacking unit will not perceive the amount of resources available to the player as he does not need them. For the implementation of these percepts in your GOAL code, please refer to the GOAL programming guide.
 
 \newpage
-\section{Percepts for all units	and buildings}
+\section{Percepts for All Units	and Buildings}
 
 \subsection{Available Resources}
 \textbf{Resources percept}\\
@@ -239,7 +239,7 @@ This section will list all the percepts that are usable in the StarCraft environ
             \cline{2-3}
 \end{tabularx}\\
 
-\subsection{Unit percepts}
+\subsection{Unit Percepts}
 \noindent
 \textbf{Friendly percept}\\
 \\
@@ -347,20 +347,20 @@ This section will list all the percepts that are usable in the StarCraft environ
             \cline{2-3}
 \end{tabularx}
 
-\section{Building percepts}
+\section{Building Percepts}
 
-\subsection{Research and Upgrade percepts}
-\textbf{Has Researched percept}\\
+\subsection{Research and Upgrade Percepts}
+\textbf{Researching percept}\\
 \\
 \begin{tabularx}{\textwidth}{lX}
- Description & Indicates which \textit{tech} is researched. See Section \ref{techtype} for the list of tech types. \\
+ Description & Indicates which \textit{tech} is currently being researched. The research is done when this percept is no longer seen. See Section \ref{techtype} for the list of tech types. \\
  Type & Send once \\
- Syntax & \verb|hasResearched(<TechType>)| \\
- Example & \verb|hasResearched(Ocular Implants)| \\
+ Syntax & \verb|researching(<TechType>)| \\
+ Example & \verb|researching(Ocular Implants)| \\
  \end{tabularx}
  \begin{tabularx}{\textwidth}{l | c | p{8cm}|}
  \cline{2-3}
- Parameters & \textbf{\verb|<TechType>|} & The \textit{tech} that has been researched. \\
+ Parameters & \textbf{\verb|<TechType>|} & The \textit{tech} which is currently researched. \\
             & \textbf{Type} & \verb|String| \\
             \cline{2-3}
 \end{tabularx}\\
@@ -368,7 +368,7 @@ This section will list all the percepts that are usable in the StarCraft environ
 \textbf{Upgrading percept}\\
 \\
 \begin{tabularx}{\textwidth}{lX}
- Description & Indicates which \textit{upgrade} is currently being upgraded. See Section \ref{upgradetype} for the list of all actual tech types. \\
+ Description & Indicates which \textit{upgrade} is currently being performed. The upgrade is done when this percept is no longer seen. See Section \ref{upgradetype} for the list of all actual tech types. \\
  Type & Send always \\
  Syntax & \verb|upgrading(<UpgradeType>)| \\
  Example & \verb|upgrading(Stim Packs)| \\
@@ -379,7 +379,7 @@ This section will list all the percepts that are usable in the StarCraft environ
             & \textbf{Type} & \verb|String| \\
             \cline{2-3}
 \end{tabularx}\\
-\newpage
+
 \subsection{Production Buildings}
 \textbf{Queue Size percept}\\
 \\
