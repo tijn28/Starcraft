@@ -84,7 +84,7 @@ public class GameTest {
     game.update(bwapi);
     assertTrue(game.getUnits() == units);
     assertTrue(game.getPercepts("null").isEmpty());
-    assertEquals(1, game.getPercepts("unit").size());
+    assertEquals(2, game.getPercepts("unit").size());
   }
 
   @Test

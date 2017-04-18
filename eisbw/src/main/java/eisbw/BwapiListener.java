@@ -32,9 +32,13 @@ public class BwapiListener extends BwapiEvents {
 	protected Map<Unit, Action> pendingActions;
 	protected StarcraftUnitFactory factory;
 	protected UpdateThread updateThread;
-	protected DebugWindow debug;
 	protected boolean debugmode;
+	protected int speed;
 	protected int count = 0;
+	protected DebugWindow debug;
+
+	// // temp
+	// private int fps = 0;
 
 	/**
 	 * Event listener for BWAPI.
@@ -44,7 +48,7 @@ public class BwapiListener extends BwapiEvents {
 	 * @param debugmode
 	 *            - true iff debugger should be attached
 	 */
-	public BwapiListener(Game game, boolean debugmode) {
+	public BwapiListener(Game game, boolean debugmode, int speed) {
 		bwapi = new JNIBWAPI(this, true);
 		this.game = game;
 		actionProvider = new ActionProvider();
@@ -52,6 +56,7 @@ public class BwapiListener extends BwapiEvents {
 		pendingActions = new ConcurrentHashMap<>();
 		factory = new StarcraftUnitFactory(bwapi);
 		this.debugmode = debugmode;
+		this.speed = speed;
 
 		new Thread() {
 			@Override
@@ -66,21 +71,22 @@ public class BwapiListener extends BwapiEvents {
 
 	@Override
 	public void matchStart() {
-		// set game speed to 30 (0 is the fastest. Tournament speed is 20)
-		// You can also change the game speed from within the game by
-		// "/speed X" command.
 		updateThread = new UpdateThread(game, bwapi);
 		updateThread.start();
 		game.updateConstructionSites(bwapi);
 		game.updateMap(bwapi);
-		bwapi.setGameSpeed(5);
+
+		// SET INIT SPEED (DEFAULT IS 1000/20=50 FPS)
+		if (speed > 0)
+			bwapi.setGameSpeed(1000 / speed);
+		else
+			bwapi.setGameSpeed(speed);
 
 		// START THE DEBUG TOOLS.
 		if (debugmode) {
 			debug = new DebugWindow(game);
 			bwapi.drawTargets(true);
 			bwapi.enableUserInput();
-			bwapi.setGameSpeed(30);
 		}
 	}
 
@@ -107,6 +113,14 @@ public class BwapiListener extends BwapiEvents {
 			count = 0;
 		}
 		count++;
+
+		// // Check FPS
+		// if (fps == 1000) {
+		// System.out.println("The Current FPS: " + fps / getGameSpeed());
+		// fps = 0;
+		// }
+		//
+		// fps++;
 	}
 
 	@Override
@@ -176,6 +190,15 @@ public class BwapiListener extends BwapiEvents {
 	 */
 	public StarcraftAction getAction(Action action) {
 		return actionProvider.getAction(action.getName() + "/" + action.getParameters().size());
+	}
+
+	/**
+	 * Returns the current FPS.
+	 * 
+	 * @return the current FPS.
+	 */
+	public int getFPS() {
+		return debug.getFPS();
 	}
 
 	/**

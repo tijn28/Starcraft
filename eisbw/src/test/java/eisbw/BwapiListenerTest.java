@@ -73,7 +73,7 @@ public class BwapiListenerTest {
     list.add(unit);
     when(bwapi.getMyUnits()).thenReturn(list);
     when(bwapi.getUnit(0)).thenReturn(unit);
-    listener = new BwapiListener(game, false);
+    listener = new BwapiListener(game, false, 200);
     listener.bwapi = bwapi;
   }
 

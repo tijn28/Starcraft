@@ -1,6 +1,9 @@
 package eisbw;
 
+import eis.eis2java.translation.Filter;
 import eis.iilang.Percept;
+import eisbw.percepts.GameSpeedPercept;
+import eisbw.percepts.Percepts;
 import eisbw.percepts.perceivers.BufferPerceiver;
 import eisbw.percepts.perceivers.ConstructionSitePerceiver;
 import eisbw.percepts.perceivers.EndGamePerceiver;
@@ -85,6 +88,8 @@ public class Game {
 			}
 			thisUnitPercepts.putAll(mapPercepts);
 
+			thisUnitPercepts.putAll(getGameSpeedPercept());
+
 			thisUnitPercepts.putAll(unit.getValue().perceive());
 
 			unitPerceptHolder.put(unit.getKey(), thisUnitPercepts);
@@ -156,10 +161,10 @@ public class Game {
 	 *            - the JNIBWAPI
 	 */
 	public void updateEndGamePerceiver(JNIBWAPI bwapi) {
-	  Map<PerceptFilter, Set<Percept>> toReturn = new HashMap<>();
-	  new EndGamePerceiver(bwapi).perceive(toReturn);
-	  endGamePercepts = toReturn;
-  }
+		Map<PerceptFilter, Set<Percept>> toReturn = new HashMap<>();
+		new EndGamePerceiver(bwapi).perceive(toReturn);
+		endGamePercepts = toReturn;
+	}
 
 	private Map<PerceptFilter, Set<Percept>> getPercepts(JNIBWAPI bwapi) {
 		Map<PerceptFilter, Set<Percept>> toReturn = new HashMap<>();
@@ -220,6 +225,14 @@ public class Game {
 
 	public StarcraftEnvironmentImpl getEnvironment() {
 		return env;
+	}
+
+	private Map<PerceptFilter, Set<Percept>> getGameSpeedPercept() {
+		Map<PerceptFilter, Set<Percept>> toReturn = new HashMap<PerceptFilter, Set<Percept>>();
+		Set<Percept> percepts = new HashSet<>();
+		percepts.add(new GameSpeedPercept(env.getFPS()));
+		toReturn.put(new PerceptFilter(Percepts.GAMESPEED, Filter.Type.ON_CHANGE), percepts);
+		return toReturn;
 	}
 
 	/**
