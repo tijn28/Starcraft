@@ -21,6 +21,7 @@ public class Configuration {
 	protected String autoMenu = "OFF";
 	protected BooleanString debug = new BooleanString("false");
 	protected int speed = 20;
+	protected BooleanString invulnerable = new BooleanString("false");
 
 	/**
 	 * The Configuration constructor.
@@ -61,6 +62,9 @@ public class Configuration {
 			case SPEED:
 				setSpeed(translator.translate2Java(entry.getValue(), int.class));
 				break;
+			case INVULNERABLE:
+				setInvulnerable(translator.translate2Java(entry.getValue(), BooleanString.class));
+				break;
 			default:
 				// Unreachable clause.
 				break;
@@ -77,6 +81,10 @@ public class Configuration {
 			throw new IllegalStateException(
 					"Map, Race " + "and starcraft directory have to be defined in the .mas2g file");
 		}
+	}
+
+	private void setInvulnerable(BooleanString inv) {
+		this.invulnerable = inv;
 	}
 
 	private void setSpeed(int speed) {
@@ -101,6 +109,10 @@ public class Configuration {
 
 	private void setOwnRace(RaceString race) {
 		this.ownRace = race;
+	}
+	
+	public BooleanString getInvulnerable() {
+		return invulnerable;
 	}
 
 	public int getSpeed() {

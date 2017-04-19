@@ -33,6 +33,7 @@ public class BwapiListener extends BwapiEvents {
 	protected StarcraftUnitFactory factory;
 	protected UpdateThread updateThread;
 	protected boolean debugmode;
+	protected boolean invulnerable;
 	protected int speed;
 	protected int count = 0;
 	protected DebugWindow debug;
@@ -48,7 +49,7 @@ public class BwapiListener extends BwapiEvents {
 	 * @param debugmode
 	 *            - true iff debugger should be attached
 	 */
-	public BwapiListener(Game game, boolean debugmode, int speed) {
+	public BwapiListener(Game game, boolean debugmode, boolean invulnerable, int speed) {
 		bwapi = new JNIBWAPI(this, true);
 		this.game = game;
 		actionProvider = new ActionProvider();
@@ -56,6 +57,7 @@ public class BwapiListener extends BwapiEvents {
 		pendingActions = new ConcurrentHashMap<>();
 		factory = new StarcraftUnitFactory(bwapi);
 		this.debugmode = debugmode;
+		this.invulnerable = invulnerable;
 		this.speed = speed;
 
 		new Thread() {
@@ -81,6 +83,10 @@ public class BwapiListener extends BwapiEvents {
 			bwapi.setGameSpeed(1000 / speed);
 		else
 			bwapi.setGameSpeed(speed);
+		
+		// SET INIT INVULNERABLE PARAMETER
+		if(invulnerable)
+			bwapi.sendText("power overwhelming");
 
 		// START THE DEBUG TOOLS.
 		if (debugmode) {
