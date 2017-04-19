@@ -5,7 +5,7 @@ This section will explain how to set up and start a bot with the StarCraft envir
 For full installation instructions, see: \url{https://github.com/eishub/StarCraft/wiki/Install-Guide}
 
 \section{Chaoslauncher}
-In order to make use of all the StarCraft Brood War plugins, you can make use of the Chaoslauncher application. With this application, several plugins can be used like the \textit{BWAPI Injector} which is necessary for using the BWAPI library. It is also recommended to make use of the \textit{APMAlert} plugin, which shows the current actions per minute of all your units together. When the APM of your bot is suddenly very high, your agents might be executing too many actions in a row. It is also recommended to make use of the \textit{W-Mode} plugin. This plugin automatically start your StarCraft game in windowed mode which is easier for debugging.
+In order to make use of all the StarCraft Brood War plugins, you can make use of the Chaoslauncher application. With this application, several plugins can be used like the \textit{BWAPI Injector} which is necessary for using the BWAPI library. It is also recommended to make use of the \textit{APMAlert} plugin, which shows the current actions per minute of all your units together. When the APM of your bot is suddenly very high, your agents might be executing too many actions in a row. It is also recommended to make use of the \textit{W-Mode} plugin. This plugin automatically start your StarCraft game in windowed mode which is easier for debugging. At last you can also make use of the \textit{ChaosPlugin}. You can use this plugin to make use of the autoreplay function which automatically makes replays at the end of each game in the map location: \verb|C:\Starcraft\maps\replays\Autoreplay|. You can play these replays by first turning off the \textit{auto menu}. If the \textit{auto menu} is off and you start StarCraft you can select \textit{Single Player} with gametype \textit{Expansion}. Select the given ID and from here press the Load Replay button. If you select the autoreplay map you should be able to see all the replays which are saved by the autoreplay function.
 
 \section{The Mas2g}
 \label{mas2g}
@@ -49,6 +49,10 @@ The enemy race parameter can be used for specifying which race you want to play 
 \subsection{Game Speed}
 \label{game speed}
 The game speed parameter can be used to set the initial speed of the game when the StarCraft game is launched. StarCraft makes use of a logical frame rate, which means that the game\_speed depends on the amount of frames per second (fps) used to update the game. So the higher the fps, the faster the game will go. For using the game\_speed parameter you can insert the following line: \textit{game\_speed=<FPS>}, where \textit{<FPS>} is a positive integer. If the integer 0 is used, there will be no limit on the amount of FPS used and the game will thus run as fast as it possibly can. \textbf{Please note that when integer 0 is used the gameSpeed/1 percept will not give accurate results.} The default (tournament-speed) FPS is 50.
+
+\subsection{Invulnerable}
+\label{invulnerable}
+The invulnerable parameter can be used to make your units invulnerable from the start of the game. This can come in handy for testing purposes when you don't want to fight your opponent. To use the invulnerable function you can insert the following line: \textit{invulnerable=<Boolean>}.
 
 \subsection{Entity Types}
 When defining a launch rule it is important that a correct entity type is used. This value has to be the same type of the StarCraft unit without spaces and where the first letter is uncapitalised. So when you for example want to connect an agent to a \texttt{terran SCV}, this can be done by using the entity type \textit{terranSCV}. Note that each unit type starts with the race of the unit, followed by the exact name of the unit type.
