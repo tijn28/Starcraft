@@ -53,13 +53,13 @@ public class UnitsPerceiver extends Perceiver {
 
 		// Fix for the phantom marines bug
 		for (Unit u : units) {
-			if (!isFriendly && u.isBeingConstructed()) {
+			if (u.isBeingConstructed() && u.isLoaded()) {
 				continue;
 			}
 
-//			List<Parameter> conditions = new LinkedList<>();
+			// List<Parameter> conditions = new LinkedList<>();
 
-//			setUnitConditions(u, conditions);
+			// setUnitConditions(u, conditions);
 			ConditionHandler conditionHandler = new ConditionHandler(api, u);
 
 			if (!isFriendly) {
@@ -75,35 +75,37 @@ public class UnitsPerceiver extends Perceiver {
 				}
 			} else if (isFriendly) {
 				if (u.getType().getID() == 36)
-					unitpercepts.add(new FriendlyPercept(u.getBuildType().getName(), u.getID(), conditionHandler.getConditions()));
+					unitpercepts.add(new FriendlyPercept(u.getBuildType().getName(), u.getID(),
+							conditionHandler.getConditions()));
 				else
-					unitpercepts.add(new FriendlyPercept(u.getType().getName(), u.getID(), conditionHandler.getConditions()));
+					unitpercepts.add(
+							new FriendlyPercept(u.getType().getName(), u.getID(), conditionHandler.getConditions()));
 			}
 		}
 	}
 
-//	/**
-//	 * Sets the conditions of the unit.
-//	 * 
-//	 * @param unit
-//	 *            The evaluated unit
-//	 * @param conditions
-//	 *            The list of conditions of the unit
-//	 */
-//	public void setUnitConditions(Unit unit, List<Parameter> conditions) {
-//		if (unit.getType().isFlyer()) {
-//			conditions.add(new Identifier("flying"));
-//		}
-//		if (unit.isMorphing()) {
-//			conditions.add(new Identifier("morphing"));
-//		}
-//		if (unit.isCloaked()) {
-//			conditions.add(new Identifier("cloaked"));
-//		}
-//		if (unit.isBeingConstructed()) {
-//			conditions.add(new Identifier("beingConstructed"));
-//		}
-//	}
+	// /**
+	// * Sets the conditions of the unit.
+	// *
+	// * @param unit
+	// * The evaluated unit
+	// * @param conditions
+	// * The list of conditions of the unit
+	// */
+	// public void setUnitConditions(Unit unit, List<Parameter> conditions) {
+	// if (unit.getType().isFlyer()) {
+	// conditions.add(new Identifier("flying"));
+	// }
+	// if (unit.isMorphing()) {
+	// conditions.add(new Identifier("morphing"));
+	// }
+	// if (unit.isCloaked()) {
+	// conditions.add(new Identifier("cloaked"));
+	// }
+	// if (unit.isBeingConstructed()) {
+	// conditions.add(new Identifier("beingConstructed"));
+	// }
+	// }
 
 	@Override
 	public Map<PerceptFilter, Set<Percept>> perceive(Map<PerceptFilter, Set<Percept>> toReturn) {
