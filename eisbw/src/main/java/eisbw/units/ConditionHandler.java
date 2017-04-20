@@ -180,7 +180,15 @@ public class ConditionHandler {
     if (unit.isIdle()) {
       conditions.add(new Identifier("idle"));
     }
-
+    
+	if (unit.getType().isFlyer()) {
+		conditions.add(new Identifier("flying"));
+	}
+	
+	if (unit.isMorphing()) {
+		conditions.add(new Identifier("morphing"));
+	}
+    
     if (!unit.isCompleted()) {
       conditions.add(new Identifier("beingConstructed"));
     }

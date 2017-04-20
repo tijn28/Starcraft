@@ -1,18 +1,19 @@
 package eisbw.percepts.perceivers;
 
 import eis.eis2java.translation.Filter;
-import eis.iilang.Identifier;
-import eis.iilang.Parameter;
+//import eis.iilang.Identifier;
+//import eis.iilang.Parameter;
 import eis.iilang.Percept;
 import eisbw.percepts.Attacking;
 import eisbw.percepts.Percepts;
+import eisbw.units.ConditionHandler;
 import eisbw.percepts.FriendlyPercept;
 import eisbw.percepts.EnemyPercept;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Unit;
 
 import java.util.HashSet;
-import java.util.LinkedList;
+//import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -56,13 +57,14 @@ public class UnitsPerceiver extends Perceiver {
 				continue;
 			}
 
-			List<Parameter> conditions = new LinkedList<>();
+//			List<Parameter> conditions = new LinkedList<>();
 
-			setUnitConditions(u, conditions);
+//			setUnitConditions(u, conditions);
+			ConditionHandler conditionHandler = new ConditionHandler(api, u);
 
 			if (!isFriendly) {
 				unitpercepts.add(new EnemyPercept(u.getType().getName(), u.getID(), u.getHitPoints(), u.getShields(),
-						conditions, u.getPosition().getBX(), u.getPosition().getBY()));
+						conditionHandler.getConditions(), u.getPosition().getBX(), u.getPosition().getBY()));
 
 				if (u.getType().isAttackCapable()) {
 					Unit targetUnit = u.getOrderTarget();
@@ -73,35 +75,35 @@ public class UnitsPerceiver extends Perceiver {
 				}
 			} else if (isFriendly) {
 				if (u.getType().getID() == 36)
-					unitpercepts.add(new FriendlyPercept(u.getBuildType().getName(), u.getID(), conditions));
+					unitpercepts.add(new FriendlyPercept(u.getBuildType().getName(), u.getID(), conditionHandler.getConditions()));
 				else
-					unitpercepts.add(new FriendlyPercept(u.getType().getName(), u.getID(), conditions));
+					unitpercepts.add(new FriendlyPercept(u.getType().getName(), u.getID(), conditionHandler.getConditions()));
 			}
 		}
 	}
 
-	/**
-	 * Sets the conditions of the unit.
-	 * 
-	 * @param unit
-	 *            The evaluated unit
-	 * @param conditions
-	 *            The list of conditions of the unit
-	 */
-	public void setUnitConditions(Unit unit, List<Parameter> conditions) {
-		if (unit.getType().isFlyer()) {
-			conditions.add(new Identifier("flying"));
-		}
-		if (unit.isMorphing()) {
-			conditions.add(new Identifier("morphing"));
-		}
-		if (unit.isCloaked()) {
-			conditions.add(new Identifier("cloaked"));
-		}
-		if (unit.isBeingConstructed()) {
-			conditions.add(new Identifier("beingConstructed"));
-		}
-	}
+//	/**
+//	 * Sets the conditions of the unit.
+//	 * 
+//	 * @param unit
+//	 *            The evaluated unit
+//	 * @param conditions
+//	 *            The list of conditions of the unit
+//	 */
+//	public void setUnitConditions(Unit unit, List<Parameter> conditions) {
+//		if (unit.getType().isFlyer()) {
+//			conditions.add(new Identifier("flying"));
+//		}
+//		if (unit.isMorphing()) {
+//			conditions.add(new Identifier("morphing"));
+//		}
+//		if (unit.isCloaked()) {
+//			conditions.add(new Identifier("cloaked"));
+//		}
+//		if (unit.isBeingConstructed()) {
+//			conditions.add(new Identifier("beingConstructed"));
+//		}
+//	}
 
 	@Override
 	public Map<PerceptFilter, Set<Percept>> perceive(Map<PerceptFilter, Set<Percept>> toReturn) {
