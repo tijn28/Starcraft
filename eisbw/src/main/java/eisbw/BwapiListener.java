@@ -10,6 +10,7 @@ import bwapi.Mirror;
 import bwapi.Unit;
 import bwapi.Race;
 import bwapi.UnitType;
+import bwta.BWTA;
 
 import java.util.Iterator;
 import java.util.Map;
@@ -74,6 +75,10 @@ public class BwapiListener extends BwapiEvents {
 
   @Override
   public void onStart() {
+
+    BWTA.readMap();
+    BWTA.analyze(); 
+    
     updateThread = new UpdateThread(game, bwapi);
     updateThread.start();
     game.updateConstructionSites(bwapi);
@@ -142,6 +147,7 @@ public class BwapiListener extends BwapiEvents {
 
   @Override
   public void onUnitComplete(Unit unit2) {
+    System.out.println("Got Unit!!");
     int unitId = unit2.getID();
     Unit unit = bwapi.getGame().getUnit(unitId);
     if (bwapi.getGame().self().getUnits().contains(unit) && !game.getUnits().getUnitNames().containsKey(unitId)) {
