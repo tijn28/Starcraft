@@ -3,7 +3,7 @@ package eisbw.debugger.draw;
 import eis.eis2java.exception.NoTranslatorException;
 import eis.eis2java.exception.TranslationException;
 import eisbw.Game;
-import jnibwapi.JNIBWAPI;
+import bwapi.Mirror;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,7 +29,7 @@ public abstract class IDraw {
     this.game = game;
   }
 
-  protected abstract void drawOnMap(JNIBWAPI api) throws TranslationException;
+  protected abstract void drawOnMap(Mirror api) throws TranslationException;
 
   /**
    * Draw on the map.
@@ -37,7 +37,7 @@ public abstract class IDraw {
    * @param api
    *          - the StarCraft API.
    */
-  public void draw(JNIBWAPI api) {
+  public void draw(Mirror api) {
     if (toggle) {
       try {
         drawOnMap(api);

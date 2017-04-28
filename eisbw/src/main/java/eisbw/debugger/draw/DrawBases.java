@@ -2,9 +2,10 @@ package eisbw.debugger.draw;
 
 import eis.eis2java.exception.TranslationException;
 import eisbw.Game;
-import jnibwapi.BaseLocation;
-import jnibwapi.JNIBWAPI;
-import jnibwapi.util.BWColor;
+import bwta.BWTA;
+import bwta.BaseLocation;
+import bwapi.Color;
+import bwapi.Mirror;
 
 /**
  * @author Harm & Danny.
@@ -21,11 +22,11 @@ public class DrawBases extends IDraw {
   }
 
   @Override
-  protected void drawOnMap(JNIBWAPI api) throws TranslationException {
-    for (BaseLocation base : api.getMap().getBaseLocations()) {
-      api.drawCircle(base.getCenter(), 75, BWColor.Purple, false, false);
+  protected void drawOnMap(Mirror api) throws TranslationException {
+    for (BaseLocation base : BWTA.getBaseLocations()) {
+      api.getGame().drawCircleMap(base.getPosition(), 75, Color.Purple, false);
       if (base.isStartLocation()) {
-        api.drawText(base.getCenter(), "Starting Location", false);
+        api.getGame().drawTextMap(base.getPosition(), "Starting Location");
       }
     }
   }

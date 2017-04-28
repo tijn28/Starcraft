@@ -1,11 +1,11 @@
 package eisbw.actions;
 
+import bwapi.Mirror;
+import bwapi.Unit;
+import bwapi.UpgradeType;
 import eis.iilang.Action;
 import eis.iilang.Identifier;
 import eis.iilang.Parameter;
-import jnibwapi.JNIBWAPI;
-import jnibwapi.Unit;
-import jnibwapi.types.UpgradeType;
 
 import java.util.LinkedList;
 
@@ -21,7 +21,7 @@ public class Upgrade extends StarcraftAction {
    * @param api
    *          The BWAPI.
    */
-  public Upgrade(JNIBWAPI api) {
+  public Upgrade(Mirror api) {
     super(api);
   }
 

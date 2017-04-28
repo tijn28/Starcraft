@@ -1,13 +1,13 @@
 package eisbw.actions;
 
+import bwapi.Mirror;
+import bwapi.Position;
+import bwapi.TechType;
+import bwapi.Unit;
 import eis.iilang.Action;
 import eis.iilang.Identifier;
 import eis.iilang.Numeral;
 import eis.iilang.Parameter;
-import jnibwapi.JNIBWAPI;
-import jnibwapi.Position;
-import jnibwapi.Unit;
-import jnibwapi.types.TechType;
 
 import java.util.LinkedList;
 
@@ -23,7 +23,7 @@ public class UseOnPosition extends StarcraftAction {
    * @param api
    *          The BWAPI.
    */
-  public UseOnPosition(JNIBWAPI api) {
+  public UseOnPosition(Mirror api) {
     super(api);
   }
 
@@ -46,7 +46,7 @@ public class UseOnPosition extends StarcraftAction {
   public boolean canExecute(Unit unit, Action action) {
     LinkedList<Parameter> parameters = action.getParameters();
     TechType techType = getTechType(((Identifier) parameters.get(0)).getValue());
-    return techType.isTargetsPosition();
+    return techType.targetsPosition();
   }
 
   @Override

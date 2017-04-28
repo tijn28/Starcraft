@@ -1,10 +1,11 @@
 package eisbw.debugger.draw;
 
+import bwapi.Color;
+import bwapi.Mirror;
+import bwta.BWTA;
+import bwta.Chokepoint;
 import eis.eis2java.exception.TranslationException;
 import eisbw.Game;
-import jnibwapi.ChokePoint;
-import jnibwapi.JNIBWAPI;
-import jnibwapi.util.BWColor;
 
 /**
  * @author Danny & Harm.
@@ -20,12 +21,12 @@ public class DrawChokepoints extends IDraw {
   }
 
   @Override
-  protected void drawOnMap(JNIBWAPI bwapi) throws TranslationException {
-    for (ChokePoint cp : bwapi.getMap().getChokePoints()) {
-      bwapi.drawLine(cp.getFirstSide(), cp.getSecondSide(), BWColor.Yellow, false);
-      bwapi.drawCircle(cp.getCenter(), (int) cp.getRadius(), BWColor.Red, false, false);
-      bwapi.drawText(cp.getCenter(),
-          "(" + cp.getCenter().getBX() + "," + cp.getCenter().getBY() + ")", false);
+  protected void drawOnMap(Mirror bwapi) throws TranslationException {
+    for (Chokepoint cp : BWTA.getChokepoints()) {
+      bwapi.getGame().drawLineMap(cp.getSides().first, cp.getSides().second, Color.Yellow);
+      bwapi.getGame().drawCircleMap(cp.getCenter(), (int) cp.getWidth()/2, Color.Red, false);
+      bwapi.getGame().drawTextMap(cp.getCenter(),
+          "(" + cp.getCenter().getX() + "," + cp.getCenter().getY() + ")");
     }
   }
 

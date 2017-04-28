@@ -1,9 +1,9 @@
 package eisbw.actions;
 
+import bwapi.Mirror;
+import bwapi.Unit;
 import eis.iilang.Action;
 import eis.iilang.Parameter;
-import jnibwapi.JNIBWAPI;
-import jnibwapi.Unit;
 
 import java.util.LinkedList;
 
@@ -19,7 +19,7 @@ public class UnSiege extends StarcraftAction {
    * @param api
    *          The BWAPI
    */
-  public UnSiege(JNIBWAPI api) {
+  public UnSiege(Mirror api) {
     super(api);
   }
 

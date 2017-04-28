@@ -1,12 +1,12 @@
 package eisbw.actions;
 
+import bwapi.Mirror;
+import bwapi.Position;
+import bwapi.Unit;
+import bwapi.UnitType;
 import eis.iilang.Action;
 import eis.iilang.Numeral;
 import eis.iilang.Parameter;
-import jnibwapi.JNIBWAPI;
-import jnibwapi.Position;
-import jnibwapi.Unit;
-import jnibwapi.types.UnitType;
 
 import java.util.LinkedList;
 
@@ -23,14 +23,14 @@ public class AttackMove extends StarcraftMovableAction {
    * @param api
    *          The BWAPI
    */
-  public AttackMove(JNIBWAPI api) {
+  public AttackMove(Mirror api) {
     super(api);
   }
 
   @Override
   public boolean canExecute(Unit unit, Action action) {
     UnitType unitType = unit.getType();
-    return unitType.isCanMove() && unitType.isAttackCapable();
+    return unitType.canMove() && unitType.canAttack();
   }
 
   @Override
@@ -38,7 +38,7 @@ public class AttackMove extends StarcraftMovableAction {
     LinkedList<Parameter> parameters = action.getParameters();
     int xpos = ((Numeral) parameters.get(0)).getValue().intValue();
     int ypos = ((Numeral) parameters.get(1)).getValue().intValue();
-    unit.attack(new Position(xpos, ypos, Position.PosType.BUILD), false);
+    unit.attack(new Position(xpos, ypos), false);
   }
 
   @Override

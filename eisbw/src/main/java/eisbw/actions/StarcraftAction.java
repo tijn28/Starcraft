@@ -2,11 +2,11 @@ package eisbw.actions;
 
 import eis.iilang.Action;
 import eisbw.BwapiUtility;
-import jnibwapi.JNIBWAPI;
-import jnibwapi.Unit;
-import jnibwapi.types.TechType;
-import jnibwapi.types.UnitType;
-import jnibwapi.types.UpgradeType;
+import bwapi.Mirror;
+import bwapi.Unit;
+import bwapi.TechType;
+import bwapi.UnitType;
+import bwapi.UpgradeType;
 
 /**
  * @author Danny & Harm - Abstract class for all the actions.
@@ -14,7 +14,7 @@ import jnibwapi.types.UpgradeType;
  */
 public abstract class StarcraftAction {
 
-  protected JNIBWAPI api;
+  protected Mirror api;
 
   /**
    * The StarcraftAction constructor.
@@ -22,7 +22,7 @@ public abstract class StarcraftAction {
    * @param api
    *          The BWAPI
    */
-  public StarcraftAction(JNIBWAPI api) {
+  public StarcraftAction(Mirror api) {
     this.api = api;
   }
 

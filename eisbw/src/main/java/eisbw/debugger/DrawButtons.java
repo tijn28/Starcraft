@@ -9,7 +9,7 @@ import eisbw.debugger.draw.DrawBuildingDetails;
 import eisbw.debugger.draw.DrawChokepoints;
 import eisbw.debugger.draw.DrawConstructionSite;
 import eisbw.debugger.draw.IDraw;
-import jnibwapi.JNIBWAPI;
+import bwapi.Mirror;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -98,7 +98,7 @@ public class DrawButtons extends JPanel implements ActionListener {
    * @throws TranslationException
    *           iff translation fails.
    */
-  public void draw(JNIBWAPI api) {
+  public void draw(Mirror api) {
     for (Entry<String, IDraw> drawable : draw.entrySet()) {
       drawable.getValue().draw(api);
     }

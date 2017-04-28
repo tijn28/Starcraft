@@ -5,11 +5,12 @@ import eis.iilang.Percept;
 import eisbw.UnitTypesEx;
 import eisbw.percepts.ConstructionSitePercept;
 import eisbw.percepts.Percepts;
-import jnibwapi.JNIBWAPI;
-import jnibwapi.Position;
-import jnibwapi.Unit;
-import jnibwapi.types.RaceType.RaceTypes;
-import jnibwapi.types.UnitType;
+import bwapi.Mirror;
+import bwapi.Position;
+import bwapi.Unit;
+import bwapi.Race;
+import bwapi.TilePosition;
+import bwapi.UnitType;
 
 import java.awt.Point;
 import java.util.HashSet;
@@ -31,7 +32,7 @@ public class ConstructionSitePerceiver extends Perceiver {
    * @param api
    *          The BWAPI.
    */
-  public ConstructionSitePerceiver(JNIBWAPI api) {
+  public ConstructionSitePerceiver(Mirror api) {
     super(api);
   }
 
@@ -69,11 +70,11 @@ public class ConstructionSitePerceiver extends Perceiver {
    * @param percepts
    *          The list of perceived constructionsites
    */
-  private void perceiveTerran(Position pos, int xpos, int ypos, List<Point> illegals,
+  private void perceiveTerran(TilePosition pos, int xpos, int ypos, List<Point> illegals,
       Set<Percept> percepts) {
 
     // check if you can actually build here as terran
-    if (api.canBuildHere(pos, UnitType.UnitTypes.Terran_Command_Center, true)
+    if (api.getGame().canBuildHere(pos, UnitType.Terran_Command_Center)
         && checkConstructionSite(xpos, ypos, illegals)) {
       percepts.add(new ConstructionSitePercept(xpos, ypos));
     }
@@ -91,11 +92,11 @@ public class ConstructionSitePerceiver extends Perceiver {
    * @param percepts
    *          The list of perceived constructionsites
    */
-  private void perceiveZerg(Position pos, int xpos, int ypos, List<Point> illegals,
+  private void perceiveZerg(TilePosition pos, int xpos, int ypos, List<Point> illegals,
       Set<Percept> percepts) {
 
     // check if you can actually build here as zerg
-    if (api.canBuildHere(pos, UnitType.UnitTypes.Zerg_Hatchery, true) && api.hasCreep(pos)
+    if (api.getGame().canBuildHere(pos, UnitType.Zerg_Hatchery) && api.getGame().hasCreep(pos)
         && checkConstructionSite(xpos, ypos, illegals)) {
       percepts.add(new ConstructionSitePercept(xpos, ypos));
     }
@@ -113,14 +114,14 @@ public class ConstructionSitePerceiver extends Perceiver {
    * @param percepts
    *          The list of perceived constructionsites
    */
-  private void perceiveProtosss(Position pos, int xpos, int ypos, List<Point> illegals,
+  private void perceiveProtosss(TilePosition pos, int xpos, int ypos, List<Point> illegals,
       Set<Percept> percepts) {
-    if (api.canBuildHere(pos, UnitType.UnitTypes.Protoss_Nexus, true)) {
+    if (api.getGame().canBuildHere(pos, UnitType.Protoss_Nexus)) {
 
       // checks whether the ConstructionSite is not near an illegal build
       // place
       boolean legal = checkConstructionSite(xpos, ypos, illegals);
-      boolean nearPylon = api.canBuildHere(pos, UnitType.UnitTypes.Protoss_Gateway, true);
+      boolean nearPylon = api.getGame().canBuildHere(pos, UnitType.Protoss_Gateway);
       if (legal && nearPylon) {
         percepts.add(new ConstructionSitePercept(xpos, ypos, true));
       } else if (legal) {
@@ -132,31 +133,30 @@ public class ConstructionSitePerceiver extends Perceiver {
   @Override
   public Map<PerceptFilter, Set<Percept>> perceive(Map<PerceptFilter, Set<Percept>> toReturn) {
     Set<Percept> percepts = new HashSet<>();
-    jnibwapi.Map map = api.getMap();
 
-    int mapWidth = map.getSize().getBX();
-    int mapHeight = map.getSize().getBY();
+    int mapWidth = api.getGame().mapWidth();
+    int mapHeight = api.getGame().mapHeight();
 
     List<Point> illegals = new LinkedList<>();
-    for (Unit u : api.getNeutralUnits()) {
-      if (UnitTypesEx.isResourceType(u.getType()) && u.isExists()) {
-        illegals.add(new Point(u.getTilePosition().getBX(), u.getTilePosition().getBY()));
+    for (Unit u : api.getGame().getNeutralUnits()) {
+      if (UnitTypesEx.isResourceType(u.getType()) && u.exists()){
+        illegals.add(new Point(u.getTilePosition().getX(), u.getTilePosition().getY()));
       }
     }
 
     for (int x = 0; x < mapWidth; x = x + 3) {
       for (int y = 0; y < mapHeight; y = y + 3) {
-        Position pos = new Position(x, y, Position.PosType.BUILD);
+        TilePosition pos = new TilePosition(x, y);
 
-        if (api.getSelf().getRace().getID() == RaceTypes.Terran.getID()) {
+        if (api.getGame().self().getRace().toString().equals(Race.Terran.toString())) {
 
           perceiveTerran(pos, x, y, illegals, percepts);
 
-        } else if (api.getSelf().getRace().getID() == RaceTypes.Zerg.getID()) {
+        } else if (api.getGame().self().getRace().toString().equals(Race.Zerg.toString())) {
 
           perceiveZerg(pos, x, y, illegals, percepts);
 
-        } else if (api.getSelf().getRace().getID() == RaceTypes.Protoss.getID()) {
+        } else if (api.getGame().self().getRace().toString().equals(Race.Protoss.toString())) {
 
           perceiveProtosss(pos, x, y, illegals, percepts);
 

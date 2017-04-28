@@ -2,10 +2,10 @@ package eisbw.debugger.draw;
 
 import eis.eis2java.exception.TranslationException;
 import eisbw.Game;
-import jnibwapi.JNIBWAPI;
-import jnibwapi.Position;
-import jnibwapi.Unit;
-import jnibwapi.util.BWColor;
+import bwapi.Color;
+import bwapi.Mirror;
+import bwapi.Position;
+import bwapi.Unit;
 
 /**
  * @author Danny & Harm - The class which handles the drawing of the buildings
@@ -25,49 +25,49 @@ public class DrawBuildingDetails extends IDraw {
   }
 
   @Override
-  protected void drawOnMap(JNIBWAPI api) throws TranslationException {
+  protected void drawOnMap(Mirror api) throws TranslationException {
     // Draw "is working" box
     int barHeight = 18;
 
-    for (Unit unit : api.getMyUnits()) {
+    for (Unit unit : api.getGame().self().getUnits()) {
       int total = 0;
       int done = 0;
       String txt = "";
-      BWColor color = BWColor.Blue;
+      Color color = Color.Blue;
       if (unit.getRemainingResearchTime() > 0) {
-        total = unit.getTech().getResearchTime();
+        total = unit.getTech().researchTime();
         done = total - unit.getRemainingResearchTime();
-        txt = unit.getTech().getName();
+        txt = unit.getTech().toString();
       }
       if (unit.isUpgrading()) {
-        total = unit.getUpgrade().getUpgradeTimeBase();
+        total = unit.getUpgrade().upgradeTime();
         done = total - unit.getRemainingUpgradeTime();
-        txt = unit.getUpgrade().getName();
+        txt = unit.getUpgrade().toString();
       }
 
       if (total > 0) {
-        int width = unit.getType().getTileWidth() * 32;
+        int width = unit.getType().tileWidth() * 32;
 
-        Position start = new Position(unit.getPosition().getPX() - width / 2,
-            unit.getPosition().getPY() - 30);
-        Position end = new Position(start.getPX() + width, start.getPY() + barHeight);
+        Position start = new Position(unit.getPosition().getX() - width / 2,
+            unit.getPosition().getY() - 30);
+        Position end = new Position(start.getX() + width, start.getY() + barHeight);
 
         int progress = (int) ((double) done / (double) total * width);
-        Position progressbar = new Position(start.getPX() + progress, start.getPY() + barHeight);
-        api.drawBox(start, end, color, false, false);
-        api.drawBox(start, progressbar, color, true, false);
+        Position progressbar = new Position(start.getX() + progress, start.getY() + barHeight);
+        api.getGame().drawBoxMap(start, end, color, false);
+        api.getGame().drawBoxMap(start, progressbar, color, true);
 
-        api.drawText(new Position(start.getPX() + 5, start.getPY() + 2), txt, false);
+        api.getGame().drawTextMap(new Position(start.getX() + 5, start.getY() + 2), txt);
       }
 
     }
   }
 
   @Override
-  public void draw(JNIBWAPI api) {
-    api.drawHealth(toggle);
-    api.drawTargets(toggle);
-    api.drawIDs(toggle);
+  public void draw(Mirror api) {
+//    api.getGame().drawHealth(toggle);
+//    api.getGame().drawTargets(toggle);
+//    api.getGame().drawIDs(toggle);
     super.draw(api);
   }
 }

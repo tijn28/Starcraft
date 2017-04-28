@@ -6,9 +6,10 @@ import eisbw.percepts.BasePercept;
 import eisbw.percepts.ChokepointPercept;
 import eisbw.percepts.MapPercept;
 import eisbw.percepts.Percepts;
-import jnibwapi.BaseLocation;
-import jnibwapi.ChokePoint;
-import jnibwapi.JNIBWAPI;
+import bwta.BWTA;
+import bwta.BaseLocation;
+import bwta.Chokepoint;
+import bwapi.Mirror;
 
 import java.util.HashSet;
 import java.util.Map;
@@ -26,26 +27,25 @@ public class MapPerceiver extends Perceiver {
    * @param api
    *          The BWAPI
    */
-  public MapPerceiver(JNIBWAPI api) {
+  public MapPerceiver(Mirror api) {
     super(api);
   }
 
   @Override
   public Map<PerceptFilter, Set<Percept>> perceive(Map<PerceptFilter, Set<Percept>> toReturn) {
     Set<Percept> percepts = new HashSet<>();
-    jnibwapi.Map map = api.getMap();
 
-    Percept mapPercept = new MapPercept(map.getSize().getBX(), map.getSize().getBY());
+    Percept mapPercept = new MapPercept(api.getGame().mapWidth(), api.getGame().mapHeight());
     percepts.add(mapPercept);
 
-    for (BaseLocation location : map.getBaseLocations()) {
-      Percept basePercept = new BasePercept(location.getPosition().getBX(),
-          location.getPosition().getBY(), location.isStartLocation(), location.getRegion().getID());
+    for (BaseLocation location : BWTA.getBaseLocations()) {
+      Percept basePercept = new BasePercept(location.getTilePosition().getX(),
+          location.getTilePosition().getY(), location.isStartLocation(), location.getRegion().toString());
       percepts.add(basePercept);
     }
 
-    for (ChokePoint cp : map.getChokePoints()) {
-      Percept chokePercept = new ChokepointPercept(cp.getCenter().getBX(), cp.getCenter().getBY());
+    for (Chokepoint cp : BWTA.getChokepoints()) {
+      Percept chokePercept = new ChokepointPercept(cp.getCenter().getX(), cp.getCenter().getY());
       percepts.add(chokePercept);
     }
     toReturn.put(new PerceptFilter(Percepts.MAP, Filter.Type.ONCE), percepts);

@@ -1,10 +1,10 @@
 package eisbw.actions;
 
+import bwapi.Mirror;
+import bwapi.Unit;
+import bwapi.UnitType;
 import eis.iilang.Action;
 import eis.iilang.Parameter;
-import jnibwapi.JNIBWAPI;
-import jnibwapi.Unit;
-import jnibwapi.types.UnitType;
 
 import java.util.LinkedList;
 
@@ -20,7 +20,7 @@ public class Stop extends StarcraftAction {
    * @param api
    *          The BWAPI
    */
-  public Stop(JNIBWAPI api) {
+  public Stop(Mirror api) {
     super(api);
   }
 

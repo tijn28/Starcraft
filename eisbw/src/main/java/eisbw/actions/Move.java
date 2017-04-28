@@ -1,11 +1,11 @@
 package eisbw.actions;
 
+import bwapi.Mirror;
+import bwapi.Position;
+import bwapi.Unit;
 import eis.iilang.Action;
 import eis.iilang.Numeral;
 import eis.iilang.Parameter;
-import jnibwapi.JNIBWAPI;
-import jnibwapi.Position;
-import jnibwapi.Unit;
 
 import java.util.LinkedList;
 
@@ -21,7 +21,7 @@ public class Move extends StarcraftMovableAction {
    * @param api
    *          The BWAPI
    */
-  public Move(JNIBWAPI api) {
+  public Move(Mirror api) {
     super(api);
   }
 
@@ -31,7 +31,7 @@ public class Move extends StarcraftMovableAction {
     int xpos = ((Numeral) parameters.get(0)).getValue().intValue();
     int ypos = ((Numeral) parameters.get(1)).getValue().intValue();
 
-    Position pos = new Position(xpos, ypos, Position.PosType.BUILD);
+    Position pos = new Position(xpos, ypos);
     unit.move(pos, false);
   }
 

@@ -4,7 +4,7 @@ import eis.eis2java.translation.Filter;
 import eis.iilang.Percept;
 import eisbw.percepts.Percepts;
 import eisbw.percepts.WinnerPercept;
-import jnibwapi.JNIBWAPI;
+import bwapi.Mirror;
 
 import java.util.HashSet;
 import java.util.Map;
@@ -22,7 +22,7 @@ public class EndGamePerceiver extends Perceiver {
 	 * @param api
 	 *            The BWAPI
 	 */
-	public EndGamePerceiver(JNIBWAPI api) {
+	public EndGamePerceiver(Mirror api) {
 		super(api);
 	}
 

@@ -1,12 +1,12 @@
 package eisbw.actions;
 
+import bwapi.Mirror;
+import bwapi.TechType;
+import bwapi.Unit;
 import eis.iilang.Action;
 import eis.iilang.Identifier;
 import eis.iilang.Numeral;
 import eis.iilang.Parameter;
-import jnibwapi.JNIBWAPI;
-import jnibwapi.Unit;
-import jnibwapi.types.TechType;
 
 import java.util.LinkedList;
 
@@ -22,7 +22,7 @@ public class UseOnTarget extends StarcraftAction {
    * @param api
    *          The BWAPI.
    */
-  public UseOnTarget(JNIBWAPI api) {
+  public UseOnTarget(Mirror api) {
     super(api);
   }
 
@@ -42,14 +42,14 @@ public class UseOnTarget extends StarcraftAction {
   public boolean canExecute(Unit unit, Action action) {
     LinkedList<Parameter> parameters = action.getParameters();
     TechType techType = getTechType(((Identifier) parameters.get(0)).getValue());
-    return techType.isTargetsUnits(); // check if unit has Tech?
+    return techType.targetsUnit(); // check if unit has Tech?
   }
 
   @Override
   public void execute(Unit unit, Action action) {
     LinkedList<Parameter> parameters = action.getParameters();
     TechType techType = getTechType(((Identifier) parameters.get(0)).getValue());
-    unit.useTech(techType, api.getUnit(((Numeral) parameters.get(1)).getValue().intValue()));
+    unit.useTech(techType, api.getGame().getUnit(((Numeral) parameters.get(1)).getValue().intValue()));
   }
 
   @Override

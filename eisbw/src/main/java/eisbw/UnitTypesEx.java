@@ -1,6 +1,6 @@
 package eisbw;
 
-import jnibwapi.types.UnitType;
+import bwapi.UnitType;
 
 /**
  * @author Danny & Harm - Utility class for type checks.
@@ -21,7 +21,7 @@ public class UnitTypesEx {
    */
   public static boolean isResourceType(UnitType unitType) {
     return isMineralField(unitType) || unitType.isRefinery()
-        || "Resource Vespene Geyser".equals(unitType.getName());
+        || "Resource Vespene Geyser".equals(unitType.toString());
   }
 
   /**
@@ -32,7 +32,7 @@ public class UnitTypesEx {
    * @return true iff the unit is a vespene geyser.
    */
   public static boolean isVespeneGeyser(UnitType unitType) {
-    return "Resource Vespene Geyser".equals(unitType.getName());
+    return "Resource Vespene Geyser".equals(unitType.toString());
   }
 
   /**
@@ -43,8 +43,8 @@ public class UnitTypesEx {
    * @return true iff the unit is a vespene geyser.
    */
   public static boolean isMineralField(UnitType unitType) {
-    return "Resource Mineral Field".equals(unitType.getName())
-        || "Resource Mineral Field Type 2".equals(unitType.getName())
-        || "Resource Mineral Field Type 3".equals(unitType.getName());
+    return "Resource Mineral Field".equals(unitType.toString())
+        || "Resource Mineral Field Type 2".equals(unitType.toString())
+        || "Resource Mineral Field Type 3".equals(unitType.toString());
   }
 }

@@ -1,10 +1,9 @@
 package eisbw.debugger.draw;
 
+import bwapi.Mirror;
+import bwapi.Position;
 import eis.eis2java.exception.TranslationException;
 import eisbw.Game;
-import jnibwapi.JNIBWAPI;
-import jnibwapi.Position;
-import jnibwapi.Position.PosType;
 
 /**
  * @author Danny & Harm.
@@ -21,8 +20,8 @@ public class AgentCounter extends IDraw {
   }
 
   @Override
-  protected void drawOnMap(JNIBWAPI api) throws TranslationException {
-    api.drawText(new Position(10, 10, PosType.PIXEL), "Agentcount: " + game.getAgentCount(), true);
+  protected void drawOnMap(Mirror api) throws TranslationException {
+    api.getGame().drawTextScreen(new Position(10, 10), "Agentcount: " + game.getAgentCount());
   }
 
   @Override

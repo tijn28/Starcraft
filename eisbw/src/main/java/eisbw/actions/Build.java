@@ -1,14 +1,13 @@
 package eisbw.actions;
 
+import bwapi.Mirror;
+import bwapi.TilePosition;
+import bwapi.Unit;
+import bwapi.UnitType;
 import eis.iilang.Action;
 import eis.iilang.Identifier;
 import eis.iilang.Numeral;
 import eis.iilang.Parameter;
-import jnibwapi.JNIBWAPI;
-import jnibwapi.Position;
-import jnibwapi.Position.PosType;
-import jnibwapi.Unit;
-import jnibwapi.types.UnitType;
 
 import java.util.LinkedList;
 
@@ -25,7 +24,7 @@ public class Build extends StarcraftAction {
    * @param api
    *          The BWAPI
    */
-  public Build(JNIBWAPI api) {
+  public Build(Mirror api) {
     super(api);
   }
 
@@ -53,7 +52,7 @@ public class Build extends StarcraftAction {
     String type = ((Identifier) params.get(0)).getValue();
     int tx = ((Numeral) params.get(1)).getValue().intValue();
     int ty = ((Numeral) params.get(2)).getValue().intValue();
-    unit.build(new Position(tx, ty, PosType.BUILD), getUnitType(type));
+    unit.build(getUnitType(type), new TilePosition(tx, ty));
   }
 
   @Override

@@ -1,8 +1,8 @@
 package eisbw;
 
 import eisbw.units.Units;
-import jnibwapi.JNIBWAPI;
-import jnibwapi.Unit;
+import bwapi.Mirror;
+import bwapi.Unit;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.List;
 public class UpdateThread extends Thread {
 
   private Game game;
-  private JNIBWAPI bwapi;
+  private Mirror bwapi;
   private boolean running;
   private Units units;
 
@@ -26,7 +26,7 @@ public class UpdateThread extends Thread {
    * @param bwapi
    *          - the API.
    */
-  public UpdateThread(Game game, JNIBWAPI bwapi) {
+  public UpdateThread(Game game, Mirror bwapi) {
     this.bwapi = bwapi;
     this.game = game;
     this.units = game.getUnits();
@@ -54,7 +54,7 @@ public class UpdateThread extends Thread {
   }
 
   protected void update() {
-    game.update(bwapi);
+    //game.update(bwapi);
     List<Unit> toAdd = new LinkedList<>();
     while (!units.getUninitializedUnits().isEmpty()) {
       Unit unit = units.getUninitializedUnits().poll();

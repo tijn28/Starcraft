@@ -7,9 +7,9 @@ import eisbw.percepts.MineralFieldPercept;
 import eisbw.percepts.Percepts;
 import eisbw.percepts.VespeneGeyserPercept;
 import eisbw.percepts.WorkerActivityPercept;
-import jnibwapi.JNIBWAPI;
-import jnibwapi.Unit;
-import jnibwapi.types.UnitType;
+import bwapi.Mirror;
+import bwapi.Unit;
+import bwapi.UnitType;
 
 import java.util.HashSet;
 import java.util.Map;
@@ -26,7 +26,7 @@ public class WorkerPerceiver extends UnitPerceiver {
    * @param unit
    *          The unit which is about the perceiving.
    */
-  public WorkerPerceiver(JNIBWAPI api, Unit unit) {
+  public WorkerPerceiver(Mirror api, Unit unit) {
     super(api, unit);
   }
 
@@ -86,16 +86,16 @@ public class WorkerPerceiver extends UnitPerceiver {
     Set<Percept> minerals = new HashSet<>();
     Set<Percept> geysers = new HashSet<>();
 
-    for (Unit u : api.getNeutralUnits()) {
+    for (Unit u : api.getGame().getNeutralUnits()) {
       UnitType unitType = u.getType();
       if (u.isVisible()) {
         if (UnitTypesEx.isMineralField(unitType)) {
           MineralFieldPercept mineralfield = new MineralFieldPercept(u.getID(), u.getResources(),
-              u.getResourceGroup(), u.getPosition().getBX(), u.getPosition().getBY());
+              u.getResourceGroup(), u.getPosition().getX(), u.getPosition().getY());
           minerals.add(mineralfield);
         } else if (UnitTypesEx.isVespeneGeyser(unitType)) {
           VespeneGeyserPercept geyser = new VespeneGeyserPercept(u.getID(), u.getResources(),
-              u.getResourceGroup(), u.getPosition().getBX(), u.getPosition().getBY());
+              u.getResourceGroup(), u.getPosition().getX(), u.getPosition().getY());
           geysers.add(geyser);
 
         }

@@ -1,11 +1,11 @@
 package eisbw.actions;
 
+import bwapi.Mirror;
+import bwapi.TechType;
+import bwapi.Unit;
 import eis.iilang.Action;
 import eis.iilang.Identifier;
 import eis.iilang.Parameter;
-import jnibwapi.JNIBWAPI;
-import jnibwapi.Unit;
-import jnibwapi.types.TechType;
 
 import java.util.LinkedList;
 
@@ -21,7 +21,7 @@ public class Research extends StarcraftTechAction {
    * @param api
    *          The BWAPI
    */
-  public Research(JNIBWAPI api) {
+  public Research(Mirror api) {
     super(api);
   }
 

@@ -4,8 +4,8 @@ import eisbw.percepts.perceivers.BuildingPerceiver;
 import eisbw.percepts.perceivers.GenericUnitPerceiver;
 import eisbw.percepts.perceivers.IPerceiver;
 import eisbw.percepts.perceivers.WorkerPerceiver;
-import jnibwapi.JNIBWAPI;
-import jnibwapi.Unit;
+import bwapi.Mirror;
+import bwapi.Unit;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class StarcraftUnitFactory {
 
-  private final JNIBWAPI api;
+  private final Mirror api;
 
   /**
    * The StarcraftUnitFactory constructor.
@@ -24,7 +24,7 @@ public class StarcraftUnitFactory {
    * @param api
    *          The BWAPI
    */
-  public StarcraftUnitFactory(JNIBWAPI api) {
+  public StarcraftUnitFactory(Mirror api) {
     this.api = api;
   }
 

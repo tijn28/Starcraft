@@ -1,10 +1,10 @@
 package eisbw.actions;
 
+import bwapi.Mirror;
+import bwapi.Race;
+import bwapi.Unit;
 import eis.iilang.Action;
 import eis.iilang.Parameter;
-import jnibwapi.JNIBWAPI;
-import jnibwapi.Unit;
-import jnibwapi.types.RaceType.RaceTypes;
 
 import java.util.LinkedList;
 
@@ -20,7 +20,7 @@ public class Cancel extends StarcraftAction {
 	 * @param api
 	 *            The BWAPI
 	 */
-	public Cancel(JNIBWAPI api) {
+	public Cancel(Mirror api) {
 		super(api);
 	}
 
@@ -32,7 +32,7 @@ public class Cancel extends StarcraftAction {
 
 	@Override
 	public boolean canExecute(Unit unit, Action action) {
-		return unit.getType().isBuilding() || api.getSelf().getRace().getID() == RaceTypes.Zerg.getID();
+		return unit.getType().isBuilding() || api.getGame().self().getRace().toString().equals(Race.Zerg.toString());
 	}
 
 	@Override

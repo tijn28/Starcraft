@@ -1,14 +1,16 @@
 package eisbw;
 
-import jnibwapi.Unit;
-import jnibwapi.types.TechType;
-import jnibwapi.types.TechType.TechTypes;
-import jnibwapi.types.UnitType;
-import jnibwapi.types.UnitType.UnitTypes;
-import jnibwapi.types.UpgradeType;
-import jnibwapi.types.UpgradeType.UpgradeTypes;
+import bwapi.TechType;
+import bwapi.Unit;
+import bwapi.UnitType;
+import bwapi.UpgradeType;
 
+import java.lang.reflect.Field;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * @author Danny & Harm - The Utility class of the BWAPI.
@@ -32,7 +34,7 @@ public class BwapiUtility {
    * @return the name of the unit.
    */
   public static String getUnitName(Unit unit) {
-    String name = (unit.getType().getName() + unit.getID()).replace("_", "").replace(" ", "");
+    String name = (unit.getType().toString() + unit.getID()).replace("_", "").replace(" ", "");
     name = name.substring(0, 1).toLowerCase() + name.substring(1);
     return name;
   }
@@ -45,7 +47,7 @@ public class BwapiUtility {
    * @return the type of a unit.
    */
   public static String getEisUnitType(Unit unit) {
-    String type = unit.getType().getName().replace(" ", "");
+    String type = unit.getType().toString().replace(" ", "");
     type = type.substring(0, 1).toLowerCase() + type.substring(1);
     if ("terranSiegeTankTankMode".equals(type) || "terranSiegeTankSiegeMode".equals(type)) {
       return "terranSiegeTank";
@@ -62,8 +64,21 @@ public class BwapiUtility {
    */
   public static UnitType getUnitType(String type) {
     if (unitTypeMap.isEmpty()) {
-      for (UnitType ut : UnitTypes.getAllUnitTypes()) {
-        unitTypeMap.put(ut.getName(), ut);
+      Field[] declaredFields = String.class.getDeclaredFields();
+      List<UnitType> staticFields = new LinkedList<UnitType>();
+      for (Field field : declaredFields) {
+        if (java.lang.reflect.Modifier.isStatic(field.getModifiers())) {
+          try {
+            staticFields.add((UnitType) field.get(field));
+          } catch (IllegalArgumentException | IllegalAccessException e) {
+            Logger.getLogger("UtilLogger").log(Level.SEVERE,
+                "Failed to " + "convert the fields to unittypes.");
+            e.printStackTrace();
+          }
+        }
+      }
+      for (UnitType ut : staticFields) {
+        unitTypeMap.put(ut.toString(), ut);
       }
     }
 
@@ -79,8 +94,21 @@ public class BwapiUtility {
    */
   public static TechType getTechType(String type) {
     if (techTypeMap.isEmpty()) {
-      for (TechType tt : TechTypes.getAllTechTypes()) {
-        techTypeMap.put(tt.getName(), tt);
+      Field[] declaredFields = String.class.getDeclaredFields();
+      List<TechType> staticFields = new LinkedList<TechType>();
+      for (Field field : declaredFields) {
+        if (java.lang.reflect.Modifier.isStatic(field.getModifiers())) {
+          try {
+            staticFields.add((TechType) field.get(field));
+          } catch (IllegalArgumentException | IllegalAccessException e) {
+            Logger.getLogger("UtilLogger").log(Level.SEVERE,
+                "Failed to " + "convert the fields to techtypes.");
+            e.printStackTrace();
+          }
+        }
+      }
+      for (TechType tt : staticFields) {
+        techTypeMap.put(tt.toString(), tt);
       }
     }
 
@@ -96,8 +124,21 @@ public class BwapiUtility {
    */
   public static UpgradeType getUpgradeType(String type) {
     if (upgradeTypeMap.isEmpty()) {
-      for (UpgradeType tt : UpgradeTypes.getAllUpgradeTypes()) {
-        upgradeTypeMap.put(tt.getName(), tt);
+      Field[] declaredFields = String.class.getDeclaredFields();
+      List<UpgradeType> staticFields = new LinkedList<UpgradeType>();
+      for (Field field : declaredFields) {
+        if (java.lang.reflect.Modifier.isStatic(field.getModifiers())) {
+          try {
+            staticFields.add((UpgradeType) field.get(field));
+          } catch (IllegalArgumentException | IllegalAccessException e) {
+            Logger.getLogger("UtilLogger").log(Level.SEVERE,
+                "Failed to " + "convert the fields to techtypes.");
+            e.printStackTrace();
+          }
+        }
+      }
+      for (UpgradeType tt : staticFields) {
+        upgradeTypeMap.put(tt.toString(), tt);
       }
     }
 

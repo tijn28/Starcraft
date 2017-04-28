@@ -1,11 +1,11 @@
 package eisbw.actions;
 
+import bwapi.Mirror;
+import bwapi.Unit;
+import bwapi.UnitType;
 import eis.iilang.Action;
 import eis.iilang.Numeral;
 import eis.iilang.Parameter;
-import jnibwapi.JNIBWAPI;
-import jnibwapi.Unit;
-import jnibwapi.types.UnitType;
 
 import java.util.LinkedList;
 
@@ -20,7 +20,7 @@ public class Follow extends StarcraftAction {
    * 
    * @param api The BWAPI
    */
-  public Follow(JNIBWAPI api) {
+  public Follow(Mirror api) {
     super(api);
   }
 
@@ -33,14 +33,14 @@ public class Follow extends StarcraftAction {
   @Override
   public boolean canExecute(Unit unit, Action action) {
     UnitType unitType = unit.getType();
-    return unitType.isCanMove();
+    return unitType.canMove();
   }
 
   @Override
   public void execute(Unit unit, Action action) {
     LinkedList<Parameter> parameters = action.getParameters();
     int targetId = ((Numeral) parameters.get(0)).getValue().intValue();
-    Unit target = api.getUnit(targetId);
+    Unit target = api.getGame().getUnit(targetId);
 
     unit.follow(target, false);
   }

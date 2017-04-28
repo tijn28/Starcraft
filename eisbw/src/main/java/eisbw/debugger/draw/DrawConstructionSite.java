@@ -5,10 +5,9 @@ import eis.eis2java.translation.Translator;
 import eis.iilang.Parameter;
 import eis.iilang.Percept;
 import eisbw.Game;
-import jnibwapi.JNIBWAPI;
-import jnibwapi.Position;
-import jnibwapi.Position.PosType;
-import jnibwapi.util.BWColor;
+import bwapi.Mirror;
+import bwapi.Position;
+import bwapi.Color;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -31,15 +30,15 @@ public class DrawConstructionSite extends IDraw {
   }
 
   @Override
-  protected void drawOnMap(JNIBWAPI api) throws TranslationException {
+  protected void drawOnMap(Mirror api) throws TranslationException {
     Translator translator = Translator.getInstance();
     List<Percept> percepts = game.getConstructionSites();
     for (Percept percept : percepts) {
       LinkedList<Parameter> params = percept.getParameters();
       int xpos = translator.translate2Java(params.get(0), Integer.class);
       int ypos = translator.translate2Java(params.get(1), Integer.class);
-      api.drawBox(new Position(xpos, ypos, PosType.BUILD),
-          new Position(xpos + 3, ypos + 3, PosType.BUILD), BWColor.Blue, false, false);
+      api.getGame().drawBoxMap(new Position(xpos, ypos),
+          new Position(xpos + 3, ypos + 3), Color.Blue, false);
     }
   }
 

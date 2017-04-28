@@ -2,9 +2,9 @@ package eisbw.units;
 
 import eis.iilang.Identifier;
 import eis.iilang.Parameter;
-import jnibwapi.JNIBWAPI;
-import jnibwapi.Unit;
-import jnibwapi.types.RaceType.RaceTypes;
+import bwapi.Mirror;
+import bwapi.Unit;
+import bwapi.Race;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -16,7 +16,7 @@ import java.util.List;
 public class ConditionHandler {
 
   protected final Unit unit;
-  protected final JNIBWAPI api;
+  protected final Mirror api;
 
   /**
    * @param api
@@ -24,7 +24,7 @@ public class ConditionHandler {
    * @param unit
    *          The unit.
    */
-  public ConditionHandler(JNIBWAPI api, Unit unit) {
+  public ConditionHandler(Mirror api, Unit unit) {
     this.unit = unit;
     this.api = api;
   }
@@ -224,7 +224,7 @@ public class ConditionHandler {
     }
 
     if (unit.getAddon() != null) {
-      conditions.add(new Identifier(unit.getAddon().getType().getName()));
+      conditions.add(new Identifier(unit.getAddon().getType().toString()));
     }
   }
 
@@ -236,7 +236,7 @@ public class ConditionHandler {
 
     setGenericConditions(conditions);
 
-    if (api.getSelf().getRace().getID() == RaceTypes.Terran.getID()) {
+    if (api.getGame().self().getRace().toString().equals(Race.Terran.toString())) {
       setTerranConditions(conditions);
     }
 
@@ -244,7 +244,7 @@ public class ConditionHandler {
       setWorkerConditions(conditions);
     }
 
-    if (unit.getType().isCanMove()) {
+    if (unit.getType().canMove()){
       setMovingConditions(conditions);
     }
 

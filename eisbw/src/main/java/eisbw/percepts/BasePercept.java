@@ -1,5 +1,6 @@
 package eisbw.percepts;
 
+import eis.iilang.Identifier;
 import eis.iilang.Numeral;
 import eis.iilang.Percept;
 import eis.iilang.TruthValue;
@@ -19,11 +20,11 @@ public class BasePercept extends Percept {
    *          The y coordinate of the base location.
    * @param isStart
    *          Indicates whether the base location is a starting location or not.
-   * @param regionId
+   * @param string
    *          The region ID of the base location.
    */
-  public BasePercept(int xpos, int ypos, boolean isStart, int regionId) {
+  public BasePercept(int xpos, int ypos, boolean isStart, String string) {
     super(Percepts.BASE, new Numeral(xpos), new Numeral(ypos), new TruthValue(isStart),
-        new Numeral(regionId));
+        new Identifier(string));
   }
 }

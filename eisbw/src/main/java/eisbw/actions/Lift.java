@@ -1,9 +1,10 @@
 package eisbw.actions;
 
+import bwapi.Mirror;
+import bwapi.Race;
+import bwapi.Unit;
 import eis.iilang.Action;
 import eis.iilang.Parameter;
-import jnibwapi.JNIBWAPI;
-import jnibwapi.Unit;
 
 import java.util.LinkedList;
 
@@ -20,7 +21,7 @@ public class Lift extends StarcraftAction {
    * @param api
    *          The BWAPI
    */
-  public Lift(JNIBWAPI api) {
+  public Lift(Mirror api) {
     super(api);
   }
 
@@ -32,7 +33,7 @@ public class Lift extends StarcraftAction {
 
   @Override
   public boolean canExecute(Unit unit, Action action) {
-    return unit.getType().isBuilding() && unit.getType().getRaceID() == 1;
+    return unit.getType().isBuilding() && unit.getType().getRace().toString().equals(Race.Terran.toString());
   }
 
   @Override

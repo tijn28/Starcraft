@@ -1,6 +1,6 @@
 package eisbw.actions;
 
-import jnibwapi.JNIBWAPI;
+import bwapi.Mirror;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -35,7 +35,7 @@ public class ActionProvider {
    * @param api
    *          the API to pass into the actions.
    */
-  public void loadActions(JNIBWAPI api) {
+  public void loadActions(Mirror api) {
     actions.put("attack/1", new Attack(api));
     actions.put("attack/2", new AttackMove(api));
     actions.put("upgrade/1", new Upgrade(api));

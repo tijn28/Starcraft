@@ -1,9 +1,9 @@
 package eisbw.actions;
 
+import bwapi.Mirror;
+import bwapi.Unit;
 import eis.iilang.Action;
 import eis.iilang.Parameter;
-import jnibwapi.JNIBWAPI;
-import jnibwapi.Unit;
 
 import java.util.LinkedList;
 
@@ -19,7 +19,7 @@ public class Siege extends StarcraftAction {
    * @param api
    *          The BWAPI
    */
-  public Siege(JNIBWAPI api) {
+  public Siege(Mirror api) {
     super(api);
   }
 
@@ -31,7 +31,7 @@ public class Siege extends StarcraftAction {
 
   @Override
   public boolean canExecute(Unit unit, Action action) {
-    return "Terran Siege Tank Tank Mode".equals(unit.getType().getName());
+    return "Terran Siege Tank Tank Mode".equals(unit.getType().toString());
   }
 
   @Override

@@ -1,12 +1,11 @@
 package eisbw.actions;
 
+import bwapi.Mirror;
+import bwapi.Position;
+import bwapi.Unit;
 import eis.iilang.Action;
 import eis.iilang.Numeral;
 import eis.iilang.Parameter;
-import jnibwapi.JNIBWAPI;
-import jnibwapi.Position;
-import jnibwapi.Position.PosType;
-import jnibwapi.Unit;
 
 import java.util.LinkedList;
 
@@ -22,7 +21,7 @@ public class SetRallyPoint extends StarcraftAction {
    * @param api
    *          The BWAPI
    */
-  public SetRallyPoint(JNIBWAPI api) {
+  public SetRallyPoint(Mirror api) {
     super(api);
   }
 
@@ -46,7 +45,7 @@ public class SetRallyPoint extends StarcraftAction {
     LinkedList<Parameter> parameters = action.getParameters();
     int xpos = ((Numeral) parameters.get(0)).getValue().intValue();
     int ypos = ((Numeral) parameters.get(1)).getValue().intValue();
-    unit.setRallyPoint(new Position(xpos, ypos, PosType.BUILD));
+    unit.setRallyPoint(new Position(xpos, ypos));
   }
 
   @Override

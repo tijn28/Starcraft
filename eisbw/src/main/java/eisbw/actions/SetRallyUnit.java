@@ -1,10 +1,10 @@
 package eisbw.actions;
 
+import bwapi.Mirror;
+import bwapi.Unit;
 import eis.iilang.Action;
 import eis.iilang.Numeral;
 import eis.iilang.Parameter;
-import jnibwapi.JNIBWAPI;
-import jnibwapi.Unit;
 
 import java.util.LinkedList;
 
@@ -20,7 +20,7 @@ public class SetRallyUnit extends StarcraftAction {
    * @param api
    *          The BWAPI
    */
-  public SetRallyUnit(JNIBWAPI api) {
+  public SetRallyUnit(Mirror api) {
     super(api);
   }
 
@@ -43,7 +43,7 @@ public class SetRallyUnit extends StarcraftAction {
   public void execute(Unit unit, Action action) {
     LinkedList<Parameter> parameters = action.getParameters();
     int unitId = ((Numeral) parameters.get(0)).getValue().intValue();
-    unit.setRallyPoint(api.getUnit(unitId));
+    unit.setRallyPoint(api.getGame().getUnit(unitId));
   }
 
   @Override

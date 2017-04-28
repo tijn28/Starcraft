@@ -1,12 +1,11 @@
 package eisbw.actions;
 
+import bwapi.Mirror;
+import bwapi.TilePosition;
+import bwapi.Unit;
 import eis.iilang.Action;
 import eis.iilang.Numeral;
 import eis.iilang.Parameter;
-import jnibwapi.JNIBWAPI;
-import jnibwapi.Position;
-import jnibwapi.Position.PosType;
-import jnibwapi.Unit;
 
 import java.util.LinkedList;
 
@@ -22,7 +21,7 @@ public class Land extends StarcraftMovableAction {
    * @param api
    *          The BWAPI
    */
-  public Land(JNIBWAPI api) {
+  public Land(Mirror api) {
     super(api);
   }
 
@@ -36,7 +35,7 @@ public class Land extends StarcraftMovableAction {
     LinkedList<Parameter> parameters = action.getParameters();
     int xpos = ((Numeral) parameters.get(0)).getValue().intValue();
     int ypos = ((Numeral) parameters.get(1)).getValue().intValue();
-    unit.land(new Position(xpos, ypos, PosType.BUILD));
+    unit.land(new TilePosition(xpos, ypos));
   }
 
   @Override

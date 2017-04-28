@@ -1,10 +1,10 @@
 package eisbw.actions;
 
+import bwapi.Mirror;
+import bwapi.Unit;
 import eis.iilang.Action;
 import eis.iilang.Numeral;
 import eis.iilang.Parameter;
-import jnibwapi.JNIBWAPI;
-import jnibwapi.Unit;
 
 import java.util.LinkedList;
 
@@ -20,7 +20,7 @@ public abstract class StarcraftMovableAction extends StarcraftAction {
    * @param api
    *          The BWAPI.
    */
-  public StarcraftMovableAction(JNIBWAPI api) {
+  public StarcraftMovableAction(Mirror api) {
     super(api);
   }
 
@@ -33,6 +33,6 @@ public abstract class StarcraftMovableAction extends StarcraftAction {
 
   @Override
   public boolean canExecute(Unit unit, Action action) {
-    return unit.getType().isCanMove();
+    return unit.getType().canMove();
   }
 }

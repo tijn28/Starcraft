@@ -1,9 +1,9 @@
 package eisbw.actions;
 
+import bwapi.Mirror;
+import bwapi.Unit;
 import eis.iilang.Action;
 import eis.iilang.Parameter;
-import jnibwapi.JNIBWAPI;
-import jnibwapi.Unit;
 
 import java.util.LinkedList;
 
@@ -19,7 +19,7 @@ public class UnloadAll extends StarcraftAction {
    * @param api
    *          The BWAPI
    */
-  public UnloadAll(JNIBWAPI api) {
+  public UnloadAll(Mirror api) {
     super(api);
   }
 
@@ -31,7 +31,7 @@ public class UnloadAll extends StarcraftAction {
 
   @Override
   public boolean canExecute(Unit unit, Action action) {
-    return unit.getType().getSpaceProvided() > 0;
+    return unit.getType().spaceProvided() > 0;
   }
 
   @Override

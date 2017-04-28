@@ -1,6 +1,6 @@
 package eisbw.percepts.perceivers;
 
-import jnibwapi.JNIBWAPI;
+import bwapi.Mirror;
 
 /**
  * @author Danny & Harm - The abstract perceiver.
@@ -8,13 +8,13 @@ import jnibwapi.JNIBWAPI;
  */
 public abstract class Perceiver implements IPerceiver {
 
-  protected final JNIBWAPI api;
+  protected final Mirror api;
 
   /**
    * @param api
    *          The BWAPI.
    */
-  public Perceiver(JNIBWAPI api) {
+  public Perceiver(Mirror api) {
     this.api = api;
   }
 }

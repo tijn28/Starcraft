@@ -1,11 +1,11 @@
 package eisbw.actions;
 
+import bwapi.Mirror;
+import bwapi.Unit;
+import bwapi.UnitType;
 import eis.iilang.Action;
 import eis.iilang.Numeral;
 import eis.iilang.Parameter;
-import jnibwapi.JNIBWAPI;
-import jnibwapi.Unit;
-import jnibwapi.types.UnitType;
 
 import java.util.LinkedList;
 
@@ -21,7 +21,7 @@ public class Gather extends StarcraftAction {
    * @param api
    *          The BWAPI
    */
-  public Gather(JNIBWAPI api) {
+  public Gather(Mirror api) {
     super(api);
   }
 
@@ -40,7 +40,7 @@ public class Gather extends StarcraftAction {
   @Override
   public void execute(Unit unit, Action action) {
     int targetId = ((Numeral) action.getParameters().get(0)).getValue().intValue();
-    unit.gather(api.getUnit(targetId), false);
+    unit.gather(api.getGame().getUnit(targetId), false);
   }
 
   @Override

@@ -2,7 +2,7 @@ package eisbw.units;
 
 import eisbw.BwapiUtility;
 import eisbw.StarcraftEnvironmentImpl;
-import jnibwapi.Unit;
+import bwapi.Unit;
 
 import java.util.Map;
 import java.util.Map.Entry;
