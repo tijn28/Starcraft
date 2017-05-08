@@ -14,7 +14,6 @@ import jnibwapi.JNIBWAPI;
 import jnibwapi.Position.Positions;
 import jnibwapi.Unit;
 import jnibwapi.types.TechType;
-import jnibwapi.types.TechType.TechTypes;
 
 import java.util.HashSet;
 import java.util.List;
@@ -95,9 +94,14 @@ public class BuildingPerceiver extends UnitPerceiver {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	private void queueSizePercept(Map<PerceptFilter, Set<Percept>> toReturn) {
 		Set<Percept> percepts = new HashSet<>();
-		percepts.add(new QueueSizePercept(unit.getTrainingQueueSize()));
+		if (unit.getType().getName().equals("Zerg Hatchery")) {
+			percepts.add(new QueueSizePercept(unit.getLarvaCount()));
+		} else {
+			percepts.add(new QueueSizePercept(unit.getTrainingQueueSize()));
+		}
 		toReturn.put(new PerceptFilter(Percepts.QUEUESIZE, Filter.Type.ON_CHANGE), percepts);
 	}
 
