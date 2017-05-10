@@ -27,10 +27,8 @@ import java.util.logging.Logger;
 /**
  * @author Danny & Harm - The starcraft environment class which handles most
  *         environment logics.
- *
  */
 public class StarcraftEnvironmentImpl extends EIDefaultImpl {
-
 	private Logger logger = Logger.getLogger("StarCraft Logger");
 
 	private static final long serialVersionUID = 1L;
@@ -62,7 +60,6 @@ public class StarcraftEnvironmentImpl extends EIDefaultImpl {
 		super.init(parameters);
 		setState(EnvironmentState.PAUSED);
 		Thread.currentThread().setPriority(3);
-
 		try {
 			configuration = new Configuration(parameters);
 			addEntity("manager", "manager");
@@ -70,13 +67,12 @@ public class StarcraftEnvironmentImpl extends EIDefaultImpl {
 				bwapiListener = new BwapiListener(game, "true".equals(configuration.getDebugMode().getData()),
 						"true".equals(configuration.getInvulnerable().getData()), configuration.getSpeed());
 
-				if (!WindowsTools.isProcessRunning("Chaoslauncher.exe")) {
+				if (!"OFF".equals(configuration.getAutoMenu()) && !WindowsTools.isProcessRunning("Chaoslauncher.exe")) {
 					WindowsTools.startChaoslauncher(configuration.getOwnRace().getData(), configuration.getMap(),
 							configuration.getScDir(), configuration.getAutoMenu(),
 							configuration.getEnemyRace().getData());
 				}
 			}
-			// Have the Environment running from the start.
 			setState(EnvironmentState.RUNNING);
 		} catch (Exception ex) {
 			Logger.getLogger(StarcraftEnvironmentImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -157,5 +153,4 @@ public class StarcraftEnvironmentImpl extends EIDefaultImpl {
 	public int getFPS() {
 		return bwapiListener.getFPS();
 	}
-
 }

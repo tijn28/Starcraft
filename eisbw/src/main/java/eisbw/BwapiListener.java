@@ -24,7 +24,6 @@ import java.util.logging.Logger;
  *
  */
 public class BwapiListener extends BwapiEvents {
-
 	protected Logger logger = Logger.getLogger("StarCraft Logger");
 	protected JNIBWAPI bwapi;
 	protected Game game;
@@ -81,7 +80,7 @@ public class BwapiListener extends BwapiEvents {
 		// SET INIT SPEED (DEFAULT IS 1000/20=50 FPS)
 		if (speed > 0)
 			bwapi.setGameSpeed(1000 / speed);
-		else
+		else if (speed == 0)
 			bwapi.setGameSpeed(speed);
 		
 		// SET INIT INVULNERABLE PARAMETER
@@ -231,7 +230,5 @@ public class BwapiListener extends BwapiEvents {
 			logger.log(Level.WARNING, "The Entity: " + name + " is not able to perform the action: " + act.getName());
 		}
 		// }
-
 	}
-
 }
