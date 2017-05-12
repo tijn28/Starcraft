@@ -109,7 +109,7 @@ public class GenericUnitPerceiver extends UnitPerceiver {
 	 */
 	private void spaceProvidedPercept(Map<PerceptFilter, Set<Percept>> toReturn, List<Unit> loadedUnits) {
 		Set<Percept> percepts = new HashSet<>();
-		percepts.add(new SpaceProvidedPercept(loadedUnits.size(), unit.getType().getSpaceProvided()));
+		percepts.add(new SpaceProvidedPercept(loadedUnits.size(), unit.getType().spaceProvided()));
 		toReturn.put(new PerceptFilter(Percepts.SPACEPROVIDED, Filter.Type.ON_CHANGE), percepts);
 	}
 

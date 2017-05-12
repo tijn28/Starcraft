@@ -157,7 +157,7 @@ public class StarcraftEnvironmentImpl extends EIDefaultImpl {
   }
 
   public int getFPS() {
-    return bwapiListener.getFPS();
+    return 60;
   }
 
 }

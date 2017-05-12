@@ -101,7 +101,7 @@ public class Game {
   private List<Percept> translatePercepts(String unitName, Map<PerceptFilter, Set<Percept>> map) {
     List<Percept> percept = new LinkedList<>();
     if (!previous.containsKey(unitName)) {
-      previous.put(unitName, new HashMap<>());
+      previous.put(unitName, new HashMap<String, Set<Percept>>());
     }
     for (Entry<PerceptFilter, Set<Percept>> entry : map.entrySet()) {
       switch (entry.getKey().getType()) {

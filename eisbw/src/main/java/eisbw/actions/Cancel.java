@@ -2,6 +2,7 @@ package eisbw.actions;
 
 import bwapi.Mirror;
 import bwapi.Race;
+import bwapi.TechType;
 import bwapi.Unit;
 import eis.iilang.Action;
 import eis.iilang.Parameter;
@@ -46,7 +47,7 @@ public class Cancel extends StarcraftAction {
 		} else if (unit.isTraining()) {
 			unit.cancelTrain();
 		} else if (unit.getTech() != null) {
-			if (!unit.getTech().equals(TechType.TechTypes.None)) {
+			if (!unit.getTech().equals(TechType.None)) {
 				unit.cancelResearch();
 			}
 		}
