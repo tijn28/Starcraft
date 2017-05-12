@@ -44,30 +44,9 @@ public class BuildingPerceiver extends UnitPerceiver {
 		queueSizePercept(toReturn);
 		upgradingPercept(toReturn);
 		researchedPercept(toReturn);
-		if (unit.getType().getSpaceProvided() > 0) {
-			List<Unit> loadedUnits = unit.getLoadedUnits();
-			spaceProvidedPercept(toReturn, loadedUnits);
-			unitLoadedPercept(toReturn, loadedUnits);
-		}
-
 		return toReturn;
 	}
 
-	private void unitLoadedPercept(Map<PerceptFilter, Set<Percept>> toReturn, List<Unit> loadedUnits) {
-		Set<Percept> percepts = new HashSet<>();
-		for (Unit u : loadedUnits) {
-			if (u != null) {
-				percepts.add(new UnitLoadedPercept(u.getID(), u.getType().getName()));
-			}
-		}
-		toReturn.put(new PerceptFilter(Percepts.UNITLOADED, Filter.Type.ALWAYS), percepts);
-	}
-
-	private void spaceProvidedPercept(Map<PerceptFilter, Set<Percept>> toReturn, List<Unit> loadedUnits) {
-		Set<Percept> percepts = new HashSet<>();
-		percepts.add(new SpaceProvidedPercept(loadedUnits.size(), unit.getType().getSpaceProvided()));
-		toReturn.put(new PerceptFilter(Percepts.SPACEPROVIDED, Filter.Type.ON_CHANGE), percepts);
-	}
 
 	private void researchedPercept(Map<PerceptFilter, Set<Percept>> toReturn) {
 		Set<Percept> percepts = new HashSet<>();

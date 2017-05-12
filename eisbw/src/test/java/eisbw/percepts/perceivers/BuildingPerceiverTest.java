@@ -64,22 +64,22 @@ public class BuildingPerceiverTest {
   @Test
   public void size_test() {
     Map<PerceptFilter, Set<Percept>> toReturn = new HashMap<>();
-    assertEquals(7, perciever.perceive(toReturn).size());
+    assertEquals(5, perciever.perceive(toReturn).size());
     when(unit.getRallyPosition()).thenReturn(Positions.None);
     toReturn = new HashMap<>();
-    assertEquals(6, perciever.perceive(toReturn).size());
+    assertEquals(4, perciever.perceive(toReturn).size());
     when(unit.getRallyUnit()).thenReturn(null);
     toReturn = new HashMap<>();
-    assertEquals(5, perciever.perceive(toReturn).size());
+    assertEquals(3, perciever.perceive(toReturn).size());
     toReturn = new HashMap<>();
     when(unit.isUpgrading()).thenReturn(false);
-    assertEquals(4, perciever.perceive(toReturn).size());
+    assertEquals(2, perciever.perceive(toReturn).size());
     toReturn = new HashMap<>();
     List<Unit> loadedunits = new LinkedList<>();
     loadedunits.add(unit);
     loadedunits.add(null);
     when(unit.getLoadedUnits()).thenReturn(loadedunits);
-    assertEquals(4, perciever.perceive(toReturn).size());
+    assertEquals(2, perciever.perceive(toReturn).size());
     toReturn = new HashMap<>();
     when(unitType.getSpaceProvided()).thenReturn(0);
     assertEquals(2, perciever.perceive(toReturn).size());
