@@ -77,6 +77,15 @@ public class BwapiListener extends BwapiEvents {
   @Override
   public void onStart() {
 
+		// SET INIT SPEED (DEFAULT IS 1000/20=50 FPS)
+		if (speed > 0)
+			bwapi.setGameSpeed(1000 / speed);
+		else if (speed == 0)
+			bwapi.setGameSpeed(speed);
+		
+		// SET INIT INVULNERABLE PARAMETER
+		if(invulnerable)
+			bwapi.sendText("power overwhelming");
     BWTA.readMap();
     BWTA.analyze(); 
     
@@ -228,6 +237,17 @@ public class BwapiListener extends BwapiEvents {
     return debug.getFPS();
   }
 
+		// cant act during construction
+		// if (!unit.isBeingConstructed()) {
+		StarcraftAction action = getAction(act);
+		// Action might be invalid
+		if (action.isValid(act) && isSupportedByEntity(act, name)) {
+			pendingActions.put(unit, act);
+		} else {
+			logger.log(Level.WARNING, "The Entity: " + name + " is not able to perform the action: " + act.getName());
+		}
+		// }
+	}
   /**
    * Adds an action to the action queue, the action is then executed on the next
    * frame.

@@ -39,8 +39,16 @@ public class Cancel extends StarcraftAction {
 	public void execute(Unit unit, Action action) {
 		if (unit.isMorphing()) {
 			unit.cancelMorph();
-		} else {
+		} else if (unit.isBeingConstructed()) {
 			unit.cancelConstruction();
+		} else if (unit.isUpgrading()) {
+			unit.cancelUpgrade();
+		} else if (unit.isTraining()) {
+			unit.cancelTrain();
+		} else if (unit.getTech() != null) {
+			if (!unit.getTech().equals(TechType.TechTypes.None)) {
+				unit.cancelResearch();
+			}
 		}
 	}
 

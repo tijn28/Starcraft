@@ -6,13 +6,16 @@ import eisbw.percepts.DefensiveMatrixPercept;
 import eisbw.percepts.Percepts;
 import eisbw.percepts.ResourcesPercept;
 import eisbw.percepts.SelfPercept;
+import eisbw.percepts.SpaceProvidedPercept;
 import eisbw.percepts.StatusPercept;
+import eisbw.percepts.UnitLoadedPercept;
 import eisbw.units.ConditionHandler;
 import bwapi.Mirror;
 import bwapi.Unit;
 import bwapi.UnitType;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -97,5 +100,18 @@ public class GenericUnitPerceiver extends UnitPerceiver {
 
     toReturn.put(new PerceptFilter(Percepts.DEFENSIVEMATRIX, Filter.Type.ALWAYS), percepts);
   }
+
+	/**
+	 * @param toReturn
+	 *            The percept and reference of which kind of percept it is.
+	 * @param loadedUnits
+	 * 			  The loaded units
+	 */
+	private void spaceProvidedPercept(Map<PerceptFilter, Set<Percept>> toReturn, List<Unit> loadedUnits) {
+		Set<Percept> percepts = new HashSet<>();
+		percepts.add(new SpaceProvidedPercept(loadedUnits.size(), unit.getType().getSpaceProvided()));
+		toReturn.put(new PerceptFilter(Percepts.SPACEPROVIDED, Filter.Type.ON_CHANGE), percepts);
+	}
+
 
 }

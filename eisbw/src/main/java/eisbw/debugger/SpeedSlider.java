@@ -34,7 +34,7 @@ public class SpeedSlider extends JPanel {
 	public SpeedSlider() {
 		setPreferredSize(new Dimension(500, 100));
 
-		JLabel showSpeed = new JLabel("Current FPS: " + getFPS());
+		final JLabel showSpeed = new JLabel("Current FPS: " + getFPS());
 
 		final JSlider slider = new JSlider(JSlider.HORIZONTAL, fastest, slowest, initialSpeed);
 		slider.addChangeListener(new ChangeListener() {

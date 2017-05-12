@@ -27,7 +27,6 @@ import java.util.logging.Logger;
 /**
  * @author Danny & Harm - The starcraft environment class which handles most
  *         environment logics.
- *
  */
 public class StarcraftEnvironmentImpl extends EIDefaultImpl {
 
