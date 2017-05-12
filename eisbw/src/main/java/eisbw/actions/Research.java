@@ -6,6 +6,7 @@ import eis.iilang.Parameter;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Unit;
 import jnibwapi.types.TechType;
+import jnibwapi.types.TechType.TechTypes;
 
 import java.util.LinkedList;
 
@@ -23,6 +24,14 @@ public class Research extends StarcraftTechAction {
    */
   public Research(JNIBWAPI api) {
     super(api);
+  }
+  
+  @Override
+  public boolean canExecute(Unit unit, Action action) {
+      LinkedList<Parameter> parameters = action.getParameters();
+      TechType techType = getTechType(((Identifier) parameters.get(0)).getValue());
+
+      return !(techType == null);
   }
 
   @Override
