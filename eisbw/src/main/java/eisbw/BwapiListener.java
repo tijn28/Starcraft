@@ -37,9 +37,6 @@ public class BwapiListener extends BwapiEvents {
 	protected int count = 0;
 	protected DebugWindow debug;
 
-	// // temp
-	// private int fps = 0;
-
 	/**
 	 * Event listener for BWAPI.
 	 * 
@@ -77,7 +74,7 @@ public class BwapiListener extends BwapiEvents {
 		game.updateConstructionSites(bwapi);
 		game.updateMap(bwapi);
 
-		// SET INIT SPEED (DEFAULT IS 1000/20=50 FPS)
+		// SET INIT SPEED (DEFAULT IS 50 FPS, WHICH IS 20 SPEED)
 		if (speed > 0)
 			bwapi.setGameSpeed(1000 / speed);
 		else if (speed == 0)
@@ -118,14 +115,6 @@ public class BwapiListener extends BwapiEvents {
 			count = 0;
 		}
 		count++;
-
-		// // Check FPS
-		// if (fps == 1000) {
-		// System.out.println("The Current FPS: " + fps / getGameSpeed());
-		// fps = 0;
-		// }
-		//
-		// fps++;
 	}
 
 	@Override
@@ -203,7 +192,7 @@ public class BwapiListener extends BwapiEvents {
 	 * @return the current FPS.
 	 */
 	public int getFPS() {
-		return debug.getFPS();
+		return (this.debug == null) ? this.speed : this.debug.getFPS();
 	}
 
 	/**
