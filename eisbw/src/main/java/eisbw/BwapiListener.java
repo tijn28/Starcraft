@@ -1,18 +1,19 @@
 package eisbw;
 
+import bwapi.Mirror;
+import bwapi.Race;
+import bwapi.Unit;
+import bwapi.UnitType;
+import bwta.BWTA;
 import eis.exceptions.ActException;
 import eis.iilang.Action;
 import eisbw.actions.ActionProvider;
 import eisbw.actions.StarcraftAction;
 import eisbw.debugger.DebugWindow;
 import eisbw.units.StarcraftUnitFactory;
-import bwapi.Mirror;
-import bwapi.Unit;
-import bwapi.Race;
-import bwapi.UnitType;
-import bwta.BWTA;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
@@ -150,9 +151,18 @@ public class BwapiListener extends BwapiEvents {
     System.out.println("Got Unit!!");
     int unitId = unit2.getID();
     Unit unit = bwapi.getGame().getUnit(unitId);
-    if (bwapi.getGame().self().getUnits().contains(unit) && !game.getUnits().getUnitNames().containsKey(unitId)) {
+    if (containsUnit(bwapi.getGame().self().getUnits(),unit) && !game.getUnits().getUnitNames().containsKey(unitId)) {
       game.getUnits().addUnit(unit, factory);
     }
+  }
+  
+  private boolean containsUnit(List<Unit> unitlist,Unit unit){
+    for(Unit u : unitlist){
+      if (u.getID() == unit.getID()){
+        return true;
+      }
+    }
+    return false;
   }
 
   @Override
