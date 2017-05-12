@@ -33,7 +33,6 @@ public class Configuration {
 	 */
 	public Configuration(Map<String, Parameter> parameters) throws TranslationException {
 		parseParams(parameters);
-		checkSanity();
 	}
 
 	private void parseParams(Map<String, Parameter> parameters) throws TranslationException {
@@ -74,13 +73,6 @@ public class Configuration {
 
 	private void setEnemyRace(RaceString race) {
 		enemyRace = race;
-	}
-
-	private void checkSanity() {
-		if (ownRace == null || map == null || scDir == null) {
-			throw new IllegalStateException(
-					"Map, Race " + "and starcraft directory have to be defined in the .mas2g file");
-		}
 	}
 
 	private void setInvulnerable(BooleanString inv) {

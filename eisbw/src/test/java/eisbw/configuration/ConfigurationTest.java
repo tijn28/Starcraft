@@ -29,42 +29,8 @@ public class ConfigurationTest {
     Translator.getInstance().registerParameter2JavaTranslator(new RaceStringTranslator());
   }
   
-  @Test(expected = IllegalStateException.class)  
-  public void exception_test() throws NoTranslatorException, TranslationException {
-    Map<String,Parameter> parameters = new HashMap<>();
-    new Configuration(parameters);
-  }
-  
-  @Test(expected = IllegalStateException.class)  
-  public void exception2_test() throws NoTranslatorException, TranslationException {
-    Map<String,Parameter> parameters = new HashMap<>();
-    parameters.put("map", new Identifier("map"));
-    new Configuration(parameters);
-  }
-  
-  @Test(expected = IllegalStateException.class)  
-  public void exception3_test() throws NoTranslatorException, TranslationException {
-    Map<String,Parameter> parameters = new HashMap<>();
-    parameters.put("debug", new Identifier("true"));
-    new Configuration(parameters);
-  }
-  
-  @Test(expected = IllegalStateException.class)  
-  public void exception4_test() throws NoTranslatorException, TranslationException {
-    Map<String,Parameter> parameters = new HashMap<>();
-    parameters.put("own_race", new Identifier("terran"));
-    new Configuration(parameters);
-  }
-  
-  @Test(expected = IllegalStateException.class)  
-  public void exception5_test() throws NoTranslatorException, TranslationException {
-    Map<String,Parameter> parameters = new HashMap<>();
-    parameters.put("starcraft_location", new Identifier("scdir"));
-    new Configuration(parameters);
-  }
-  
   @Test(expected = TranslationException.class)  
-  public void exception6_test() throws NoTranslatorException, TranslationException {
+  public void exception_test() throws NoTranslatorException, TranslationException {
     Map<String,Parameter> parameters = new HashMap<>();
     parameters.put("false_input", new Identifier("scdir"));
     new Configuration(parameters);
