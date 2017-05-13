@@ -63,6 +63,7 @@ public class StarcraftEnvironmentImpl extends EIDefaultImpl {
 		try {
 			configuration = new Configuration(parameters);
 			addEntity("manager", "manager");
+			
 			if (!"test".equals(configuration.getOwnRace().getData())) {
 				bwapiListener = new BwapiListener(game, "true".equals(configuration.getDebugMode().getData()),
 						"true".equals(configuration.getInvulnerable().getData()), configuration.getSpeed());
