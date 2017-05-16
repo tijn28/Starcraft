@@ -2,13 +2,11 @@ package eisbw.percepts.perceivers;
 
 import eis.eis2java.translation.Filter;
 import eis.iilang.Percept;
-import eisbw.percepts.ResearchingPercept;
 import eisbw.percepts.Percepts;
 import eisbw.percepts.QueueSizePercept;
 import eisbw.percepts.RallyPointPercept;
 import eisbw.percepts.RallyUnitPercept;
-import eisbw.percepts.SpaceProvidedPercept;
-import eisbw.percepts.UnitLoadedPercept;
+import eisbw.percepts.ResearchingPercept;
 import eisbw.percepts.UpgradePercept;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Position.Positions;
@@ -16,7 +14,6 @@ import jnibwapi.Unit;
 import jnibwapi.types.TechType;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
