@@ -356,7 +356,7 @@ This section will list all the percepts that are usable in the StarCraft environ
  Description & Indicates which \textit{tech} is currently being researched. The research is done when this percept is no longer seen. See Section \ref{techtype} for the list of tech types. \\
  Type & Send always \\
  Syntax & \verb|researching(<TechType>)| \\
- Example & \verb|researching(Ocular Implants)| \\
+ Example & \verb|researching(Stim Packs)| \\
  \end{tabularx}
  \begin{tabularx}{\textwidth}{l | c | p{8cm}|}
  \cline{2-3}
@@ -371,7 +371,7 @@ This section will list all the percepts that are usable in the StarCraft environ
  Description & Indicates which \textit{upgrade} is currently being performed. The upgrade is done when this percept is no longer seen. See Section \ref{upgradetype} for the list of all actual tech types. \\
  Type & Send always \\
  Syntax & \verb|upgrading(<UpgradeType>)| \\
- Example & \verb|upgrading(Stim Packs)| \\
+ Example & \verb|upgrading(Ocular Implants)| \\
  \end{tabularx}
  \begin{tabularx}{\textwidth}{l | c | p{8cm}|}
  \cline{2-3}
@@ -384,7 +384,9 @@ This section will list all the percepts that are usable in the StarCraft environ
 \textbf{Queue Size percept}\\
 \\
 \begin{tabularx}{\textwidth}{lX}
- Description & Shows how many units are in queue of the production building.\\
+ Description & Shows how many units are in queue of the production building.
+ \newline
+ Hatchery: Shows the amount of available larva units.\\
  Type & Send on change \\
  Syntax & \verb|queueSize(<Size>)| \\
  Example & \verb|queueSize(2)| \\
