@@ -6,7 +6,6 @@ import eis.iilang.Parameter;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Unit;
 import jnibwapi.types.TechType;
-import jnibwapi.types.TechType.TechTypes;
 
 import java.util.LinkedList;
 

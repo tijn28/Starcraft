@@ -80,6 +80,6 @@ public class PatrolTest {
   
   @Test
   public void toString_test() {
-    assertEquals("patrol(unitId, x, y)", action.toString());
+    assertEquals("patrol(x, y)", action.toString());
   }
 }

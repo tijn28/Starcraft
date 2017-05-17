@@ -79,7 +79,7 @@ This section will list all the actions that are usable in the Starcraft environm
 \section{Ability action}
 \begin{tabularx}{\textwidth}{lX}
  Description & Use an (researched) ability. \\
- Syntax & \verb|use(<Type>)| \\
+ Syntax & \verb|ability(<Type>)| \\
  Parameters & \verb|<Type>|: The type of technology to use.\\
  Pre & The chosen tech type is researched and the unit is capable of performing the chosen tech type. \\
  Post & The unit performs the chosen tech ability.
@@ -88,7 +88,7 @@ This section will list all the actions that are usable in the Starcraft environm
 \section{Ability on target action}
 \begin{tabularx}{\textwidth}{lX}
  Description & Use an (researched) ability on a target. \\
- Syntax & \verb|use(<Type>, <Target>)| \\
+ Syntax & \verb|ability(<Type>, <Target>)| \\
  Parameters & \verb|<Type>|: The type of technology to use.\\
             & \verb|<Target>|: The target to use the technology on.\\
  Pre & The chosen tech type is researched, the unit is capable of performing the chosen tech type and the chosen target is attack capable. \\
@@ -98,7 +98,7 @@ This section will list all the actions that are usable in the Starcraft environm
 \section{Ability on location action}
 \begin{tabularx}{\textwidth}{lX}
  Description & use an (researched) ability on a location. \\
- Syntax & \verb|use(<Type>, <X>, <Y>)| \\
+ Syntax & \verb|ability(<Type>, <X>, <Y>)| \\
  Parameters & \verb|<Type>|: The type of technology to use.\\
             & \verb|<X>|: The x-coordinate of the chosen location \\
             & \verb|<Y>|: The y-coordinate of the chosen location. \\
@@ -175,7 +175,7 @@ This section will list all the actions that are usable in the Starcraft environm
 
 \section{Unload action}
 \begin{tabularx}{\textwidth}{lX}
- Desription & Unload a unit. \\
+ Desription & Unload an unit. \\
  Syntax & \verb|unload(<ID>)| \\
  Parameters & \verb|<ID>|: The \textit{ID} of the unit to unload from this (loadable) unit.\\
  Pre & The unit is capable of loading other units inside it. \\
@@ -194,8 +194,18 @@ This section will list all the actions that are usable in the Starcraft environm
 \begin{tabularx}{\textwidth}{lX}
  Desription & Cancel the construction of the unit. \\
  Syntax & \verb|cancel| \\
- Pre & The unit is morphing or beingConstructed. \\
- Post & The morphing or construction is cancelled.
+ Pre & The unit is morphing, beingConstructed, researching or upgrading. \\
+ Post & The morphing, construction, upgrading or researching is cancelled.
+\end{tabularx}
+
+\section{Patrol action}
+\begin{tabularx}{\textwidth}{lX}
+ Desription & Patrol an unit between the place it's standing and the given location. \\
+ Syntax & \verb|patrol(<X>, <Y>)| \\
+ Parameters & \verb|<X>|: The x-coordinate of the chosen location \\
+            &  \verb|<Y>|: The y-coordinate of the chosen location \\
+ Pre & The unit is capable of moving to the chosen location. \\
+ Post & The unit patrols between the chosen location (ignoring any other unit it might pass by) and the location it was originally standing.
 \end{tabularx}
 
 %Kweet niet of ik deze action wil houden
