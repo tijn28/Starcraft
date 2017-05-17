@@ -11,6 +11,7 @@ import jnibwapi.Unit;
 import jnibwapi.types.RaceType.RaceTypes;
 import jnibwapi.types.UnitType.UnitTypes;
 
+import java.io.File;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -21,7 +22,7 @@ import java.util.logging.Logger;
 
 /**
  * @author Danny & Harm - The Listener of the BWAPI Events.
- *
+ * 
  */
 public class BwapiListener extends BwapiEvents {
 	protected Logger logger = Logger.getLogger("StarCraft Logger");
@@ -45,8 +46,9 @@ public class BwapiListener extends BwapiEvents {
 	 * @param debugmode
 	 *            - true iff debugger should be attached
 	 */
-	public BwapiListener(Game game, boolean debugmode, boolean invulnerable, int speed) {
-		bwapi = new JNIBWAPI(this, true);
+	public BwapiListener(Game game, String scDir, boolean debugmode, boolean invulnerable, int speed) {
+		File bwta = new File(scDir + File.separator + "bwapi-data" + File.separator + "BWTA");
+		bwapi = new JNIBWAPI(this, bwta);
 		this.game = game;
 		actionProvider = new ActionProvider();
 		actionProvider.loadActions(bwapi);
@@ -192,7 +194,7 @@ public class BwapiListener extends BwapiEvents {
 	 * @return the current FPS.
 	 */
 	public int getFPS() {
-		return (this.debug == null) ? this.speed : this.debug.getFPS();
+		return (debug == null) ? speed : debug.getFPS();
 	}
 
 	/**

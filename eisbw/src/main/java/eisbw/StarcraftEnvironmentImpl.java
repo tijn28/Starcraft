@@ -27,6 +27,7 @@ import java.util.logging.Logger;
 /**
  * @author Danny & Harm - The starcraft environment class which handles most
  *         environment logics.
+ *         
  */
 public class StarcraftEnvironmentImpl extends EIDefaultImpl {
 	private Logger logger = Logger.getLogger("StarCraft Logger");
@@ -65,13 +66,15 @@ public class StarcraftEnvironmentImpl extends EIDefaultImpl {
 			addEntity("manager", "manager");
 			
 			if (!"test".equals(configuration.getOwnRace().getData())) {
-				bwapiListener = new BwapiListener(game, "true".equals(configuration.getDebugMode().getData()),
-						"true".equals(configuration.getInvulnerable().getData()), configuration.getSpeed());
+				bwapiListener = new BwapiListener(game, configuration.getScDir(),
+						"true".equals(configuration.getDebugMode().getData()),
+						"true".equals(configuration.getInvulnerable().getData()), 
+						configuration.getSpeed());
 
 				if (!"OFF".equals(configuration.getAutoMenu()) && !WindowsTools.isProcessRunning("Chaoslauncher.exe")) {
-					WindowsTools.startChaoslauncher(configuration.getOwnRace().getData(), configuration.getMap(),
-							configuration.getScDir(), configuration.getAutoMenu(),
-							configuration.getEnemyRace().getData());
+					WindowsTools.startChaoslauncher(configuration.getOwnRace().getData(), 
+							configuration.getMap(), configuration.getScDir(),
+							configuration.getAutoMenu(), configuration.getEnemyRace().getData());
 				}
 			}
 			setState(EnvironmentState.RUNNING);

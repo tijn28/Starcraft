@@ -70,11 +70,10 @@ public class BuildingPerceiver extends UnitPerceiver {
 		}
 	}
 
-	@SuppressWarnings("deprecation")
 	private void queueSizePercept(Map<PerceptFilter, Set<Percept>> toReturn) {
 		Set<Percept> percepts = new HashSet<>();
 		if (unit.getType().getName().equals("Zerg Hatchery")) {
-			percepts.add(new QueueSizePercept(unit.getLarvaCount()));
+			percepts.add(new QueueSizePercept(unit.getLarva().size()));
 		} else {
 			percepts.add(new QueueSizePercept(unit.getTrainingQueueSize()));
 		}

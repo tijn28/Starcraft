@@ -21,7 +21,7 @@ public class UnitTypesEx {
    */
   public static boolean isResourceType(UnitType unitType) {
     return isMineralField(unitType) || unitType.isRefinery()
-        || "Resource Vespene Geyser".equals(unitType.getName());
+        || isVespeneGeyser(unitType);
   }
 
   /**
