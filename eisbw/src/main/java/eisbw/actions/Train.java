@@ -45,9 +45,7 @@ public class Train extends StarcraftAction {
     LinkedList<Parameter> parameters = action.getParameters();
     UnitType unitType = null;
     String tobuild = ((Identifier) parameters.get(0)).getValue();
-    System.out.println(tobuild);
     if (tobuild.equals("Terran Siege Tank")) {
-      System.out.println("in it!");
       tobuild = "Terran Siege Tank Tank Mode";
     }
     unitType = getUnitType(tobuild);

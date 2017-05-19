@@ -35,6 +35,9 @@ public abstract class StarcraftAction {
   }
 
   protected UnitType getUnitType(String type) {
+    if (type.equals("Terran Siege Tank")) {
+      type = "Terran Siege Tank Tank Mode";
+    }
     return BwapiUtility.getUnitType(type);
   }
 
