@@ -6,6 +6,14 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+
 import eis.exceptions.ActException;
 import eis.exceptions.AgentException;
 import eis.exceptions.ManagementException;
@@ -15,15 +23,7 @@ import eis.exceptions.RelationException;
 import eis.iilang.Action;
 import eis.iilang.Identifier;
 import eis.iilang.Parameter;
-import eisbw.actions.Siege;
-
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-
-import java.util.HashMap;
-import java.util.Map;
+import eisbw.actions.Lift;
 
 public class StarcraftEnvironmentImplTest {
 
@@ -56,12 +56,12 @@ public class StarcraftEnvironmentImplTest {
     env.associateEntity("none", "none");
     env.getAllPercepts("none", "none");
     env.bwapiListener = bwapiListener;
-    when(bwapiListener.getAction(any(Action.class))).thenReturn(new Siege(null));
-    assertTrue(env.isSupportedByType(new Action("siege"), null));
+    when(bwapiListener.getAction(any(Action.class))).thenReturn(new Lift(null));
+    assertTrue(env.isSupportedByType(new Action("lift"), null));
     when(bwapiListener.getAction(any(Action.class))).thenReturn(null);
     assertFalse(env.isSupportedByType(new Action("fake"), null));
     doNothing().when(bwapiListener).performEntityAction(any(String.class), any(Action.class));
-    assertTrue(env.performEntityAction("entity", new Action("siege")) == null);
+    assertTrue(env.performEntityAction("entity", new Action("lift")) == null);
     env.deleteFromEnvironment("none");
     when(bwapiListener.isSupportedByEntity(any(Action.class), any(String.class))).thenReturn(true);
     assertTrue(env.isSupportedByEntity(new Action("action"), "action"));
