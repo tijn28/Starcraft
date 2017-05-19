@@ -57,9 +57,6 @@ public class UnitsPerceiver extends Perceiver {
 				continue;
 			}
 
-			// List<Parameter> conditions = new LinkedList<>();
-
-			// setUnitConditions(u, conditions);
 			ConditionHandler conditionHandler = new ConditionHandler(api, u);
 
 			if (!isFriendly) {
@@ -84,28 +81,6 @@ public class UnitsPerceiver extends Perceiver {
 		}
 	}
 
-	// /**
-	// * Sets the conditions of the unit.
-	// *
-	// * @param unit
-	// * The evaluated unit
-	// * @param conditions
-	// * The list of conditions of the unit
-	// */
-	// public void setUnitConditions(Unit unit, List<Parameter> conditions) {
-	// if (unit.getType().isFlyer()) {
-	// conditions.add(new Identifier("flying"));
-	// }
-	// if (unit.isMorphing()) {
-	// conditions.add(new Identifier("morphing"));
-	// }
-	// if (unit.isCloaked()) {
-	// conditions.add(new Identifier("cloaked"));
-	// }
-	// if (unit.isBeingConstructed()) {
-	// conditions.add(new Identifier("beingConstructed"));
-	// }
-	// }
 
 	@Override
 	public Map<PerceptFilter, Set<Percept>> perceive(Map<PerceptFilter, Set<Percept>> toReturn) {
