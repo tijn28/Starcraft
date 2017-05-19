@@ -79,15 +79,15 @@ public class BwapiListenerTest {
 
 	@Test
 	public void getAction_test() {
-		assertNotNull("getAction(Action) returned null", listener.getAction(new Action("siege")));
+		assertNotNull("getAction(Action) returned null", listener.getAction(new Action("lift")));
 	}
 
 	@Test
 	public void isSupportedByEntity_test() {
-		assertTrue(listener.isSupportedByEntity(new Action("siege"), "unit"));
+		assertTrue(listener.isSupportedByEntity(new Action("stop"), "unit"));
 		eis.iilang.Parameter[] list = new eis.iilang.Parameter[1];
 		list[0] = new Identifier("fail");
-		assertFalse(listener.isSupportedByEntity(new Action("siege", list), "unit"));
+		assertFalse(listener.isSupportedByEntity(new Action("stop", list), "unit"));
 		assertFalse(listener.isSupportedByEntity(new Action("setRallyPoint", list), "unit"));
 		list[0] = new Numeral(1);
 		assertFalse(listener.isSupportedByEntity(new Action("setRallyPoint", list), "unit"));
@@ -157,12 +157,12 @@ public class BwapiListenerTest {
 		listener.matchFrame();
 		assertTrue(listener.count == 1);
 		verify(game, times(1)).updateConstructionSites(bwapi);
-		listener.performEntityAction("unit", new Action("siege"));
+		listener.performEntityAction("unit", new Action("stop"));
 		eis.iilang.Parameter[] list = new eis.iilang.Parameter[1];
 		list[0] = new Identifier("fail");
 		listener.performEntityAction("unit", new Action("setRallyPoint", list));
 		when(unit.isBeingConstructed()).thenReturn(true);
-		listener.performEntityAction("unit", new Action("siege"));
+		listener.performEntityAction("unit", new Action("stop"));
 		assertTrue(listener.pendingActions.size() == 1);
 		listener.debug = debug;
 		listener.matchFrame();

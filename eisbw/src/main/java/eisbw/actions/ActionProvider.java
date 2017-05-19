@@ -52,8 +52,6 @@ public class ActionProvider {
     actions.put("setRallyPoint/1", new SetRallyUnit(api));
     actions.put("lift/0", new Lift(api));
     actions.put("land/2", new Land(api));
-    actions.put("siege/0", new Siege(api));
-    actions.put("unsiege/0", new UnSiege(api));
     actions.put("buildAddon/1", new BuildAddon(api));
     actions.put("follow/1", new Follow(api));
     actions.put("load/1", new Load(api));
