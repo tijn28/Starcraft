@@ -55,14 +55,12 @@ public class ActionProvider {
     actions.put("buildAddon/1", new BuildAddon(api));
     actions.put("follow/1", new Follow(api));
     actions.put("load/1", new Load(api));
-    actions.put("rightClick/2", new RightClickPosition(api));
-    actions.put("rightClick/1", new RightClickUnit(api));
     actions.put("unload/1", new UnloadUnit(api));
     actions.put("unloadAll/0", new UnloadAll(api));
     actions.put("morph/1", new Morph(api));
     actions.put("patrol/2", new Patrol(api));
     actions.put("cancel/0", new Cancel(api));
-    // Documentation goes untill this point
+    // Documentation goes until this point
     actions.put("repair/1", new Repair(api));
   }
 }
