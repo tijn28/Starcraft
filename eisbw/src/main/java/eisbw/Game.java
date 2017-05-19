@@ -4,7 +4,6 @@ import eis.eis2java.translation.Filter;
 import eis.iilang.Percept;
 import eisbw.percepts.GameSpeedPercept;
 import eisbw.percepts.Percepts;
-import eisbw.percepts.perceivers.BufferPerceiver;
 import eisbw.percepts.perceivers.ConstructionSitePerceiver;
 import eisbw.percepts.perceivers.EndGamePerceiver;
 import eisbw.percepts.perceivers.MapPerceiver;
@@ -168,7 +167,6 @@ public class Game {
 
 	private Map<PerceptFilter, Set<Percept>> getPercepts(JNIBWAPI bwapi) {
 		Map<PerceptFilter, Set<Percept>> toReturn = new HashMap<>();
-		new BufferPerceiver(bwapi).perceive(toReturn);
 		new UnitsPerceiver(bwapi).perceive(toReturn);
 		return toReturn;
 	}

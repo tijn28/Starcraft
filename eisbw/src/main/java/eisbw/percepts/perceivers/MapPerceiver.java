@@ -5,11 +5,13 @@ import eis.iilang.Percept;
 import eisbw.UnitTypesEx;
 import eisbw.percepts.BasePercept;
 import eisbw.percepts.ChokepointPercept;
+import eisbw.percepts.EnemyRacePercept;
 import eisbw.percepts.MapPercept;
 import eisbw.percepts.Percepts;
 import jnibwapi.BaseLocation;
 import jnibwapi.ChokePoint;
 import jnibwapi.JNIBWAPI;
+import jnibwapi.Player;
 import jnibwapi.Position;
 import jnibwapi.Unit;
 import jnibwapi.types.UnitType;
@@ -55,6 +57,10 @@ public class MapPerceiver extends Perceiver {
       }
     }
     
+    for (Player p : api.getEnemies()) {
+      percepts.add(new EnemyRacePercept(p.getRace().getName().toLowerCase()));
+    }
+
     for (BaseLocation location : map.getBaseLocations()) {
       int resourcegroup = -1;
       double distance = Integer.MAX_VALUE;
