@@ -17,7 +17,7 @@ public class ChokepointPercept extends Percept {
    * @param ypos
    *          The y coordinate of the chokepoint.
    */
-  public ChokepointPercept(int xpos, int ypos) {
-    super(Percepts.CHOKEPOINT, new Numeral(xpos), new Numeral(ypos));
+  public ChokepointPercept(int xpos, int ypos, int w) {
+    super(Percepts.CHOKEPOINT, new Numeral(xpos), new Numeral(ypos), new Numeral(w));
   }
 }
