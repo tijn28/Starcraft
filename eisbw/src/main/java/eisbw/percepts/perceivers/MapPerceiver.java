@@ -2,6 +2,7 @@ package eisbw.percepts.perceivers;
 
 import eis.eis2java.translation.Filter;
 import eis.iilang.Percept;
+import eisbw.UnitTypesEx;
 import eisbw.percepts.BasePercept;
 import eisbw.percepts.ChokepointPercept;
 import eisbw.percepts.MapPercept;
@@ -9,9 +10,14 @@ import eisbw.percepts.Percepts;
 import jnibwapi.BaseLocation;
 import jnibwapi.ChokePoint;
 import jnibwapi.JNIBWAPI;
+import jnibwapi.Position;
+import jnibwapi.Unit;
+import jnibwapi.types.UnitType;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 /**
@@ -38,9 +44,30 @@ public class MapPerceiver extends Perceiver {
     Percept mapPercept = new MapPercept(map.getSize().getBX(), map.getSize().getBY());
     percepts.add(mapPercept);
 
+    /** Distance calculation between resource groups and base location. **/
+    HashMap<Integer, Position> distanceMatrix = new HashMap<>();
+    for (Unit u : api.getNeutralUnits()) {
+      UnitType unitType = u.getType();
+      if (UnitTypesEx.isMineralField(unitType)) {
+        if(!distanceMatrix.containsKey(u.getResourceGroup())){
+          distanceMatrix.put(u.getResourceGroup(), u.getPosition());
+        }
+      }
+    }
+    
     for (BaseLocation location : map.getBaseLocations()) {
+      int resourcegroup = -1;
+      double distance = Integer.MAX_VALUE;
+      for(Entry<Integer, Position> resource : distanceMatrix.entrySet()){
+        double newDist = resource.getValue().getBDistance(location.getPosition());
+        if(newDist < distance){
+          resourcegroup = resource.getKey();
+          distance = newDist;
+        }
+      }
+      
       Percept basePercept = new BasePercept(location.getPosition().getBX(),
-          location.getPosition().getBY(), location.isStartLocation(), location.getRegion().getID());
+          location.getPosition().getBY(), location.isStartLocation(), resourcegroup);
       percepts.add(basePercept);
     }
 
