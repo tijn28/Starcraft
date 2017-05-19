@@ -224,8 +224,8 @@ This section will list all the percepts that are usable in the StarCraft environ
 \begin{tabularx}{\textwidth}{lX}
  Description & All the chokepoints on the map. These are the narrow points on the map where only a limited amount of units can go through at the same time.  \\
  Type & Send once \\
- Syntax & \verb|chokepoint(<X>,<Y>)| \\
- Example & \verb|chokepoint(12, 15)| \\
+ Syntax & \verb|chokepoint(<X>,<Y>,<W>)| \\
+ Example & \verb|chokepoint(12, 15, 50)| \\
  \end{tabularx}
  \begin{tabularx}{\textwidth}{l | c | p{8cm}|}
  \cline{2-3}
@@ -234,6 +234,10 @@ This section will list all the percepts that are usable in the StarCraft environ
             & \textbf{Range} & [0--$\infty$] \\
             \cline{2-3}
             & \textbf{\verb|<Y>|} & The y-coordinate of the chokepoint.\\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--$\infty$] \\
+            \cline{2-3}
+            & \textbf{\verb|<W>|} & The size of the chokepoint (in pixels).\\
             & \textbf{Type} & \verb|Positive Integer| \\
             & \textbf{Range} & [0--$\infty$] \\
             \cline{2-3}
