@@ -7,7 +7,8 @@ This section will list all the actions that are usable in the Starcraft environm
  Syntax & \verb|attack(<TargetID>)| \\
  Parameters & \verb|<TargetID>|: The \textit{ID} of the target that will be attacked.\\
  Pre & The targeted unit is attack capable. \\
- Post &  The targeted unit is being attacked by your unit.
+ Post &  The targeted unit is being attacked by your unit.\\
+ Note &  Medics that use this action on a friendly unit will heal them. Medics cannot attack enemies.
 \end{tabularx}
 
 \section{Move action}
@@ -82,7 +83,8 @@ This section will list all the actions that are usable in the Starcraft environm
  Syntax & \verb|ability(<Type>)| \\
  Parameters & \verb|<Type>|: The type of technology to use.\\
  Pre & The chosen tech type is researched and the unit is capable of performing the chosen tech type. \\
- Post & The unit performs the chosen tech ability.
+ Post & The unit performs the chosen tech ability.\\
+ Note & In game behaviour that can be toggled on and off such as Burrow/Cloak/Siege is also executed by using this action.
 \end{tabularx}
 
 \section{Ability on target action}
@@ -205,8 +207,37 @@ This section will list all the actions that are usable in the Starcraft environm
  Parameters & \verb|<X>|: The x-coordinate of the chosen location \\
             &  \verb|<Y>|: The y-coordinate of the chosen location \\
  Pre & The unit is capable of moving to the chosen location. \\
- Post & The unit patrols between the chosen location (ignoring any other unit it might pass by) and the location it was originally standing.
+ Post & The unit patrols between the chosen location (ignoring any other unit it might pass by) and the location it was originally standing.\\
+ Note & Medics that are patrolling will automatically heal allies in range.
 \end{tabularx}
+
+\section{Morph action (Zerg only)}
+\begin{tabularx}{\textwidth}{lX}
+ Desription & Morphs a zerg unit into the another unit. \\
+ Syntax & \verb|morph(<Type>)| \\
+ Parameters & \verb|<Type>|: The type of unit to morph.\\
+ Pre & The unit is capable of morphing into another unit and does have to resources to do so. \\
+ Post & The agent terminates and a new agent is created for the new unit.
+\end{tabularx}
+
+\section{Follow action}
+\begin{tabularx}{\textwidth}{lX}
+ Description & Follows a unit. \\
+ Syntax & \verb|follow(<Id>)| \\
+ Parameters & \verb|<Id>|: The Id of the unit to follow. \\
+ Pre & The unit is capable of moving. \\
+ Post & The unit follows the selected unit.
+\end{tabularx}
+
+\section{Repair action (Terran only)}
+\begin{tabularx}{\textwidth}{lX}
+ Description & Repairs a unit with less than the max amount of health. \\
+ Syntax & \verb|repair(<Id>)| \\
+ Parameters & \verb|<Id>|: The Id of the unit to repair. \\
+ Pre & The unit is a SCV, has the resources to repair and can reach the unit to repair. \\
+ Post & The SCV starts repairing the selected unit.
+\end{tabularx}
+
 
 %Kweet niet of ik deze action wil houden
 %\section{RightClick action}
