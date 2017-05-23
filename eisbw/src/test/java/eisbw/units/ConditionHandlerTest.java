@@ -3,16 +3,16 @@ package eisbw.units;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Player;
 import jnibwapi.Unit;
 import jnibwapi.types.RaceType.RaceTypes;
 import jnibwapi.types.UnitType;
-
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 
 public class ConditionHandlerTest {
 
@@ -37,6 +37,7 @@ public class ConditionHandlerTest {
     when(self.getRace()).thenReturn(RaceTypes.None);
 
     when(api.getSelf()).thenReturn(self);
+    when(unitType.getRaceID()).thenReturn(RaceTypes.Terran.getID());
     when(unit.getType()).thenReturn(unitType);
     when(unitType.getName()).thenReturn("name");
     when(unit.getID()).thenReturn(0);
@@ -255,7 +256,7 @@ public class ConditionHandlerTest {
     when(unit.isLifted()).thenReturn(true);
     when(unit.getAddon()).thenReturn(unit);
 
-    assertEquals(0, handler.getConditions().size());
+    assertEquals(2, handler.getConditions().size());
 
     when(self.getRace()).thenReturn(RaceTypes.Terran);
 

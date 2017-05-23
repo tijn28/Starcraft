@@ -236,10 +236,10 @@ public class ConditionHandler {
 
     setGenericConditions(conditions);
 
-    if (api.getSelf().getRace().getID() == RaceTypes.Terran.getID()) {
+    if (unit.getType().getRaceID() == RaceTypes.Terran.getID()) {
       setTerranConditions(conditions);
     }
-
+   
     if (unit.getType().isWorker()) {
       setWorkerConditions(conditions);
     }
