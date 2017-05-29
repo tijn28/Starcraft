@@ -77,7 +77,8 @@ public class MapPerceiverTest {
     LinkedList<ChokePoint> locs = new LinkedList<ChokePoint>();
     locs.add(chokepoint);
     when(map.getChokePoints()).thenReturn(locs);
-    when(chokepoint.getCenter()).thenReturn(new Position(5, 6, PosType.BUILD));
+    when(chokepoint.getFirstSide()).thenReturn(new Position(5, 6, PosType.BUILD));
+    when(chokepoint.getSecondSide()).thenReturn(new Position(6, 7, PosType.BUILD));
 
     Map<PerceptFilter, Set<Percept>> ret = new HashMap<>();
     assertFalse(perciever.perceive(ret).isEmpty());
