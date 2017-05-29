@@ -78,7 +78,9 @@ public class MapPerceiver extends Perceiver {
     }
 
     for (ChokePoint cp : map.getChokePoints()) {
-      Percept chokePercept = new ChokepointPercept(cp.getCenter().getBX(), cp.getCenter().getBY(), (int) cp.getRadius());
+    	Percept chokePercept = new ChokepointPercept(cp.getFirstSide().getBX(), cp.getFirstSide().getBY(), 
+    			cp.getSecondSide().getBX(), cp.getSecondSide().getBY());
+      //Percept chokePercept = new ChokepointPercept(cp.getCenter().getBX(), cp.getCenter().getBY(), (int) cp.getRadius());
       percepts.add(chokePercept);
     }
     toReturn.put(new PerceptFilter(Percepts.MAP, Filter.Type.ONCE), percepts);
