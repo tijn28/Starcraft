@@ -2,6 +2,7 @@ package eisbw.percepts.perceivers;
 
 import eis.eis2java.translation.Filter;
 import eis.iilang.Percept;
+import eisbw.BwapiUtility;
 import eisbw.percepts.DefensiveMatrixPercept;
 import eisbw.percepts.Percepts;
 import eisbw.percepts.ResourcesPercept;
@@ -74,7 +75,7 @@ public class GenericUnitPerceiver extends UnitPerceiver {
 		Set<Percept> percepts = new HashSet<>();
 		UnitType type = unit.getType();
 
-		percepts.add(new SelfPercept(unit.getID(), type.getName(), type.getMaxHitPoints(), type.getMaxShields(),
+		percepts.add(new SelfPercept(unit.getID(), BwapiUtility.getUnitType(unit), type.getMaxHitPoints(), type.getMaxShields(),
 				type.getMaxEnergy()));
 
 		toReturn.put(new PerceptFilter(Percepts.SELF, Filter.Type.ONCE), percepts);

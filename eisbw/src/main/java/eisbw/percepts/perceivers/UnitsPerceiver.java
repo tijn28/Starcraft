@@ -4,6 +4,7 @@ import eis.eis2java.translation.Filter;
 //import eis.iilang.Identifier;
 //import eis.iilang.Parameter;
 import eis.iilang.Percept;
+import eisbw.BwapiUtility;
 import eisbw.percepts.Attacking;
 import eisbw.percepts.Percepts;
 import eisbw.units.ConditionHandler;
@@ -60,7 +61,7 @@ public class UnitsPerceiver extends Perceiver {
 			ConditionHandler conditionHandler = new ConditionHandler(api, u);
 
 			if (!isFriendly) {
-				unitpercepts.add(new EnemyPercept(u.getType().getName(), u.getID(), u.getHitPoints(), u.getShields(),
+				unitpercepts.add(new EnemyPercept(BwapiUtility.getUnitType(u), u.getID(), u.getHitPoints(), u.getShields(),
 						conditionHandler.getConditions(), u.getPosition().getBX(), u.getPosition().getBY()));
 
 				if (u.getType().isAttackCapable()) {
@@ -76,7 +77,7 @@ public class UnitsPerceiver extends Perceiver {
 							conditionHandler.getConditions()));
 				else
 					unitpercepts.add(
-							new FriendlyPercept(u.getType().getName(), u.getID(), conditionHandler.getConditions()));
+							new FriendlyPercept(BwapiUtility.getUnitType(u), u.getID(), conditionHandler.getConditions()));
 			}
 		}
 	}

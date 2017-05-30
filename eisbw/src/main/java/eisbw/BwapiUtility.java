@@ -36,6 +36,15 @@ public class BwapiUtility {
     name = name.substring(0, 1).toLowerCase() + name.substring(1);
     return name;
   }
+  
+  public static String getUnitType(Unit unit){
+    String type = unit.getType().getName();
+    if(type.length() <= 17) return type;
+    if ("Terran Siege Tank".equals(type.substring(0, 17))) {
+      return "Terran Siege Tank";
+    }
+    return type;
+  }
 
   /**
    * Get the EIS unittype of a unit.
