@@ -9,6 +9,7 @@ import jnibwapi.JNIBWAPI;
 import jnibwapi.Position;
 import jnibwapi.Unit;
 import jnibwapi.types.RaceType.RaceTypes;
+import jnibwapi.types.UnitType.UnitTypes;
 import jnibwapi.types.UnitType;
 
 import java.awt.Point;
@@ -93,15 +94,18 @@ public class ConstructionSitePerceiver extends Perceiver {
    */
   private void perceiveZerg(Position pos, int xpos, int ypos, List<Point> illegals,
       Set<Percept> percepts) {
+	// check if you can actually build here as zerg
+	if(api.canBuildHere(pos, UnitTypes.Zerg_Hatchery, true)){
+	  boolean legal = checkConstructionSite(xpos, ypos, illegals);
+		
+	  if(api.canBuildHere(pos, UnitTypes.Zerg_Defiler_Mound, true) && legal){
+		  percepts.add(new ConstructionSitePercept(xpos, ypos, true));
+	  } else if(legal){
+		  percepts.add(new ConstructionSitePercept(xpos, ypos, false));
+	  }
 
-    // check if you can actually build here as zerg
-    if (
-    		//api.canBuildHere(pos, UnitType.UnitTypes.Zerg_Hatchery, true) 
-    	//&& 
-    	api.canBuildHere(pos, UnitType.UnitTypes.Zerg_Defiler_Mound, true)
-        && checkConstructionSite(xpos, ypos, illegals)) {
-      percepts.add(new ConstructionSitePercept(xpos, ypos));
-    }
+	}
+	
   }
 
   /**
@@ -124,7 +128,7 @@ public class ConstructionSitePerceiver extends Perceiver {
       // place
       boolean legal = checkConstructionSite(xpos, ypos, illegals);
       boolean nearPylon = api.canBuildHere(pos, UnitType.UnitTypes.Protoss_Gateway, true);
-      if (legal && nearPylon) {
+      if (nearPylon && legal) {
         percepts.add(new ConstructionSitePercept(xpos, ypos, true));
       } else if (legal) {
         percepts.add(new ConstructionSitePercept(xpos, ypos, false));
