@@ -8,7 +8,6 @@ import eis.iilang.Percept;
  *
  */
 public class GameSpeedPercept extends Percept {
-
 	private static final long serialVersionUID = 1L;
 
 	/**

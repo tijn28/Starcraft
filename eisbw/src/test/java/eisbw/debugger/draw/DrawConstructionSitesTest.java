@@ -13,8 +13,6 @@ import eis.iilang.Percept;
 import eis.iilang.TruthValue;
 import eisbw.Game;
 import jnibwapi.JNIBWAPI;
-import jnibwapi.Position;
-import jnibwapi.util.BWColor;
 
 import org.junit.Before;
 import org.junit.Test;

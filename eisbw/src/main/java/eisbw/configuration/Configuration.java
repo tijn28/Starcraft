@@ -13,7 +13,6 @@ import java.util.Map.Entry;
  *
  */
 public class Configuration {
-
 	protected RaceString ownRace = null;
 	protected RaceString enemyRace = new RaceString("random");
 	protected String map = null;
@@ -102,7 +101,7 @@ public class Configuration {
 	private void setOwnRace(RaceString race) {
 		this.ownRace = race;
 	}
-	
+
 	public BooleanString getInvulnerable() {
 		return invulnerable;
 	}

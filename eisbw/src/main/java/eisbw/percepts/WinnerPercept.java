@@ -7,16 +7,12 @@ import eis.iilang.Percept;
  *
  */
 public class WinnerPercept extends Percept {
+	private static final long serialVersionUID = 1L;
 
-  private static final long serialVersionUID = 1L;
-
-  /**
-   * The WorkerActivityPercept constructor.
-   * 
-   * @param hasWon
-   *          Indicates whether the player has won or not.
-   */
-  public WinnerPercept() {
-    super(Percepts.WINNER);
-  }
+	/**
+	 * The WinnerPercept constructor.
+	 */
+	public WinnerPercept() {
+		super(Percepts.WINNER);
+	}
 }

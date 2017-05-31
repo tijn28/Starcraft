@@ -1,6 +1,6 @@
 package eisbw.constants;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -8,31 +8,29 @@ import java.util.List;
  *
  */
 public class Races {
+	private static List<String> raceNames;
 
-  private static List<String> raceNames;
+	private Races() {
+		// Static class.
+	}
 
-  private Races() {
-    // Static class.
-  }
-
-  /**
-   * Get a list from all racenames
-   * 
-   * @return racenames.
-   */
-  public static List<String> getRaceList() {
-    if (raceNames == null) {
-      raceNames = new ArrayList<>(7);
-      raceNames.add("terran");
-      raceNames.add("protoss");
-      raceNames.add("zerg");
-      raceNames.add("random");
-      raceNames.add("randomtp");
-      raceNames.add("randomtz");
-      raceNames.add("randompz");
-      raceNames.add("test");
-    }
-    return raceNames;
-  }
-
+	/**
+	 * Get a list from all racenames
+	 * 
+	 * @return racenames.
+	 */
+	public static List<String> getRaceList() {
+		if (raceNames == null) {
+			raceNames = new LinkedList<>();
+			raceNames.add("terran");
+			raceNames.add("protoss");
+			raceNames.add("zerg");
+			raceNames.add("random");
+			raceNames.add("randomtp");
+			raceNames.add("randomtz");
+			raceNames.add("randompz");
+			raceNames.add("test");
+		}
+		return raceNames;
+	}
 }

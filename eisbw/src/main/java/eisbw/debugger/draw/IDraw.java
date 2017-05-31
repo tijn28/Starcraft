@@ -13,46 +13,45 @@ import java.util.logging.Logger;
  *
  */
 public abstract class IDraw {
+	protected Logger logger = Logger.getLogger("StarCraft Logger"); // overriden in test
 
-  protected Logger logger = Logger.getLogger("StarCraft Logger");
+	protected final Game game;
+	protected boolean toggle = false;
 
-  protected boolean toggle = false;
-  protected Game game;
+	/**
+	 * The IDraw constructor.
+	 * 
+	 * @param game
+	 *            the current game.
+	 */
+	public IDraw(Game game) {
+		this.game = game;
+	}
 
-  /**
-   * The IDraw constructor.
-   * 
-   * @param game
-   *          the current game.
-   */
-  public IDraw(Game game) {
-    this.game = game;
-  }
+	protected abstract void drawOnMap(JNIBWAPI api) throws TranslationException;
 
-  protected abstract void drawOnMap(JNIBWAPI api) throws TranslationException;
+	/**
+	 * Draw on the map.
+	 * 
+	 * @param api
+	 *            - the StarCraft API.
+	 */
+	public void draw(JNIBWAPI api) {
+		if (toggle) {
+			try {
+				drawOnMap(api);
+			} catch (NoTranslatorException exception) {
+				logger.log(Level.WARNING, "No translator in draw function", exception);
+			} catch (TranslationException exception) {
+				logger.log(Level.WARNING, "Cannot translate in draw function", exception);
+			}
+		}
+	}
 
-  /**
-   * Draw on the map.
-   * 
-   * @param api
-   *          - the StarCraft API.
-   */
-  public void draw(JNIBWAPI api) {
-    if (toggle) {
-      try {
-        drawOnMap(api);
-      } catch (NoTranslatorException exception) {
-        logger.log(Level.WARNING, "No translator in draw function", exception);
-      } catch (TranslationException exception) {
-        logger.log(Level.WARNING, "Cannot translate in draw function", exception);
-      }
-    }
-  }
-
-  /**
-   * Handles the toggling of the drawing.
-   */
-  public void toggle() {
-    toggle = !toggle;
-  }
+	/**
+	 * Handles the toggling of the drawing.
+	 */
+	public void toggle() {
+		toggle = !toggle;
+	}
 }

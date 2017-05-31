@@ -10,25 +10,25 @@ import jnibwapi.Unit;
  *
  */
 public class Load extends StarcraftLoadingAction {
+	/**
+	 * The Load constructor.
+	 * 
+	 * @param api
+	 *            The BWAPI
+	 */
+	public Load(JNIBWAPI api) {
+		super(api);
+	}
 
-  /**
-   * The Load constructor.
-   * 
-   * @param api
-   *          The BWAPI
-   */
-  public Load(JNIBWAPI api) {
-    super(api);
-  }
+	@Override
+	public void execute(Unit unit, Action action) {
+		Unit target = api.getUnit(((Numeral) action.getParameters().get(0)).getValue().intValue());
 
-  @Override
-  public void execute(Unit unit, Action action) {
-    Unit target = api.getUnit(((Numeral) action.getParameters().get(0)).getValue().intValue());
-    unit.load(target, false);
-  }
+		unit.load(target, false);
+	}
 
-  @Override
-  public String toString() {
-    return "load(targetID)";
-  }
+	@Override
+	public String toString() {
+		return "load(targetID)";
+	}
 }

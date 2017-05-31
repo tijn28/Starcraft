@@ -1,22 +1,21 @@
 package eisbw.actions;
 
+import java.util.List;
+
 import eis.iilang.Action;
 import eis.iilang.Parameter;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Unit;
-import jnibwapi.types.TechType;
 import jnibwapi.types.RaceType.RaceTypes;
-
-import java.util.LinkedList;
+import jnibwapi.types.TechType;
 
 /**
  * @author Danny & Harm - Cancels the training of a specified unit.
  *
  */
 public class Cancel extends StarcraftAction {
-
 	/**
-	 * The Train constructor.
+	 * The Cancel constructor.
 	 * 
 	 * @param api
 	 *            The BWAPI
@@ -27,7 +26,7 @@ public class Cancel extends StarcraftAction {
 
 	@Override
 	public boolean isValid(Action action) {
-		LinkedList<Parameter> parameters = action.getParameters();
+		List<Parameter> parameters = action.getParameters();
 		return parameters.isEmpty();
 	}
 
@@ -46,10 +45,8 @@ public class Cancel extends StarcraftAction {
 			unit.cancelUpgrade();
 		} else if (unit.isTraining()) {
 			unit.cancelTrain();
-		} else if (unit.getTech() != null) {
-			if (!unit.getTech().equals(TechType.TechTypes.None)) {
-				unit.cancelResearch();
-			}
+		} else if (unit.getTech() != null && !TechType.TechTypes.None.equals(unit.getTech())) {
+			unit.cancelResearch();
 		}
 	}
 

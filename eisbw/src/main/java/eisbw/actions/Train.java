@@ -1,5 +1,7 @@
 package eisbw.actions;
 
+import java.util.List;
+
 import eis.iilang.Action;
 import eis.iilang.Identifier;
 import eis.iilang.Parameter;
@@ -7,14 +9,11 @@ import jnibwapi.JNIBWAPI;
 import jnibwapi.Unit;
 import jnibwapi.types.UnitType;
 
-import java.util.LinkedList;
-
 /**
  * @author Danny & Harm - Trains a specified unit from a production facility.
  *
  */
 public class Train extends StarcraftAction {
-
   /**
    * The Train constructor.
    * 
@@ -27,12 +26,9 @@ public class Train extends StarcraftAction {
 
   @Override
   public boolean isValid(Action action) {
-    LinkedList<Parameter> parameters = action.getParameters();
-    if (parameters.size() == 1) {
-      return parameters.get(0) instanceof Identifier
+    List<Parameter> parameters = action.getParameters();
+     return parameters.size() == 1 && parameters.get(0) instanceof Identifier
           && getUnitType(((Identifier) parameters.get(0)).getValue()) != null;
-    }
-    return false;
   }
 
   @Override
@@ -42,13 +38,12 @@ public class Train extends StarcraftAction {
 
   @Override
   public void execute(Unit unit, Action action) {
-    LinkedList<Parameter> parameters = action.getParameters();
-    UnitType unitType = null;
+    List<Parameter> parameters = action.getParameters();
     String tobuild = ((Identifier) parameters.get(0)).getValue();
-    if (tobuild.equals("Terran Siege Tank")) {
+    if ("Terran Siege Tank".equals(tobuild)) {
       tobuild = "Terran Siege Tank Tank Mode";
     }
-    unitType = getUnitType(tobuild);
+    UnitType unitType = getUnitType(tobuild);
 
     unit.train(unitType);
   }

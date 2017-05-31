@@ -8,20 +8,19 @@ import eis.iilang.Percept;
  *
  */
 public class Attacking extends Percept {
+	private static final long serialVersionUID = 1L;
 
-  private static final long serialVersionUID = 1L;
-
-  /**
-   * @param unit
-   *          The which is attacking.
-   * @param targetUnit
-   *          The unit which is being attacked.
-   * @param xpos
-   *          The x coordinate of the unit.
-   * @param ypos
-   *          The y coordinate of the unit.
-   */
-  public Attacking(int unit, int targetUnit) {
-    super(Percepts.ATTACKING, new Numeral(unit), new Numeral(targetUnit));
-  }
+	/**
+	 * @param unit
+	 *            The which is attacking.
+	 * @param targetUnit
+	 *            The unit which is being attacked.
+	 * @param xpos
+	 *            The x coordinate of the unit.
+	 * @param ypos
+	 *            The y coordinate of the unit.
+	 */
+	public Attacking(int unit, int targetUnit) {
+		super(Percepts.ATTACKING, new Numeral(unit), new Numeral(targetUnit));
+	}
 }

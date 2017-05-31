@@ -7,14 +7,13 @@ import jnibwapi.JNIBWAPI;
  *
  */
 public abstract class Perceiver implements IPerceiver {
+	protected final JNIBWAPI api;
 
-  protected final JNIBWAPI api;
-
-  /**
-   * @param api
-   *          The BWAPI.
-   */
-  public Perceiver(JNIBWAPI api) {
-    this.api = api;
-  }
+	/**
+	 * @param api
+	 *            The BWAPI.
+	 */
+	public Perceiver(JNIBWAPI api) {
+		this.api = api;
+	}
 }

@@ -8,23 +8,21 @@ import eis.iilang.Percept;
  *
  */
 public class ResourcesPercept extends Percept {
+	private static final long serialVersionUID = 1L;
 
-  private static final long serialVersionUID = 1L;
-
-  /**
-   * The ResourcesPercept constructor.
-   * 
-   * @param minerals
-   *          The amount of collected minerals.
-   * @param gas
-   *          The amount of collected gas.
-   * @param csupply
-   *          The current amount of supply.
-   * @param tsupply
-   *          The total amount of supply.
-   */
-  public ResourcesPercept(int minerals, int gas, int csupply, int tsupply) {
-    super(Percepts.RESOURCES, new Numeral(minerals), new Numeral(gas), new Numeral(csupply),
-        new Numeral(tsupply));
-  }
+	/**
+	 * The ResourcesPercept constructor.
+	 * 
+	 * @param minerals
+	 *            The amount of collected minerals.
+	 * @param gas
+	 *            The amount of collected gas.
+	 * @param csupply
+	 *            The current amount of supply.
+	 * @param tsupply
+	 *            The total amount of supply.
+	 */
+	public ResourcesPercept(int minerals, int gas, int csupply, int tsupply) {
+		super(Percepts.RESOURCES, new Numeral(minerals), new Numeral(gas), new Numeral(csupply), new Numeral(tsupply));
+	}
 }
