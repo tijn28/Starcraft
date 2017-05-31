@@ -36,34 +36,41 @@ public class UpdateThread extends Thread {
 	 * Terminate the thread.
 	 */
 	public void terminate() {
-		running = false;
+		synchronized (this) {
+			running = false;
+			notifyAll();
+		}
 	}
 
 	@Override
 	public void run() {
 		Thread.currentThread().setName("Update thread");
-		while (running) {
-			update();
-			try {
-				Thread.sleep(5);
-			} catch (InterruptedException ex) {
-				Thread.currentThread().interrupt();
+		synchronized (this) {
+			while (running) {
+				update();
+				try {
+					wait();
+				} catch (InterruptedException ex) {
+					break;
+				}
 			}
 		}
 	}
 
 	protected void update() {
 		game.update(bwapi);
-		List<Unit> toAdd = new LinkedList<>();
-		while (!units.getUninitializedUnits().isEmpty()) {
-			Unit unit = units.getUninitializedUnits().poll();
-			String unitName = BwapiUtility.getUnitName(unit);
-			if (game.isInitialized(unitName)) {
-				game.getEnvironment().addToEnvironment(unitName, BwapiUtility.getEisUnitType(unit));
-			} else {
-				toAdd.add(unit);
+		if (units.getUninitializedUnits() != null) {
+			List<Unit> toAdd = new LinkedList<>();
+			Unit unit;
+			while ((unit = units.getUninitializedUnits().poll()) != null) {
+				String unitName = BwapiUtility.getUnitName(unit);
+				if (game.isInitialized(unitName)) {
+					game.getEnvironment().addToEnvironment(unitName, BwapiUtility.getEisUnitType(unit));
+				} else {
+					toAdd.add(unit);
+				}
 			}
+			units.getUninitializedUnits().addAll(toAdd);
 		}
-		units.getUninitializedUnits().addAll(toAdd);
 	}
 }

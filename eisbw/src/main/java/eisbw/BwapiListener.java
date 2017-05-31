@@ -109,6 +109,12 @@ public class BwapiListener extends BwapiEvents {
 			count = 0;
 		}
 		count++;
+
+		if (this.updateThread != null) {
+			synchronized (this.updateThread) {
+				this.updateThread.notifyAll();
+			}
+		}
 	}
 
 	@Override
