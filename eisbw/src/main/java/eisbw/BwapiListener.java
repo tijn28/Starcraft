@@ -1,14 +1,11 @@
 package eisbw;
 
 import java.io.File;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.concurrent.BlockingQueue;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import com.hybhub.util.concurrent.ConcurrentSetBlockingQueue;
 
 import eis.exceptions.ActException;
 import eis.iilang.Action;
@@ -30,7 +27,7 @@ public class BwapiListener extends BwapiEvents {
 	protected JNIBWAPI bwapi;
 	protected Game game;
 	protected ActionProvider actionProvider;
-	protected BlockingQueue<BwapiAction> pendingActions;
+	protected Map<Unit,Action> pendingActions;
 	protected StarcraftUnitFactory factory;
 	protected UpdateThread updateThread;
 	protected boolean debugmode;
@@ -53,7 +50,7 @@ public class BwapiListener extends BwapiEvents {
 		this.game = game;
 		actionProvider = new ActionProvider();
 		actionProvider.loadActions(bwapi);
-		pendingActions = new ConcurrentSetBlockingQueue<>();
+		pendingActions = new ConcurrentHashMap<>();
 		factory = new StarcraftUnitFactory(bwapi);
 		this.debugmode = debugmode;
 		this.invulnerable = invulnerable;
@@ -97,12 +94,8 @@ public class BwapiListener extends BwapiEvents {
 
 	@Override
 	public void matchFrame() {
-		List<BwapiAction> actions = new LinkedList<>();
-		pendingActions.drainTo(actions);
-		for (BwapiAction action : actions) {
-			Unit unit = action.getUnit();
-			Action act = action.getAction();
-
+		for(final Unit unit : pendingActions.keySet()) {
+			Action act = pendingActions.remove(unit);
 			StarcraftAction scaction = getAction(act);
 			scaction.execute(unit, act);
 		}
@@ -212,7 +205,7 @@ public class BwapiListener extends BwapiEvents {
 		StarcraftAction action = getAction(act);
 		// Action might be invalid
 		if (action.isValid(act) && isSupportedByEntity(act, name)) {
-			pendingActions.offer(new BwapiAction(unit, act));
+			pendingActions.put(unit, act);
 		} else {
 			logger.log(Level.WARNING, "The Entity: " + name + " is not able to perform the action: " + act.getName());
 		}
