@@ -126,16 +126,15 @@ public class ConstructionSitePerceiver extends Perceiver {
 			}
 		}
 
-		int rtype = api.getSelf().getRace().getID();
 		for (int x = 0; x < mapWidth; x += 3) {
 			for (int y = 0; y < mapHeight; y += 3) {
 				Position pos = new Position(x, y, Position.PosType.BUILD);
 				if (map.isBuildable(pos)) {
-					if (rtype == RaceTypes.Terran.getID()) {
+					if (api.getSelf().getRace().getID() == RaceTypes.Terran.getID()) {
 						perceiveTerran(pos, x, y, illegals, percepts);
-					} else if (rtype == RaceTypes.Zerg.getID()) {
+					} else if (api.getSelf().getRace().getID() == RaceTypes.Zerg.getID()) {
 						perceiveZerg(pos, x, y, illegals, percepts);
-					} else if (rtype == RaceTypes.Protoss.getID()) {
+					} else if (api.getSelf().getRace().getID() == RaceTypes.Protoss.getID()) {
 						perceiveProtosss(pos, x, y, illegals, percepts);
 					}
 				}

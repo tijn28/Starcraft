@@ -23,16 +23,16 @@ import jnibwapi.types.UnitType.UnitTypes;
  * 
  */
 public class BwapiListener extends BwapiEvents {
-	protected Logger logger = Logger.getLogger("StarCraft Logger");
-	protected JNIBWAPI bwapi;
-	protected Game game;
-	protected ActionProvider actionProvider;
-	protected Map<Unit,Action> pendingActions;
-	protected StarcraftUnitFactory factory;
+	protected final Logger logger = Logger.getLogger("StarCraft Logger");
+	protected JNIBWAPI bwapi; // overriden in test
+	protected final Game game;
+	protected final ActionProvider actionProvider;
+	protected final Map<Unit, Action> pendingActions;
+	protected final StarcraftUnitFactory factory;
+	protected final boolean debugmode;
+	protected final boolean invulnerable;
+	protected final int speed;
 	protected UpdateThread updateThread;
-	protected boolean debugmode;
-	protected boolean invulnerable;
-	protected int speed;
 	protected int count = 0;
 	protected DebugWindow debug;
 
@@ -94,10 +94,10 @@ public class BwapiListener extends BwapiEvents {
 
 	@Override
 	public void matchFrame() {
-		for(final Unit unit : pendingActions.keySet()) {
+		for (final Unit unit : pendingActions.keySet()) {
 			Action act = pendingActions.remove(unit);
-			StarcraftAction scaction = getAction(act);
-			scaction.execute(unit, act);
+			StarcraftAction action = getAction(act);
+			action.execute(unit, act);
 		}
 
 		if (debug != null) {
