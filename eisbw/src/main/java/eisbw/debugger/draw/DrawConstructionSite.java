@@ -8,6 +8,7 @@ import eisbw.Game;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Position;
 import jnibwapi.Position.PosType;
+import jnibwapi.types.RaceType.RaceTypes;
 import jnibwapi.util.BWColor;
 
 import java.util.LinkedList;
@@ -38,8 +39,18 @@ public class DrawConstructionSite extends IDraw {
       LinkedList<Parameter> params = percept.getParameters();
       int xpos = translator.translate2Java(params.get(0), Integer.class);
       int ypos = translator.translate2Java(params.get(1), Integer.class);
-      api.drawBox(new Position(xpos, ypos, PosType.BUILD),
+      if(api.getSelf().getRace().getID() == RaceTypes.Terran.getID()){
+    	  api.drawBox(new Position(xpos, ypos, PosType.BUILD),
           new Position(xpos + 3, ypos + 3, PosType.BUILD), BWColor.Blue, false, false);
+      } else {
+    	  boolean bool = translator.translate2Java(params.get(2), Boolean.class);
+    	  if(bool)
+    		  api.drawBox(new Position(xpos, ypos, PosType.BUILD),
+    	          new Position(xpos + 3, ypos + 3, PosType.BUILD), BWColor.Blue, false, false);
+    	  else
+    		  api.drawBox(new Position(xpos, ypos, PosType.BUILD),
+        	          new Position(xpos + 3, ypos + 3, PosType.BUILD), BWColor.Red, false, false);
+      }
     }
   }
 
