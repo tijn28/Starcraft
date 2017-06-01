@@ -10,23 +10,24 @@ import jnibwapi.Position.PosType;
  * @author Danny & Harm.
  */
 public class AgentCounter extends IDraw {
+	/**
+	 * initializes the agentcounter.
+	 * 
+	 * @param game
+	 *            - the game object
+	 */
+	public AgentCounter(Game game) {
+		super(game);
+		toggle();
+	}
 
-  /**
-   * initializes the agentcounter.
-   * @param game - the game object
-   */
-  public AgentCounter(Game game) {
-    super(game);
-    toggle();
-  }
+	@Override
+	protected void drawOnMap(JNIBWAPI api) throws TranslationException {
+		api.drawText(new Position(10, 10, PosType.PIXEL), "Agentcount: " + game.getAgentCount(), true);
+	}
 
-  @Override
-  protected void drawOnMap(JNIBWAPI api) throws TranslationException {
-    api.drawText(new Position(10, 10, PosType.PIXEL), "Agentcount: " + game.getAgentCount(), true);
-  }
-
-  @Override
-  public void toggle() {
-    toggle = true;
-  }
+	@Override
+	public void toggle() {
+		toggle = true;
+	}
 }

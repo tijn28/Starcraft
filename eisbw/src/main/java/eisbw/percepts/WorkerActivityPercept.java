@@ -8,16 +8,15 @@ import eis.iilang.Percept;
  *
  */
 public class WorkerActivityPercept extends Percept {
+	private static final long serialVersionUID = 1L;
 
-  private static final long serialVersionUID = 1L;
-
-  /**
-   * The WorkerActivityPercept constructor.
-   * 
-   * @param activity
-   *          The current activity of the worker unit.
-   */
-  public WorkerActivityPercept(String activity) {
-    super(Percepts.WORKERACTIVITY, new Identifier(activity));
-  }
+	/**
+	 * The WorkerActivityPercept constructor.
+	 * 
+	 * @param activity
+	 *            The current activity of the worker unit.
+	 */
+	public WorkerActivityPercept(String activity) {
+		super(Percepts.WORKERACTIVITY, new Identifier(activity));
+	}
 }

@@ -20,38 +20,36 @@ import java.util.List;
  *
  */
 public class DrawConstructionSite extends IDraw {
+	/**
+	 * The DrawConstructionSite constructor.
+	 * 
+	 * @param game
+	 *            The current game.
+	 */
+	public DrawConstructionSite(Game game) {
+		super(game);
+	}
 
-  /**
-   * The DrawConstructionSite constructor.
-   * 
-   * @param game
-   *          The current game.
-   */
-  public DrawConstructionSite(Game game) {
-    super(game);
-  }
-
-  @Override
-  protected void drawOnMap(JNIBWAPI api) throws TranslationException {
-    Translator translator = Translator.getInstance();
-    List<Percept> percepts = game.getConstructionSites();
-    for (Percept percept : percepts) {
-      LinkedList<Parameter> params = percept.getParameters();
-      int xpos = translator.translate2Java(params.get(0), Integer.class);
-      int ypos = translator.translate2Java(params.get(1), Integer.class);
-      if(api.getSelf().getRace().getID() == RaceTypes.Terran.getID()){
-    	  api.drawBox(new Position(xpos, ypos, PosType.BUILD),
-          new Position(xpos + 3, ypos + 3, PosType.BUILD), BWColor.Blue, false, false);
-      } else {
-    	  boolean bool = translator.translate2Java(params.get(2), Boolean.class);
-    	  if(bool)
-    		  api.drawBox(new Position(xpos, ypos, PosType.BUILD),
-    	          new Position(xpos + 3, ypos + 3, PosType.BUILD), BWColor.Blue, false, false);
-    	  else
-    		  api.drawBox(new Position(xpos, ypos, PosType.BUILD),
-        	          new Position(xpos + 3, ypos + 3, PosType.BUILD), BWColor.Red, false, false);
-      }
-    }
-  }
-
+	@Override
+	protected void drawOnMap(JNIBWAPI api) throws TranslationException {
+		Translator translator = Translator.getInstance();
+		List<Percept> percepts = game.getConstructionSites();
+		for (Percept percept : percepts) {
+			LinkedList<Parameter> params = percept.getParameters();
+			int xpos = translator.translate2Java(params.get(0), Integer.class);
+			int ypos = translator.translate2Java(params.get(1), Integer.class);
+			if (api.getSelf().getRace().getID() == RaceTypes.Terran.getID()) {
+				api.drawBox(new Position(xpos, ypos, PosType.BUILD), new Position(xpos + 3, ypos + 3, PosType.BUILD),
+						BWColor.Blue, false, false);
+			} else {
+				boolean bool = translator.translate2Java(params.get(2), Boolean.class);
+				if (bool)
+					api.drawBox(new Position(xpos, ypos, PosType.BUILD),
+							new Position(xpos + 3, ypos + 3, PosType.BUILD), BWColor.Blue, false, false);
+				else
+					api.drawBox(new Position(xpos, ypos, PosType.BUILD),
+							new Position(xpos + 3, ypos + 3, PosType.BUILD), BWColor.Red, false, false);
+			}
+		}
+	}
 }

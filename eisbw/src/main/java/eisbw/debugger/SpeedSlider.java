@@ -17,7 +17,6 @@ import javax.swing.event.ChangeListener;
  *
  */
 public class SpeedSlider extends JPanel {
-
 	private static final long serialVersionUID = 1L;
 
 	private int initialSpeed = 20;
@@ -25,7 +24,6 @@ public class SpeedSlider extends JPanel {
 	private int fastest = 0;
 
 	private boolean changed = false;
-
 	private int speed = initialSpeed;
 
 	/**

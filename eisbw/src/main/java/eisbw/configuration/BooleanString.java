@@ -5,19 +5,19 @@ package eisbw.configuration;
  *
  */
 public class BooleanString {
-  String data;
+	private final String data;
 
-  /**
-   * The BooleanString constructor.
-   * 
-   * @param data
-   *          The boolean string.
-   */
-  public BooleanString(String data) {
-    this.data = data;
-  }
+	/**
+	 * The BooleanString constructor.
+	 * 
+	 * @param data
+	 *            The boolean string.
+	 */
+	public BooleanString(String data) {
+		this.data = data;
+	}
 
-  public String getData() {
-    return data;
-  }
+	public String getData() {
+		return data;
+	}
 }

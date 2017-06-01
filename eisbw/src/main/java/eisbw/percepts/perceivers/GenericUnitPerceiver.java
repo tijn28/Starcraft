@@ -25,7 +25,6 @@ import java.util.Set;
  *
  */
 public class GenericUnitPerceiver extends UnitPerceiver {
-
 	/**
 	 * @param api
 	 *            The BWAPI.
@@ -38,12 +37,11 @@ public class GenericUnitPerceiver extends UnitPerceiver {
 
 	@Override
 	public Map<PerceptFilter, Set<Percept>> perceive(Map<PerceptFilter, Set<Percept>> toReturn) {
-
 		defenceMatrixPercept(toReturn);
 		resourcesPercept(toReturn);
 		selfPercept(toReturn);
 		statusPercept(toReturn);
-		
+
 		if (unit.getType().getSpaceProvided() > 0) {
 			List<Unit> loadedUnits = unit.getLoadedUnits();
 			spaceProvidedPercept(toReturn, loadedUnits);
@@ -75,8 +73,8 @@ public class GenericUnitPerceiver extends UnitPerceiver {
 		Set<Percept> percepts = new HashSet<>();
 		UnitType type = unit.getType();
 
-		percepts.add(new SelfPercept(unit.getID(), BwapiUtility.getUnitType(unit), type.getMaxHitPoints(), type.getMaxShields(),
-				type.getMaxEnergy()));
+		percepts.add(new SelfPercept(unit.getID(), BwapiUtility.getUnitType(unit), type.getMaxHitPoints(),
+				type.getMaxShields(), type.getMaxEnergy()));
 
 		toReturn.put(new PerceptFilter(Percepts.SELF, Filter.Type.ONCE), percepts);
 	}
@@ -107,12 +105,12 @@ public class GenericUnitPerceiver extends UnitPerceiver {
 
 		toReturn.put(new PerceptFilter(Percepts.DEFENSIVEMATRIX, Filter.Type.ALWAYS), percepts);
 	}
-	
+
 	/**
 	 * @param toReturn
 	 *            The percept and reference of which kind of percept it is.
 	 * @param loadedUnits
-	 * 			  The loaded units
+	 *            The loaded units
 	 */
 	private void unitLoadedPercept(Map<PerceptFilter, Set<Percept>> toReturn, List<Unit> loadedUnits) {
 		Set<Percept> percepts = new HashSet<>();
@@ -128,13 +126,11 @@ public class GenericUnitPerceiver extends UnitPerceiver {
 	 * @param toReturn
 	 *            The percept and reference of which kind of percept it is.
 	 * @param loadedUnits
-	 * 			  The loaded units
+	 *            The loaded units
 	 */
 	private void spaceProvidedPercept(Map<PerceptFilter, Set<Percept>> toReturn, List<Unit> loadedUnits) {
 		Set<Percept> percepts = new HashSet<>();
 		percepts.add(new SpaceProvidedPercept(loadedUnits.size(), unit.getType().getSpaceProvided()));
 		toReturn.put(new PerceptFilter(Percepts.SPACEPROVIDED, Filter.Type.ON_CHANGE), percepts);
 	}
-
-
 }

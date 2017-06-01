@@ -8,17 +8,15 @@ import eis.iilang.Percept;
  *
  */
 public class UpgradePercept extends Percept {
+	private static final long serialVersionUID = 1L;
 
-  private static final long serialVersionUID = 1L;
-
-  /**
-   * The UpgradePercept constructor.
-   * 
-   * @param upgrade
-   *          The name of the upgrade type.
-   */
-  public UpgradePercept(String upgrade) {
-    super(Percepts.UPGRADING, new Identifier(upgrade));
-  }
-
+	/**
+	 * The UpgradePercept constructor.
+	 * 
+	 * @param upgrade
+	 *            The name of the upgrade type.
+	 */
+	public UpgradePercept(String upgrade) {
+		super(Percepts.UPGRADING, new Identifier(upgrade));
+	}
 }

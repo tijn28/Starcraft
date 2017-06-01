@@ -14,7 +14,6 @@ import java.util.List;
  *
  */
 public class FriendlyPercept extends Percept {
-
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -36,5 +35,4 @@ public class FriendlyPercept extends Percept {
 	public FriendlyPercept(String type, int id, List<Parameter> conditions) {
 		super(Percepts.FRIENDLY, new Identifier(type), new Numeral(id), new ParameterList(conditions));
 	}
-
 }

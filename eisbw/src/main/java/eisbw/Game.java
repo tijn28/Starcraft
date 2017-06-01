@@ -27,16 +27,14 @@ import java.util.logging.Logger;
  *
  */
 public class Game {
-
 	protected volatile Map<String, Map<PerceptFilter, Set<Percept>>> percepts;
-	protected Units units;
-	protected boolean endGame;
+	protected Units units; // overriden in test
+	protected volatile boolean endGame;
 	protected volatile Map<PerceptFilter, Set<Percept>> constructionPercepts;
 	protected volatile Map<PerceptFilter, Set<Percept>> endGamePercepts;
-	protected StarcraftEnvironmentImpl env;
-
-	private Map<PerceptFilter, Set<Percept>> mapPercepts;
-	private Map<String, Map<String, Set<Percept>>> previous;
+	protected final StarcraftEnvironmentImpl env;
+	private volatile Map<PerceptFilter, Set<Percept>> mapPercepts;
+	private final Map<String, Map<String, Set<Percept>>> previous;
 
 	/**
 	 * Constructor.
@@ -75,7 +73,6 @@ public class Game {
 	public void update(JNIBWAPI bwapi) {
 		Map<String, Map<PerceptFilter, Set<Percept>>> unitPerceptHolder = new HashMap<>();
 		Map<PerceptFilter, Set<Percept>> perceptHolder = getPercepts(bwapi);
-
 		Map<String, StarcraftUnit> unitList = units.getStarcraftUnits();
 		for (Entry<String, StarcraftUnit> unit : unitList.entrySet()) {
 			Map<PerceptFilter, Set<Percept>> thisUnitPercepts = new HashMap<>(perceptHolder);
@@ -86,14 +83,10 @@ public class Game {
 				thisUnitPercepts.putAll(endGamePercepts);
 			}
 			thisUnitPercepts.putAll(mapPercepts);
-
 			thisUnitPercepts.putAll(getGameSpeedPercept());
-
 			thisUnitPercepts.putAll(unit.getValue().perceive());
-
 			unitPerceptHolder.put(unit.getKey(), thisUnitPercepts);
 		}
-
 		percepts = unitPerceptHolder;
 	}
 
@@ -185,8 +178,9 @@ public class Game {
 	public List<Percept> getPercepts(String entity) {
 		if (percepts.containsKey(entity)) {
 			return translatePercepts(entity, percepts.get(entity));
+		} else {
+			return new LinkedList<>();
 		}
-		return new LinkedList<>();
 	}
 
 	public Units getUnits() {

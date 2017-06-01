@@ -13,60 +13,59 @@ import jnibwapi.types.UpgradeType;
  *
  */
 public abstract class StarcraftAction {
+	protected final JNIBWAPI api;
 
-  protected JNIBWAPI api;
+	/**
+	 * The StarcraftAction constructor.
+	 * 
+	 * @param api
+	 *            The BWAPI
+	 */
+	public StarcraftAction(JNIBWAPI api) {
+		this.api = api;
+	}
 
-  /**
-   * The StarcraftAction constructor.
-   * 
-   * @param api
-   *          The BWAPI
-   */
-  public StarcraftAction(JNIBWAPI api) {
-    this.api = api;
-  }
+	protected UpgradeType getUpgradeType(String type) {
+		return BwapiUtility.getUpgradeType(type);
+	}
 
-  protected UpgradeType getUpgradeType(String type) {
-    return BwapiUtility.getUpgradeType(type);
-  }
+	protected TechType getTechType(String type) {
+		return BwapiUtility.getTechType(type);
+	}
 
-  protected TechType getTechType(String type) {
-    return BwapiUtility.getTechType(type);
-  }
+	protected UnitType getUnitType(String type) {
+		if ("Terran Siege Tank".equals(type)) {
+			type = "Terran Siege Tank Tank Mode";
+		}
+		return BwapiUtility.getUnitType(type);
+	}
 
-  protected UnitType getUnitType(String type) {
-    if (type.equals("Terran Siege Tank")) {
-      type = "Terran Siege Tank Tank Mode";
-    }
-    return BwapiUtility.getUnitType(type);
-  }
+	/**
+	 * @param action
+	 *            The evaluated action.
+	 * @return A boolean which indicates whether the parameters of the action
+	 *         are valid.
+	 */
+	public abstract boolean isValid(Action action);
 
-  /**
-   * @param action
-   *          The evaluated action.
-   * @return A boolean which indicates whether the parameters of the action are
-   *         valid.
-   */
-  public abstract boolean isValid(Action action);
+	/**
+	 * @param unit
+	 *            The unit performing the action.
+	 * @param action
+	 *            The evaluated action.
+	 * @return A boolean which indicated wheter the specified unit can execute
+	 *         the action.
+	 */
+	public abstract boolean canExecute(Unit unit, Action action);
 
-  /**
-   * @param unit
-   *          The unit performing the action.
-   * @param action
-   *          The evaluated action.
-   * @return A boolean which indicated wheter the specified unit can execute the
-   *         action.
-   */
-  public abstract boolean canExecute(Unit unit, Action action);
+	/**
+	 * @param unit
+	 *            The unit performing the action.
+	 * @param action
+	 *            The evaluated action.
+	 */
+	public abstract void execute(Unit unit, Action action);
 
-  /**
-   * @param unit
-   *          The unit performing the action.
-   * @param action
-   *          The evaluated action.
-   */
-  public abstract void execute(Unit unit, Action action);
-
-  @Override
-  public abstract String toString();
+	@Override
+	public abstract String toString();
 }

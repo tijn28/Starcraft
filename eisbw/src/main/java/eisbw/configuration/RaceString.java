@@ -5,19 +5,19 @@ package eisbw.configuration;
  *
  */
 public class RaceString {
-  String data;
+	private final String data;
 
-  /**
-   * The RaceString constructor.
-   * 
-   * @param data
-   *          The race string.
-   */
-  public RaceString(String data) {
-    this.data = data;
-  }
+	/**
+	 * The RaceString constructor.
+	 * 
+	 * @param data
+	 *            The race string.
+	 */
+	public RaceString(String data) {
+		this.data = data;
+	}
 
-  public String getData() {
-    return data;
-  }
+	public String getData() {
+		return data;
+	}
 }

@@ -11,24 +11,22 @@ import eisbw.configuration.BooleanString;
  *
  */
 public class BooleanStringTranslator implements Parameter2Java<BooleanString> {
+	@Override
+	public BooleanString translate(Parameter param) throws TranslationException {
+		if (!(param instanceof Identifier)) {
+			throw new TranslationException("Invalid parameter " + param + ", must be a string");
+		}
+		String id = ((Identifier) param).getValue();
 
-  @Override
-  public BooleanString translate(Parameter param) throws TranslationException {
-    if (!(param instanceof Identifier)) {
-      throw new TranslationException("Invalid parameter " + param + ", must be a string");
-    }
-    String id = ((Identifier) param).getValue();
+		if ("false".equals(id) || "true".equals(id)) {
+			return new BooleanString(id);
+		}
 
-    if ("false".equals(id) || "true".equals(id)) {
-      return new BooleanString(id);
-    }
+		throw new TranslationException("Parameter " + param + " should be either true or false.");
+	}
 
-    throw new TranslationException("Parameter " + param + " should be either true or false.");
-  }
-
-  @Override
-  public Class<BooleanString> translatesTo() {
-    return BooleanString.class;
-  }
-
+	@Override
+	public Class<BooleanString> translatesTo() {
+		return BooleanString.class;
+	}
 }

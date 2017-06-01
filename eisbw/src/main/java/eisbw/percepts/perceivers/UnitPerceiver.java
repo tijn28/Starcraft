@@ -8,17 +8,16 @@ import jnibwapi.Unit;
  *
  */
 public abstract class UnitPerceiver extends Perceiver {
+	protected final Unit unit;
 
-  protected final Unit unit;
-
-  /**
-   * @param api
-   *          The BWAPI.
-   * @param unit
-   *          The perceiving unit.
-   */
-  public UnitPerceiver(JNIBWAPI api, Unit unit) {
-    super(api);
-    this.unit = unit;
-  }
+	/**
+	 * @param api
+	 *            The BWAPI.
+	 * @param unit
+	 *            The perceiving unit.
+	 */
+	public UnitPerceiver(JNIBWAPI api, Unit unit) {
+		super(api);
+		this.unit = unit;
+	}
 }

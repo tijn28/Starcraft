@@ -1,5 +1,12 @@
 package eisbw;
 
+import java.io.File;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import eis.exceptions.ActException;
 import eis.iilang.Action;
 import eisbw.actions.ActionProvider;
@@ -11,30 +18,21 @@ import jnibwapi.Unit;
 import jnibwapi.types.RaceType.RaceTypes;
 import jnibwapi.types.UnitType.UnitTypes;
 
-import java.io.File;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 /**
  * @author Danny & Harm - The Listener of the BWAPI Events.
  * 
  */
 public class BwapiListener extends BwapiEvents {
-	protected Logger logger = Logger.getLogger("StarCraft Logger");
-	protected JNIBWAPI bwapi;
-	protected Game game;
-	protected ActionProvider actionProvider;
-	protected Map<Unit, Action> pendingActions;
-	protected StarcraftUnitFactory factory;
+	protected final Logger logger = Logger.getLogger("StarCraft Logger");
+	protected JNIBWAPI bwapi; // overriden in test
+	protected final Game game;
+	protected final ActionProvider actionProvider;
+	protected final Map<Unit, Action> pendingActions;
+	protected final StarcraftUnitFactory factory;
+	protected final boolean debugmode;
+	protected final boolean invulnerable;
+	protected final int speed;
 	protected UpdateThread updateThread;
-	protected boolean debugmode;
-	protected boolean invulnerable;
-	protected int speed;
 	protected int count = 0;
 	protected DebugWindow debug;
 
@@ -81,9 +79,9 @@ public class BwapiListener extends BwapiEvents {
 			bwapi.setGameSpeed(1000 / speed);
 		else if (speed == 0)
 			bwapi.setGameSpeed(speed);
-		
+
 		// SET INIT INVULNERABLE PARAMETER
-		if(invulnerable)
+		if (invulnerable)
 			bwapi.sendText("power overwhelming");
 
 		// START THE DEBUG TOOLS.
@@ -96,16 +94,10 @@ public class BwapiListener extends BwapiEvents {
 
 	@Override
 	public void matchFrame() {
-		Iterator<Entry<Unit, Action>> it = pendingActions.entrySet().iterator();
-		while (it.hasNext()) {
-			Entry<Unit, Action> entry = it.next();
-			Unit unit = entry.getKey();
-			Action act = entry.getValue();
-
+		for (final Unit unit : pendingActions.keySet()) {
+			Action act = pendingActions.remove(unit);
 			StarcraftAction action = getAction(act);
 			action.execute(unit, act);
-
-			it.remove();
 		}
 
 		if (debug != null) {
@@ -117,12 +109,18 @@ public class BwapiListener extends BwapiEvents {
 			count = 0;
 		}
 		count++;
+
+		if (this.updateThread != null) {
+			synchronized (this.updateThread) {
+				this.updateThread.notifyAll();
+			}
+		}
 	}
 
 	@Override
 	public void unitDestroy(int id) {
-		if (game.getUnits().getUnitNames().containsKey(id)) {
-			String unitName = game.getUnits().getUnitNames().get(id);
+		String unitName = game.getUnits().getUnitNames().get(id);
+		if (unitName != null) {
 			game.getUnits().deleteUnit(unitName, id);
 		}
 	}
@@ -137,12 +135,11 @@ public class BwapiListener extends BwapiEvents {
 
 	@Override
 	public void unitMorph(int id) {
-		if (bwapi.getSelf().getRace().getID() != RaceTypes.Zerg.getID()) {
-			return;
-		}
-		unitDestroy(id);
-		if (bwapi.getUnit(id).getType() != UnitTypes.Zerg_Zergling) {
-			unitComplete(id);
+		if (bwapi.getSelf().getRace().getID() == RaceTypes.Zerg.getID()) {
+			unitDestroy(id);
+			if (bwapi.getUnit(id).getType() != UnitTypes.Zerg_Zergling) {
+				unitComplete(id);
+			}
 		}
 	}
 
@@ -165,7 +162,7 @@ public class BwapiListener extends BwapiEvents {
 		} catch (InterruptedException ex) {
 			Thread.currentThread().interrupt();
 		}
-		pendingActions = new ConcurrentHashMap<>();
+		pendingActions.clear();
 		if (debug != null) {
 			debug.dispose();
 		}
@@ -174,7 +171,6 @@ public class BwapiListener extends BwapiEvents {
 
 	protected boolean isSupportedByEntity(Action act, String name) {
 		Unit unit = game.getUnits().getUnits().get(name);
-
 		StarcraftAction action = getAction(act);
 		return action != null && action.isValid(act) && action.canExecute(unit, act);
 	}
@@ -210,7 +206,6 @@ public class BwapiListener extends BwapiEvents {
 	 */
 	public void performEntityAction(String name, Action act) throws ActException {
 		Unit unit = game.getUnits().getUnits().get(name);
-
 		// cant act during construction
 		// if (!unit.isBeingConstructed()) {
 		StarcraftAction action = getAction(act);
@@ -220,6 +215,5 @@ public class BwapiListener extends BwapiEvents {
 		} else {
 			logger.log(Level.WARNING, "The Entity: " + name + " is not able to perform the action: " + act.getName());
 		}
-		// }
 	}
 }

@@ -1,8 +1,5 @@
 package eisbw.debugger;
 
-import eisbw.Game;
-import jnibwapi.JNIBWAPI;
-
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -11,15 +8,18 @@ import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import eisbw.Game;
+import jnibwapi.JNIBWAPI;
+
 /**
  * @author Danny & Harm.
  */
 public class DebugWindow extends JFrame {
 	private static final long serialVersionUID = 1L;
 
-	SpeedSlider speedSlider;
-	CheatButtons cheats;
-	DrawButtons draw;
+	private final SpeedSlider speedSlider;
+	private final CheatButtons cheats;
+	private final DrawButtons draw;
 
 	/**
 	 * Constructs a debug window for the game.

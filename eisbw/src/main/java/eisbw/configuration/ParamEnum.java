@@ -5,16 +5,16 @@ package eisbw.configuration;
  *
  */
 public enum ParamEnum {
-  MAP("map"), OWN_RACE("own_race"), DEBUG("debug"), SC_DIR("starcraft_location"), AUTO_MENU(
-      "auto_menu"), ENEMY_RACE("enemy_race"), SPEED("game_speed"), INVULNERABLE("invulnerable");
+	MAP("map"), OWN_RACE("own_race"), DEBUG("debug"), SC_DIR("starcraft_location"), AUTO_MENU("auto_menu"), ENEMY_RACE(
+			"enemy_race"), SPEED("game_speed"), INVULNERABLE("invulnerable");
 
-  private String parameter;
+	private final String parameter;
 
-  private ParamEnum(String name) {
-    parameter = name;
-  }
+	private ParamEnum(String name) {
+		parameter = name;
+	}
 
-  public String getParam() {
-    return parameter;
-  }
+	public String getParam() {
+		return parameter;
+	}
 }

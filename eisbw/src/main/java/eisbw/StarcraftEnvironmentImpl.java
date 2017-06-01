@@ -30,14 +30,13 @@ import java.util.logging.Logger;
  *         
  */
 public class StarcraftEnvironmentImpl extends EIDefaultImpl {
-	private Logger logger = Logger.getLogger("StarCraft Logger");
-
 	private static final long serialVersionUID = 1L;
+	private final Logger logger = Logger.getLogger("StarCraft Logger");
+
 	protected BwapiListener bwapiListener;
 	private Configuration configuration;
-	private Game game;
-
-	private Set<String> registeredEntities;
+	private final Game game;
+	private final Set<String> registeredEntities;
 
 	/**
 	 * Constructor of the environment.

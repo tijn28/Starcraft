@@ -22,7 +22,6 @@ import java.util.Set;
  *
  */
 public class BuildingPerceiver extends UnitPerceiver {
-
 	/**
 	 * @param api
 	 *            The BWAPI
@@ -35,7 +34,6 @@ public class BuildingPerceiver extends UnitPerceiver {
 
 	@Override
 	public Map<PerceptFilter, Set<Percept>> perceive(Map<PerceptFilter, Set<Percept>> toReturn) {
-
 		rallyPointPercept(toReturn);
 		rallyUnitPercept(toReturn);
 		queueSizePercept(toReturn);
@@ -44,12 +42,10 @@ public class BuildingPerceiver extends UnitPerceiver {
 		return toReturn;
 	}
 
-
 	private void researchedPercept(Map<PerceptFilter, Set<Percept>> toReturn) {
 		Set<Percept> percepts = new HashSet<>();
-		if (unit.getTech() != null) {
-			if (!unit.getTech().equals(TechType.TechTypes.None))
-				percepts.add(new ResearchingPercept(unit.getTech().getName()));
+		if (unit.getTech() != null && !unit.getTech().equals(TechType.TechTypes.None)) {
+			percepts.add(new ResearchingPercept(unit.getTech().getName()));
 		}
 		toReturn.put(new PerceptFilter(Percepts.RESEARCHING, Filter.Type.ALWAYS), percepts);
 	}
@@ -72,8 +68,8 @@ public class BuildingPerceiver extends UnitPerceiver {
 
 	private void queueSizePercept(Map<PerceptFilter, Set<Percept>> toReturn) {
 		Set<Percept> percepts = new HashSet<>();
-		if (unit.getType().getName().equals("Zerg Hatchery")) {
-			percepts.add(new QueueSizePercept(unit.getLarva().size()));
+		if ("Zerg Hatchery".equals(unit.getType().getName())) {
+			percepts.add(new QueueSizePercept(unit.getLarvaCount()));
 		} else {
 			percepts.add(new QueueSizePercept(unit.getTrainingQueueSize()));
 		}

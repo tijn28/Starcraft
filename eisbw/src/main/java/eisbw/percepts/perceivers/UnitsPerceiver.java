@@ -12,6 +12,7 @@ import eisbw.percepts.FriendlyPercept;
 import eisbw.percepts.EnemyPercept;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Unit;
+import jnibwapi.types.UnitType.UnitTypes;
 
 import java.util.HashSet;
 //import java.util.LinkedList;
@@ -24,7 +25,6 @@ import java.util.Set;
  *
  */
 public class UnitsPerceiver extends Perceiver {
-
 	/**
 	 * @param api
 	 *            The BWAPI.
@@ -51,48 +51,41 @@ public class UnitsPerceiver extends Perceiver {
 	 */
 	private void setUnitPercepts(List<Unit> units, boolean isFriendly, Set<Percept> unitpercepts,
 			Set<Percept> attackingpercepts) {
-
 		// Fix for the phantom marines bug
 		for (Unit u : units) {
 			if (u.isBeingConstructed() && u.isLoaded()) {
 				continue;
 			}
-
 			ConditionHandler conditionHandler = new ConditionHandler(api, u);
-
-			if (!isFriendly) {
-				unitpercepts.add(new EnemyPercept(BwapiUtility.getUnitType(u), u.getID(), u.getHitPoints(), u.getShields(),
-						conditionHandler.getConditions(), u.getPosition().getBX(), u.getPosition().getBY()));
-
+			if (isFriendly) {
+				if (u.getType().getID() == UnitTypes.Zerg_Egg.getID())
+					unitpercepts.add(new FriendlyPercept(u.getBuildType().getName(), u.getID(),
+							conditionHandler.getConditions()));
+				else
+					unitpercepts.add(new FriendlyPercept(BwapiUtility.getUnitType(u), u.getID(),
+							conditionHandler.getConditions()));
+			} else {
+				unitpercepts
+						.add(new EnemyPercept(BwapiUtility.getUnitType(u), u.getID(), u.getHitPoints(), u.getShields(),
+								conditionHandler.getConditions(), u.getPosition().getBX(), u.getPosition().getBY()));
 				if (u.getType().isAttackCapable()) {
 					Unit targetUnit = u.getOrderTarget();
-
 					if (targetUnit != null && targetUnit.getType().isAttackCapable()) {
 						attackingpercepts.add(new Attacking(u.getID(), targetUnit.getID()));
 					}
 				}
-			} else if (isFriendly) {
-				if (u.getType().getID() == 36)
-					unitpercepts.add(new FriendlyPercept(u.getBuildType().getName(), u.getID(),
-							conditionHandler.getConditions()));
-				else
-					unitpercepts.add(
-							new FriendlyPercept(BwapiUtility.getUnitType(u), u.getID(), conditionHandler.getConditions()));
 			}
 		}
 	}
 
-
 	@Override
 	public Map<PerceptFilter, Set<Percept>> perceive(Map<PerceptFilter, Set<Percept>> toReturn) {
-
 		Set<Percept> friendlypercepts = new HashSet<>();
 		Set<Percept> enemypercepts = new HashSet<>();
 		Set<Percept> attackingpercepts = new HashSet<>();
 
 		// perceive friendly units
 		setUnitPercepts(api.getMyUnits(), true, friendlypercepts, attackingpercepts);
-
 		// perceive enemy units
 		setUnitPercepts(api.getEnemyUnits(), false, enemypercepts, attackingpercepts);
 
@@ -102,5 +95,4 @@ public class UnitsPerceiver extends Perceiver {
 
 		return toReturn;
 	}
-
 }
