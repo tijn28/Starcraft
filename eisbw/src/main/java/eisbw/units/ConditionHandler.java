@@ -196,6 +196,10 @@ public class ConditionHandler {
     if (unit.isCloaked()) {
       conditions.add(new Identifier("cloaked"));
     }
+    
+    if(unit.isAttacking()) {
+    	conditions.add(new Identifier("attacking"));
+    }
   }
 
   /**
