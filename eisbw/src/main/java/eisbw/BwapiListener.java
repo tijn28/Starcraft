@@ -15,7 +15,6 @@ import eisbw.debugger.DebugWindow;
 import eisbw.units.StarcraftUnitFactory;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Unit;
-import jnibwapi.types.UnitType.UnitTypes;
 
 /**
  * @author Danny & Harm - The Listener of the BWAPI Events.
@@ -103,11 +102,10 @@ public class BwapiListener extends BwapiEvents {
 			debug.debug(bwapi);
 		}
 
-		if (count == 200) {
+		if (count++ == 200) {
 			game.updateConstructionSites(bwapi);
 			count = 0;
 		}
-		count++;
 
 		if (this.updateThread != null) {
 			synchronized (this.updateThread) {
@@ -125,9 +123,9 @@ public class BwapiListener extends BwapiEvents {
 	}
 
 	@Override
-	public void unitCreate(int unitId) {
-		Unit unit = bwapi.getUnit(unitId);
-		if (bwapi.getMyUnits().contains(unit) && !game.getUnits().getUnitNames().containsKey(unitId)) {
+	public void unitCreate(int id) {
+		Unit unit = bwapi.getUnit(id);
+		if (bwapi.getMyUnits().contains(unit) && !game.getUnits().getUnitNames().containsKey(id)) {
 			game.getUnits().addUnit(unit, factory);
 		}
 	}
@@ -144,10 +142,10 @@ public class BwapiListener extends BwapiEvents {
 			game.updateEndGamePerceiver(bwapi);
 			game.setEndGame(winner);
 		}
-		// have the winner percept perceived for 2 seconds before all agents
+		// have the winner percept perceived for 1 second before all agents
 		// are removed
 		try {
-			TimeUnit.SECONDS.sleep(2);
+			TimeUnit.SECONDS.sleep(1);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

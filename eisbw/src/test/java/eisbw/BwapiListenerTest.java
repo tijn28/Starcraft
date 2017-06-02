@@ -155,7 +155,7 @@ public class BwapiListenerTest {
 		verify(game, times(0)).updateConstructionSites(bwapi);
 		listener.count = 200;
 		listener.matchFrame();
-		assertTrue(listener.count == 1);
+		assertTrue(listener.count == 0);
 		verify(game, times(1)).updateConstructionSites(bwapi);
 		listener.performEntityAction("unit", new Action("stop"));
 		eis.iilang.Parameter[] list = new eis.iilang.Parameter[1];
