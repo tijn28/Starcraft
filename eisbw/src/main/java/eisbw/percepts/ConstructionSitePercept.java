@@ -30,7 +30,7 @@ public class ConstructionSitePercept extends Percept {
 	 *            Indicates whether the construction site is in range of a
 	 *            pylon.
 	 */
-	public ConstructionSitePercept(int xpos, int ypos, Boolean isInRange) {
+	public ConstructionSitePercept(int xpos, int ypos, boolean isInRange) {
 		super(Percepts.CONSTRUCTIONSITE, new Numeral(xpos), new Numeral(ypos), new TruthValue(isInRange));
 	}
 }

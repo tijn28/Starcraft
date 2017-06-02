@@ -44,7 +44,7 @@ public class ConstructionSitePerceiver extends Perceiver {
 	 *            A list of illegal build places.
 	 * @return Check whether the given ConstructionSite is legal or not.
 	 */
-	private Boolean checkConstructionSite(int xpos, int ypos, List<Point> illegals) {
+	private boolean checkConstructionSite(int xpos, int ypos, List<Point> illegals) {
 		Point possible = new Point(xpos, ypos);
 		for (Point illegal : illegals) {
 			if (illegal.distance(possible) < 3) {

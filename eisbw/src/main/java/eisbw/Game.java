@@ -247,7 +247,7 @@ public class Game {
 	/**
 	 * @param entity
 	 *            The evaluated entity
-	 * @return Boolean indicating whether the unit is initialized or not.
+	 * @return boolean indicating whether the unit is initialized or not.
 	 */
 	public boolean isInitialized(String entity) {
 		return percepts.containsKey(entity);
