@@ -48,7 +48,7 @@ public class UseOnPosition extends StarcraftAction {
 		int xpos = ((Numeral) parameters.get(1)).getValue().intValue();
 		int ypos = ((Numeral) parameters.get(2)).getValue().intValue();
 
-		unit.useTech(techType, new Position(xpos, ypos));
+		unit.useTech(techType, new Position(xpos, ypos, Position.PosType.BUILD));
 	}
 
 	@Override

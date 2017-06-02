@@ -100,7 +100,7 @@ public class UseOnPositionTest {
     params.set(1, new Numeral(1));
     params.add(new Numeral(2));
     action.execute(unit, act);
-    verify(unit).useTech(null, new Position(1, 2));
+    verify(unit).useTech(null, new Position(1, 2, Position.PosType.BUILD));
   }
 
   @Test

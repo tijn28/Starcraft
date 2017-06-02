@@ -62,6 +62,7 @@ public class UnitsPerceiver extends Perceiver {
 				String unittype = (u.getType().getID() == UnitTypes.Zerg_Egg.getID()) ? u.getBuildType().getName()
 						: BwapiUtility.getUnitType(u);
 				unitpercepts.add(new FriendlyPercept(unittype, u.getID(), conditionHandler.getConditions()));
+				if(u.isBeingConstructed())
 				newunitpercepts.add(new NewUnitPercept(u.getID(), u.getPosition().getBX(), u.getPosition().getBY()));
 			} else {
 				unitpercepts
@@ -89,6 +90,7 @@ public class UnitsPerceiver extends Perceiver {
 		toReturn.put(new PerceptFilter(Percepts.FRIENDLY, Filter.Type.ALWAYS), friendlypercepts);
 		toReturn.put(new PerceptFilter(Percepts.ENEMY, Filter.Type.ALWAYS), enemypercepts);
 		toReturn.put(new PerceptFilter(Percepts.ATTACKING, Filter.Type.ALWAYS), attackingpercepts);
+		toReturn.put(new PerceptFilter(Percepts.NEWUNIT, Filter.Type.ON_CHANGE), newunitpercepts);
 
 		return toReturn;
 	}
