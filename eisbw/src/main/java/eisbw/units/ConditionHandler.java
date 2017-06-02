@@ -40,8 +40,18 @@ public class ConditionHandler {
 		if (unit.isSieged()) {
 			conditions.add(new Identifier("sieged"));
 		}
-		if (unit.getType().isBuilding()) {
-			setBuildingConditions(conditions);
+		if (unit.isDefenseMatrixed()) {
+			conditions.add(new Identifier("defenseMatrixed"));
+		}
+		// building-specific
+		if (unit.isLifted()) {
+			conditions.add(new Identifier("lifted"));
+		}
+		if (unit.getAddon() != null) {
+			conditions.add(new Identifier(unit.getAddon().getType().getName()));
+		}
+		if (unit.isNukeReady()) {
+			conditions.add(new Identifier("nukeReady"));
 		}
 	}
 
@@ -137,8 +147,15 @@ public class ConditionHandler {
 		if (unit.isMoving()) {
 			conditions.add(new Identifier("moving"));
 		}
+		// if (unit.isStuck()) {
+		// is generated quite a lot :(
+		// conditions.add(new Identifier("stuck"));
+		// }
 		if (unit.isFollowing()) {
 			conditions.add(new Identifier("following"));
+		}
+		if (unit.isPatrolling()) {
+			conditions.add(new Identifier("patrolling"));
 		}
 		if (unit.isLoaded()) {
 			conditions.add(new Identifier("loaded"));
@@ -155,20 +172,30 @@ public class ConditionHandler {
 		if (unit.isIdle()) {
 			conditions.add(new Identifier("idle"));
 		}
-		if (unit.getType().isFlyer()) {
+		if (unit.getType().isFlyer()) { // useful shortcut
 			conditions.add(new Identifier("flying"));
 		}
 		if (unit.isMorphing()) {
 			conditions.add(new Identifier("morphing"));
 		}
-		if (!unit.isCompleted()) {
+		if (unit.isBurrowed()) {
+			conditions.add(new Identifier("burrowed"));
+		}
+		if (!unit.isCompleted()) { // isBeingConstructed can be false for terran
+									// buildings not being worked on by a scv
 			conditions.add(new Identifier("beingConstructed"));
+		}
+		if (unit.isBeingHealed()) { // works for medic heal and scv repair
+			conditions.add(new Identifier("beingHealed"));
 		}
 		if (unit.isCloaked()) {
 			conditions.add(new Identifier("cloaked"));
 		}
-		if(unit.isAttacking()) {
+		if (unit.isAttacking()) { // includes medic heal
 			conditions.add(new Identifier("attacking"));
+		}
+		if (unit.isUnderAttack()) {
+			conditions.add(new Identifier("underAttack"));
 		}
 	}
 
@@ -184,19 +211,8 @@ public class ConditionHandler {
 		if (unit.isConstructing()) {
 			conditions.add(new Identifier("constructing"));
 		}
-	}
-
-	/**
-	 * @param conditions
-	 *            The conditions of the unit
-	 * @return The conditions of the building units.
-	 */
-	private void setBuildingConditions(List<Parameter> conditions) {
-		if (unit.isLifted()) {
-			conditions.add(new Identifier("lifted"));
-		}
-		if (unit.getAddon() != null) {
-			conditions.add(new Identifier(unit.getAddon().getType().getName()));
+		if (unit.isRepairing()) {
+			conditions.add(new Identifier("repairing"));
 		}
 	}
 
