@@ -22,7 +22,7 @@ import jnibwapi.Unit;
  */
 public class BwapiListener extends BwapiEvents {
 	protected final Logger logger = Logger.getLogger("StarCraft Logger");
-	protected JNIBWAPI bwapi; // overriden in test
+	protected JNIBWAPI bwapi; // overridden in test
 	protected final Game game;
 	protected final ActionProvider actionProvider;
 	protected final Map<Unit, Action> pendingActions;
@@ -165,7 +165,7 @@ public class BwapiListener extends BwapiEvents {
 	protected boolean isSupportedByEntity(Action act, String name) {
 		Unit unit = game.getUnits().getUnits().get(name);
 		StarcraftAction action = getAction(act);
-		return action != null && action.isValid(act) && action.canExecute(unit, act);
+		return action != null && action.isValid(act) && action.canExecute(unit, act) && !unit.isBeingConstructed();
 	}
 
 	/**
@@ -199,11 +199,7 @@ public class BwapiListener extends BwapiEvents {
 	 */
 	public void performEntityAction(String name, Action act) throws ActException {
 		Unit unit = game.getUnits().getUnits().get(name);
-		// cant act during construction
-		// if (!unit.isBeingConstructed()) {
-		StarcraftAction action = getAction(act);
-		// Action might be invalid
-		if (action.isValid(act) && isSupportedByEntity(act, name)) {
+		if (isSupportedByEntity(act, name)) {
 			pendingActions.put(unit, act);
 		} else {
 			logger.log(Level.WARNING, "The Entity: " + name + " is not able to perform the action: " + act.getName());
