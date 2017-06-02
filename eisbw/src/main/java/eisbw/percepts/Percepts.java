@@ -32,6 +32,7 @@ public class Percepts {
 	public static final String RESEARCHING = "researching";
 	public static final String WINNER = "winner";
 	public static final String GAMESPEED = "gameSpeed";
+	public static final String NUKE = "nuke";
 
 	private Percepts() {
 		// Private constructor because this is a static class

@@ -153,7 +153,7 @@ public class BwapiListenerTest {
 	public void matchFrame_test() throws ActException {
 		listener.matchFrame();
 		verify(game, times(0)).updateConstructionSites(bwapi);
-		listener.count = 200;
+		listener.count = 50;
 		listener.matchFrame();
 		assertTrue(listener.count == 0);
 		verify(game, times(1)).updateConstructionSites(bwapi);

@@ -1,35 +1,39 @@
 package eisbw.percepts.perceivers;
 
-import eis.eis2java.translation.Filter;
-import eis.iilang.Percept;
-import eisbw.percepts.Percepts;
-import eisbw.percepts.WinnerPercept;
-import jnibwapi.JNIBWAPI;
-
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+
+import eis.eis2java.translation.Filter;
+import eis.iilang.Percept;
+import eisbw.percepts.NukePercept;
+import eisbw.percepts.Percepts;
+import jnibwapi.JNIBWAPI;
+import jnibwapi.Position;
 
 /**
  * @author Danny & Harm - The perceiver which handles the events.
  *
  */
-public class EndGamePerceiver extends Perceiver {
+public class NukePerceiver extends Perceiver {
+	private final Position pos;
+
 	/**
-	 * The EndGamePerceiver constructor.
+	 * The NukePerceiver constructor.
 	 * 
 	 * @param api
 	 *            The BWAPI
 	 */
-	public EndGamePerceiver(JNIBWAPI api) {
+	public NukePerceiver(JNIBWAPI api, Position pos) {
 		super(api);
+		this.pos = pos;
 	}
 
 	@Override
 	public Map<PerceptFilter, Set<Percept>> perceive(Map<PerceptFilter, Set<Percept>> toReturn) {
 		Set<Percept> percepts = new HashSet<>();
-		percepts.add(new WinnerPercept());
-		toReturn.put(new PerceptFilter(Percepts.WINNER, Filter.Type.ALWAYS), percepts);
+		percepts.add(new NukePercept(pos.getBX(), pos.getBY()));
+		toReturn.put(new PerceptFilter(Percepts.NUKE, Filter.Type.ONCE), percepts);
 		return toReturn;
 	}
 

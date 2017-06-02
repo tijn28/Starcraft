@@ -14,6 +14,7 @@ import eisbw.actions.StarcraftAction;
 import eisbw.debugger.DebugWindow;
 import eisbw.units.StarcraftUnitFactory;
 import jnibwapi.JNIBWAPI;
+import jnibwapi.Position;
 import jnibwapi.Unit;
 
 /**
@@ -102,7 +103,7 @@ public class BwapiListener extends BwapiEvents {
 			debug.debug(bwapi);
 		}
 
-		if (count++ == 200) {
+		if (count++ == 50) {
 			game.updateConstructionSites(bwapi);
 			count = 0;
 		}
@@ -135,16 +136,21 @@ public class BwapiListener extends BwapiEvents {
 		unitDestroy(id);
 		unitCreate(id);
 	}
-	
+
+	@Override
 	public void unitRenegade(int id) {
 		unitDestroy(id);
+	}
+	
+	@Override
+	public void nukeDetect(Position pos) {
+		// TODO: generate percept (for all agents)
 	}
 
 	@Override
 	public void matchEnd(boolean winner) {
 		if (winner) {
 			game.updateEndGamePerceiver(bwapi);
-			game.setEndGame(winner);
 		}
 		// have the winner percept perceived for 1 second before all agents
 		// are removed

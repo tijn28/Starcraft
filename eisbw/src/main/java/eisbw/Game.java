@@ -1,18 +1,5 @@
 package eisbw;
 
-import eis.eis2java.translation.Filter;
-import eis.iilang.Percept;
-import eisbw.percepts.GameSpeedPercept;
-import eisbw.percepts.Percepts;
-import eisbw.percepts.perceivers.ConstructionSitePerceiver;
-import eisbw.percepts.perceivers.EndGamePerceiver;
-import eisbw.percepts.perceivers.MapPerceiver;
-import eisbw.percepts.perceivers.PerceptFilter;
-import eisbw.percepts.perceivers.UnitsPerceiver;
-import eisbw.units.StarcraftUnit;
-import eisbw.units.Units;
-import jnibwapi.JNIBWAPI;
-
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -22,6 +9,21 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.logging.Logger;
 
+import eis.eis2java.translation.Filter;
+import eis.iilang.Percept;
+import eisbw.percepts.GameSpeedPercept;
+import eisbw.percepts.Percepts;
+import eisbw.percepts.perceivers.ConstructionSitePerceiver;
+import eisbw.percepts.perceivers.EndGamePerceiver;
+import eisbw.percepts.perceivers.MapPerceiver;
+import eisbw.percepts.perceivers.NukePerceiver;
+import eisbw.percepts.perceivers.PerceptFilter;
+import eisbw.percepts.perceivers.UnitsPerceiver;
+import eisbw.units.StarcraftUnit;
+import eisbw.units.Units;
+import jnibwapi.JNIBWAPI;
+import jnibwapi.Position;
+
 /**
  * @author Danny & Harm - The game class where the percepts are updated.
  *
@@ -29,9 +31,9 @@ import java.util.logging.Logger;
 public class Game {
 	protected volatile Map<String, Map<PerceptFilter, Set<Percept>>> percepts;
 	protected Units units; // overriden in test
-	protected volatile boolean endGame;
 	protected volatile Map<PerceptFilter, Set<Percept>> constructionPercepts;
 	protected volatile Map<PerceptFilter, Set<Percept>> endGamePercepts;
+	protected volatile Map<PerceptFilter, Set<Percept>> nukePercepts;
 	protected final StarcraftEnvironmentImpl env;
 	private volatile Map<PerceptFilter, Set<Percept>> mapPercepts;
 	private final Map<String, Map<String, Set<Percept>>> previous;
@@ -49,7 +51,6 @@ public class Game {
 		mapPercepts = new HashMap<>();
 		previous = new HashMap<>();
 		env = environment;
-		endGame = false;
 	}
 
 	/**
@@ -79,7 +80,11 @@ public class Game {
 			if (unit.getValue().isWorker()) {
 				thisUnitPercepts.putAll(constructionPercepts);
 			}
-			if (endGame) {
+			if(nukePercepts != null ) {
+				thisUnitPercepts.putAll(nukePercepts);
+				nukePercepts = null;
+			}
+			if (endGamePercepts != null) {
 				thisUnitPercepts.putAll(endGamePercepts);
 			}
 			thisUnitPercepts.putAll(mapPercepts);
@@ -158,14 +163,26 @@ public class Game {
 		endGamePercepts = toReturn;
 	}
 
+	/**
+	 * Updates the endGame percept.
+	 * 
+	 * @param bwapi
+	 *            - the JNIBWAPI
+	 */
+	public void updateNukePerceiver(JNIBWAPI bwapi, Position pos) {
+		Map<PerceptFilter, Set<Percept>> toReturn = new HashMap<>();
+		new NukePerceiver(bwapi, pos).perceive(toReturn);
+		if (nukePercepts == null) {
+			nukePercepts = toReturn;
+		} else {
+			nukePercepts.values().iterator().next().addAll(toReturn.values().iterator().next());
+		}
+	}
+
 	private Map<PerceptFilter, Set<Percept>> getPercepts(JNIBWAPI bwapi) {
 		Map<PerceptFilter, Set<Percept>> toReturn = new HashMap<>();
 		new UnitsPerceiver(bwapi).perceive(toReturn);
 		return toReturn;
-	}
-
-	public void setEndGame(boolean endGame) {
-		this.endGame = endGame;
 	}
 
 	/**
