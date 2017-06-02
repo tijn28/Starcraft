@@ -135,6 +135,10 @@ public class BwapiListener extends BwapiEvents {
 		unitDestroy(id);
 		unitCreate(id);
 	}
+	
+	public void unitRenegade(int id) {
+		unitDestroy(id);
+	}
 
 	@Override
 	public void matchEnd(boolean winner) {
