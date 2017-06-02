@@ -4,6 +4,7 @@ import eis.eis2java.translation.Filter;
 import eis.iilang.Percept;
 import eisbw.UnitTypesEx;
 import eisbw.percepts.BasePercept;
+import eisbw.percepts.ChokepointCenterPercept;
 import eisbw.percepts.ChokepointPercept;
 import eisbw.percepts.EnemyRacePercept;
 import eisbw.percepts.MapPercept;
@@ -77,6 +78,9 @@ public class MapPerceiver extends Perceiver {
 		}
 
 		for (ChokePoint cp : map.getChokePoints()) {
+			Percept chokeCenterPercept = new ChokepointCenterPercept(cp.getCenter().getBX(), cp.getCenter().getBY(),
+					(int)cp.getRadius());
+			percepts.add(chokeCenterPercept);
 			Percept chokePercept = new ChokepointPercept(cp.getFirstSide().getBX(), cp.getFirstSide().getBY(),
 					cp.getSecondSide().getBX(), cp.getSecondSide().getBY());
 			percepts.add(chokePercept);
