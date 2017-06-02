@@ -15,7 +15,6 @@ import eisbw.debugger.DebugWindow;
 import eisbw.units.StarcraftUnitFactory;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Unit;
-import jnibwapi.types.RaceType.RaceTypes;
 import jnibwapi.types.UnitType.UnitTypes;
 
 /**
