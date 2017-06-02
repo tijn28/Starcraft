@@ -61,9 +61,7 @@ public class StarcraftEnvironmentImpl extends EIDefaultImpl {
 		setState(EnvironmentState.PAUSED);
 		Thread.currentThread().setPriority(3);
 		try {
-			configuration = new Configuration(parameters);
-			addEntity("manager", "manager");
-			
+			configuration = new Configuration(parameters);			
 			if (!"test".equals(configuration.getOwnRace().getData())) {
 				bwapiListener = new BwapiListener(game, configuration.getScDir(),
 						"true".equals(configuration.getDebugMode().getData()),

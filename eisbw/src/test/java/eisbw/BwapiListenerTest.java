@@ -96,18 +96,18 @@ public class BwapiListenerTest {
 	}
 
 	@Test
-	public void unitCompleted_test() {
+	public void unitCreate_test() {
 		when(units.getUnitNames()).thenReturn(new HashMap<Integer, String>());
-		listener.unitComplete(0);
+		listener.unitCreate(0);
 		verify(units, times(1)).addUnit(eq(unit), any(StarcraftUnitFactory.class));
 		when(units.getUnitNames()).thenReturn(unitNames);
-		listener.unitComplete(0);
+		listener.unitCreate(0);
 		verify(units, times(1)).addUnit(eq(unit), any(StarcraftUnitFactory.class));
 		when(bwapi.getMyUnits()).thenReturn(new LinkedList<Unit>());
-		listener.unitComplete(0);
+		listener.unitCreate(0);
 		verify(units, times(1)).addUnit(eq(unit), any(StarcraftUnitFactory.class));
 		when(units.getUnitNames()).thenReturn(new HashMap<Integer, String>());
-		listener.unitComplete(0);
+		listener.unitCreate(0);
 		verify(units, times(1)).addUnit(eq(unit), any(StarcraftUnitFactory.class));
 	}
 
