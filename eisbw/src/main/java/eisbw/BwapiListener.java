@@ -135,9 +135,7 @@ public class BwapiListener extends BwapiEvents {
 	@Override
 	public void unitMorph(int id) {
 		unitDestroy(id);
-		if (bwapi.getUnit(id).getType() != UnitTypes.Zerg_Zergling) {
-			unitCreate(id);
-		}
+		unitCreate(id);
 	}
 
 	@Override
