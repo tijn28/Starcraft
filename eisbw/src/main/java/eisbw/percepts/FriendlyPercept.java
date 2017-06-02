@@ -9,8 +9,8 @@ import eis.iilang.Percept;
 import java.util.List;
 
 /**
- * @author Danny & Harm - The Unit percept which gives information about the
- *         other units.
+ * @author Danny & Harm - The Friendly percept which gives information about
+ *         your own units.
  *
  */
 public class FriendlyPercept extends Percept {
@@ -19,16 +19,10 @@ public class FriendlyPercept extends Percept {
 	/**
 	 * Constructor FriendlyPercept.
 	 * 
-	 * @param isFriendly
-	 *            Indicates whether the unit is friendly or not
 	 * @param type
-	 *            The unit type
+	 *            The unit type (TODO: maybe move type to newunit?)
 	 * @param id
 	 *            The ID of the unit
-	 * @param health
-	 *            The amount of health of the unit
-	 * @param shields
-	 *            The amount of shields of the unit
 	 * @param conditions
 	 *            The current conditions of the unit
 	 */

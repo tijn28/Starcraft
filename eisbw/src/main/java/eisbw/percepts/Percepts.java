@@ -22,6 +22,7 @@ public class Percepts {
 	public static final String ENEMYRACE = "enemyRace";
 	public static final String ENEMY = "enemy";
 	public static final String FRIENDLY = "friendly";
+	public static final String NEWUNIT = "newUnit";
 
 	public static final String SPACEPROVIDED = "spaceProvided";
 	public static final String UNITLOADED = "unitLoaded";

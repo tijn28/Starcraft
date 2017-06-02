@@ -9,15 +9,15 @@ import eis.iilang.Percept;
 import java.util.List;
 
 /**
- * @author Danny & Harm - The Unit percept which gives information about the
- *         other units.
+ * @author Danny & Harm - The Enemy percept which gives information about the
+ *         opponent's units.
  *
  */
 public class EnemyPercept extends Percept {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Constructor FriendlyPercept.
+	 * Constructor EnemyPercept.
 	 * 
 	 * @param type
 	 *            The unit type

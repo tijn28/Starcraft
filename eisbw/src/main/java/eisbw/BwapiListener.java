@@ -124,7 +124,7 @@ public class BwapiListener extends BwapiEvents {
 	}
 
 	@Override
-	public void unitCreate(int id) {
+	public void unitComplete(int id) {
 		Unit unit = bwapi.getUnit(id);
 		if (bwapi.getMyUnits().contains(unit) && !game.getUnits().getUnitNames().containsKey(id)) {
 			game.getUnits().addUnit(unit, factory);
@@ -134,17 +134,17 @@ public class BwapiListener extends BwapiEvents {
 	@Override
 	public void unitMorph(int id) {
 		unitDestroy(id);
-		unitCreate(id);
+		unitComplete(id);
 	}
 
 	@Override
 	public void unitRenegade(int id) {
 		unitDestroy(id);
 	}
-	
+
 	@Override
 	public void nukeDetect(Position pos) {
-		// TODO: generate percept (for all agents)
+		game.updateNukePerceiver(bwapi, pos);
 	}
 
 	@Override

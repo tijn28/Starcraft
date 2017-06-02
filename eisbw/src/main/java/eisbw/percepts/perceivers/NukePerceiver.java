@@ -33,7 +33,7 @@ public class NukePerceiver extends Perceiver {
 	public Map<PerceptFilter, Set<Percept>> perceive(Map<PerceptFilter, Set<Percept>> toReturn) {
 		Set<Percept> percepts = new HashSet<>();
 		percepts.add(new NukePercept(pos.getBX(), pos.getBY()));
-		toReturn.put(new PerceptFilter(Percepts.NUKE, Filter.Type.ONCE), percepts);
+		toReturn.put(new PerceptFilter(Percepts.NUKE, Filter.Type.ON_CHANGE), percepts);
 		return toReturn;
 	}
 
