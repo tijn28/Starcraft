@@ -48,6 +48,7 @@ public class MoveTest {
     params.add(new Numeral(1));
     params.add(new Numeral(2));
     
+    when(unit.isBeingConstructed()).thenReturn(false);
     when(act.getParameters()).thenReturn(params);
     when(unit.getType()).thenReturn(unitType);
   }
@@ -67,8 +68,6 @@ public class MoveTest {
   
   @Test
   public void canExecute_test() {
-    when(unitType.isCanMove()).thenReturn(false);
-    assertFalse(action.canExecute(unit, act));
     when(unitType.isCanMove()).thenReturn(true);
     assertTrue(action.canExecute(unit, act));
   }
@@ -81,7 +80,7 @@ public class MoveTest {
   
   @Test
   public void toString_test() {
-    assertEquals("move(unitId, x, y)", action.toString());
+    assertEquals("move(x, y)", action.toString());
   }
 
 }
