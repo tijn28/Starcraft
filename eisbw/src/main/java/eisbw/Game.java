@@ -82,7 +82,6 @@ public class Game {
 			}
 			if (nukePercepts != null) {
 				thisUnitPercepts.putAll(nukePercepts);
-				nukePercepts = null;
 			}
 			if (endGamePercepts != null) {
 				thisUnitPercepts.putAll(endGamePercepts);
