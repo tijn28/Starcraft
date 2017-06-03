@@ -155,13 +155,25 @@ This section will list all the percepts that are usable in the StarCraft environ
 \\
 \begin{tabularx}{\textwidth}{lX}
  Description & The race of your opponent. \\
- Type & Send on change \\
+ Type & Send once \\
  Syntax &  \verb|enemyRace(<Race>)| \\
  Example & \verb|enemyRace(protoss)|   \\
+ Example & When playing against a random race.
  \end{tabularx}
+ \begin{lstlisting}
+ if bel(enemyRace(unknown), enemy(Type,_,_,_,_), 
+ sub_string(Type, 0,1,_,Race)) then { 
+   if bel(Race = "Z") then delete(enemyRace(unknown)) 
+   + insert(enemyRace(zerg)). 
+   if bel(Race = "P") then delete(enemyRace(unknown)) 
+   + insert(enemyRace(protoss)). 
+   if bel(Race = "T") then delete(enemyRace(unknown)) 
+   + insert(enemyRace(terran)). 
+  } 
+ \end{lstlisting}
  \begin{tabularx}{\textwidth}{l | c | p{8cm}|}
  \cline{2-3}
-  Parameters & \textbf{\verb|<Race>|} & The enemy race which can take the value: protoss, terran, zerg or unknown                 when the enemy race is not yet known. \\
+  Parameters & \textbf{\verb|<Race>|} & The enemy race which can take the value: protoss, terran, zerg or unknown                 when the enemy race is random. \\
              & \textbf{Type} & \verb|String| \\
             \cline{2-3}
 \end{tabularx}
@@ -396,7 +408,7 @@ This section will list all the percepts that are usable in the StarCraft environ
             & \textbf{Type} & \verb|Positive Integer| \\
             & \textbf{Range} & [0--\verb|<maxShield>|] where \verb|<maxShield>| is the maximum shield of the given unit. \\
             \cline{2-3}
-            & \textbf{\verb|<Cond>|} & The current condition of the unit. Each unit can have multiple or no conditions depending on the unit and situation. See Section \ref{conditions} for the list of all actual conditions.\\
+            & \textbf{\verb|<Cond>|} & The current condition of the unit. Each unit can have multiple or no conditions depending on the unit and situation. Not all the conditions are available for the enemy percept. See Section \ref{conditions} for the list of all actual conditions.\\
             & \textbf{Type} & \verb|List of Strings| \\
             \cline{2-3}
             & \textbf{\verb|<X>|} & The x-coordinate of the unit.\\
@@ -669,7 +681,7 @@ This section will list all the percepts that are usable in the StarCraft environ
 \textbf{Construction Site percept}\\
 \\
 \begin{tabularx}{\textwidth}{lX}
- Description & Shows all explored and non-obstructed construction sites. \\
+ Description & Shows all explored and non-obstructed construction sites where at least a Protoss Nexus, Terran Command Center or Zerg Hatchery can be placed. \\
  Type & Send always \\
  Syntax & (If Protoss) \verb|constructionSite(<X>,<Y>,<InPylonRange>)| \\
         & (If Zerg) \verb|constructionSite(<X>,<Y>,<onCreep>)|\\
