@@ -1,6 +1,7 @@
 package eisbw.percepts;
 
 import eis.iilang.Percept;
+import eis.iilang.TruthValue;
 
 /**
  * @author Danny & Harm - The Winner percept.
@@ -12,7 +13,7 @@ public class WinnerPercept extends Percept {
 	/**
 	 * The WinnerPercept constructor.
 	 */
-	public WinnerPercept() {
-		super(Percepts.WINNER);
+	public WinnerPercept(boolean winner) {
+		super(Percepts.WINNER, new TruthValue(winner));
 	}
 }

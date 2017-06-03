@@ -156,9 +156,9 @@ public class Game {
 	 * @param bwapi
 	 *            - the JNIBWAPI
 	 */
-	public void updateEndGamePerceiver(JNIBWAPI bwapi) {
+	public void updateEndGamePerceiver(JNIBWAPI bwapi, boolean winner) {
 		Map<PerceptFilter, Set<Percept>> toReturn = new HashMap<>();
-		new EndGamePerceiver(bwapi).perceive(toReturn);
+		new EndGamePerceiver(bwapi, winner).perceive(toReturn);
 		endGamePercepts = toReturn;
 	}
 

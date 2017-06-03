@@ -156,9 +156,9 @@ public class BwapiListener extends BwapiEvents {
 
 	@Override
 	public void matchEnd(boolean winner) {
-		if (winner) {
-			game.updateEndGamePerceiver(bwapi);
-		}
+		game.updateEndGamePerceiver(bwapi, winner);
+		game.update(bwapi);
+		
 		// have the winner percept perceived for 1 second before all agents
 		// are removed
 		try {
@@ -182,7 +182,7 @@ public class BwapiListener extends BwapiEvents {
 	protected boolean isSupportedByEntity(Action act, String name) {
 		Unit unit = game.getUnits().getUnits().get(name);
 		StarcraftAction action = getAction(act);
-		return action != null && action.isValid(act) && action.canExecute(unit, act) && !unit.isBeingConstructed();
+		return action != null && action.isValid(act) && action.canExecute(unit, act);
 	}
 
 	/**

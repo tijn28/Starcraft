@@ -15,20 +15,20 @@ import java.util.Set;
  *
  */
 public class EndGamePerceiver extends Perceiver {
+	private final boolean winner;
 	/**
 	 * The EndGamePerceiver constructor.
 	 * 
-	 * @param api
-	 *            The BWAPI
 	 */
-	public EndGamePerceiver(JNIBWAPI api) {
+	public EndGamePerceiver(JNIBWAPI api, boolean winner) {
 		super(api);
+		this.winner = winner;
 	}
 
 	@Override
 	public Map<PerceptFilter, Set<Percept>> perceive(Map<PerceptFilter, Set<Percept>> toReturn) {
 		Set<Percept> percepts = new HashSet<>();
-		percepts.add(new WinnerPercept());
+		percepts.add(new WinnerPercept(winner));
 		toReturn.put(new PerceptFilter(Percepts.WINNER, Filter.Type.ALWAYS), percepts);
 		return toReturn;
 	}
