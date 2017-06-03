@@ -33,6 +33,7 @@ public class BwapiListener extends BwapiEvents {
 	protected final int speed;
 	protected UpdateThread updateThread;
 	protected int count = 0;
+	protected int nuke = -1;
 	protected DebugWindow debug;
 
 	/**
@@ -108,6 +109,11 @@ public class BwapiListener extends BwapiEvents {
 			count = 0;
 		}
 
+		if (nuke > 0 && nuke++ == 50) {
+			game.updateNukePerceiver(bwapi, null);
+			nuke = -1;
+		}
+
 		if (this.updateThread != null) {
 			synchronized (this.updateThread) {
 				this.updateThread.notifyAll();
@@ -145,6 +151,7 @@ public class BwapiListener extends BwapiEvents {
 	@Override
 	public void nukeDetect(Position pos) {
 		game.updateNukePerceiver(bwapi, pos);
+		nuke = 0;
 	}
 
 	@Override

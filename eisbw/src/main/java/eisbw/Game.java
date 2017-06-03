@@ -80,7 +80,7 @@ public class Game {
 			if (unit.getValue().isWorker()) {
 				thisUnitPercepts.putAll(constructionPercepts);
 			}
-			if(nukePercepts != null ) {
+			if (nukePercepts != null) {
 				thisUnitPercepts.putAll(nukePercepts);
 				nukePercepts = null;
 			}
@@ -170,12 +170,16 @@ public class Game {
 	 *            - the JNIBWAPI
 	 */
 	public void updateNukePerceiver(JNIBWAPI bwapi, Position pos) {
-		Map<PerceptFilter, Set<Percept>> toReturn = new HashMap<>();
-		new NukePerceiver(bwapi, pos).perceive(toReturn);
-		if (nukePercepts == null) {
-			nukePercepts = toReturn;
+		if (pos == null) {
+			nukePercepts = null;
 		} else {
-			nukePercepts.values().iterator().next().addAll(toReturn.values().iterator().next());
+			Map<PerceptFilter, Set<Percept>> toReturn = new HashMap<>();
+			new NukePerceiver(bwapi, pos).perceive(toReturn);
+			if (nukePercepts == null) {
+				nukePercepts = toReturn;
+			} else {
+				nukePercepts.values().iterator().next().addAll(toReturn.values().iterator().next());
+			}
 		}
 	}
 
@@ -222,9 +226,11 @@ public class Game {
 	 */
 	public void clean() {
 		units.clean();
-		percepts.clear();
-		constructionPercepts.clear();
-		mapPercepts.clear();
+		percepts = null;
+		constructionPercepts = null;
+		endGamePercepts = null;
+		nukePercepts = null;
+		mapPercepts = null;
 		previous.clear();
 	}
 
