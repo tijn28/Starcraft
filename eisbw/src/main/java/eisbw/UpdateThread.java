@@ -64,7 +64,7 @@ public class UpdateThread extends Thread {
 			Unit unit;
 			while ((unit = units.getUninitializedUnits().poll()) != null) {
 				String unitName = BwapiUtility.getUnitName(unit);
-				if (game.isInitialized(unitName)) {
+				if (unit.isCompleted() && game.isInitialized(unitName)) {
 					game.getEnvironment().addToEnvironment(unitName, BwapiUtility.getEisUnitType(unit));
 				} else {
 					toAdd.add(unit);

@@ -114,6 +114,10 @@ public class BwapiListener extends BwapiEvents {
 			nuke = -1;
 		}
 
+		signalUpdateThread();
+	}
+
+	private void signalUpdateThread() {
 		if (this.updateThread != null) {
 			synchronized (this.updateThread) {
 				this.updateThread.notifyAll();
@@ -122,18 +126,21 @@ public class BwapiListener extends BwapiEvents {
 	}
 
 	@Override
-	public void unitDestroy(int id) {
-		String unitName = game.getUnits().getUnitNames().get(id);
-		if (unitName != null) {
-			game.getUnits().deleteUnit(unitName, id);
-		}
-	}
-
-	@Override
 	public void unitComplete(int id) {
 		Unit unit = bwapi.getUnit(id);
 		if (bwapi.getMyUnits().contains(unit) && !game.getUnits().getUnitNames().containsKey(id)) {
 			game.getUnits().addUnit(unit, factory);
+			signalUpdateThread();
+		}
+	}
+
+	@Override
+	public void unitDestroy(int id) {
+		String unitName = game.getUnits().getUnitNames().get(id);
+		if (unitName != null) {
+			Unit deleted = game.getUnits().deleteUnit(unitName, id);
+			pendingActions.remove(deleted);
+			signalUpdateThread();
 		}
 	}
 
@@ -157,8 +164,8 @@ public class BwapiListener extends BwapiEvents {
 	@Override
 	public void matchEnd(boolean winner) {
 		game.updateEndGamePerceiver(bwapi, winner);
-		game.update(bwapi);
-		
+		signalUpdateThread();
+
 		// have the winner percept perceived for 1 second before all agents
 		// are removed
 		try {

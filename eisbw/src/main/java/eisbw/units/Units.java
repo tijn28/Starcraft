@@ -60,11 +60,12 @@ public class Units {
 	 * @param id
 	 *            The id of the unit.
 	 */
-	public void deleteUnit(String unitName, int id) {
-		unitMap.remove(unitName);
+	public Unit deleteUnit(String unitName, int id) {
+		Unit unit = unitMap.remove(unitName);
 		unitNames.remove(id);
 		starcraftUnits.remove(unitName);
 		environment.deleteFromEnvironment(unitName);
+		return unit;
 	}
 
 	public Map<String, Unit> getUnits() {

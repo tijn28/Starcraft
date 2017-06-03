@@ -73,6 +73,7 @@ public class UpdateThreadTest {
   public void test_true_case() {
     when(game.isInitialized(name + "0")).thenReturn(true);
     when(game.getEnvironment()).thenReturn(env);
+    when(unit.isCompleted()).thenReturn(true);
 
     update.update();
     update.terminate();

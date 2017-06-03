@@ -119,6 +119,7 @@ public class BwapiListenerTest {
 		listener.unitMorph(0);
 		verify(units, times(0)).getUnits();
 		when(units.getUnitNames()).thenReturn(unitNames);
+		when(units.deleteUnit("unit",0)).thenReturn(unit);
 		listener.unitMorph(0);
 		// verify(units, times(1)).getUnits();
 		verify(units, times(1)).addUnit(eq(unit), any(StarcraftUnitFactory.class));
@@ -132,6 +133,7 @@ public class BwapiListenerTest {
 		listener.unitDestroy(0);
 		verify(units, times(0)).deleteUnit(any(String.class), any(Integer.class));
 		when(units.getUnitNames()).thenReturn(unitNames);
+		when(units.deleteUnit("unit",0)).thenReturn(unit);
 		listener.unitDestroy(0);
 		verify(units, times(1)).deleteUnit(any(String.class), any(Integer.class));
 	}
