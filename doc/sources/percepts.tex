@@ -125,7 +125,31 @@ This section will list all the percepts that are usable in the StarCraft environ
 \end{tabularx}
 \\
 
-\newpage
+\noindent
+\textbf{New Unit percept}\\
+\\
+\begin{tabularx}{\textwidth}{lX}
+ Description & Indicates when a new unit is under construction. \\
+ Type & Send on change \\
+ Syntax & \verb|newUnit(<ID>,<X>,<Y>)| \\
+ Example & \verb|newUnit(44, 22, 37)|   \\
+ \end{tabularx}
+ \begin{tabularx}{\textwidth}{l | c | p{8cm}|}
+ \cline{2-3}
+ Parameters & \textbf{\verb|<ID>|} & The (unique) \textit{ID} of the unit.\\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--$\infty$] \\
+            \cline{2-3}
+            & \textbf{\verb|<X>|} & The x-coordinate of the unit in the map. \\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            &\textbf{Range} &  [0--$\infty$] \\
+            \cline{2-3}
+            & \textbf{\verb|<Y>|} & The y-coordinate of the unit in the map. \\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            &\textbf{Range} & [0--$\infty$] \\
+            \cline{2-3}
+\end{tabularx}
+
 \subsection{Player Percepts}
 \textbf{Enemy Race percept}\\
 \\
@@ -163,13 +187,39 @@ This section will list all the percepts that are usable in the StarCraft environ
 \textbf{Winner percept}\\
 \\
 \begin{tabularx}{\textwidth}{lX}
- Description & At the end of the game all units will perceive this if you have won the game. \\
+ Description & At the end of the game all units will receive this depending whether they have won or not. \\
  Type & Send always \\
- Syntax &  \verb|winner| \\
- Example & \verb|winner|   \\
+ Syntax &  \verb|winner(<hasWon>)| \\
+ Example & \verb|winner(true)|   \\
  \end{tabularx}
+ \begin{tabularx}{\textwidth}{l | c | p{8cm}|}
+ \cline{2-3}
+  Parameters & \textbf{\verb|<hasWon>|} & Boolean which indicates whether you have won or not. \\
+             & \textbf{Type} & \verb|Boolean| \\
+            \cline{2-3}
+ \end{tabularx}
+\\\\
+\noindent
+\textbf{Nuke percept}\\
+\\
+\begin{tabularx}{\textwidth}{lX}
+ Description & Indicates that a nuclear strike will land on the given position. \\
+ Type & Send on change \\
+ Syntax & \verb|nuke(<X>,<Y>)| \\
+ Example & \verb|nuke(22, 37)|   \\
+ \end{tabularx}
+ \begin{tabularx}{\textwidth}{l | c | p{8cm}|}
+ \cline{2-3}
+ Parameters & \textbf{\verb|<X>|} & The x-coordinate of the nuclear strike.\\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            &\textbf{Range} &  [0--$\infty$] \\
+            \cline{2-3}
+            & \textbf{\verb|<Y>|} & The y-coordinate of the nuclear strike.\\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            &\textbf{Range} & [0--$\infty$] \\
+            \cline{2-3}
+\end{tabularx}
 
-\newpage
 \subsection{Map Percepts}
 \textbf{Map percept}\\
 \\
@@ -190,6 +240,7 @@ This section will list all the percepts that are usable in the StarCraft environ
             & \textbf{Range} & [0--$\infty$] \\
             \cline{2-3}
 \end{tabularx}\\
+\\
 \noindent
 \textbf{Base percept}\\
 \\
@@ -216,10 +267,10 @@ This section will list all the percepts that are usable in the StarCraft environ
             & \textbf{Type} & \verb|Positive Integer| \\
             & \textbf{Range} & [0--$\infty$] \\
             \cline{2-3}
-\end{tabularx}\\
+\end{tabularx}
 \newpage
 \noindent
-\textbf{Chokepoint percept}\\
+\textbf{Chokepoint/3 percept}\\
 \\
 \begin{tabularx}{\textwidth}{lX}
  Description & All the chokepoints on the map. These are the narrow points on the map where only a limited amount of units can go through at the same time.  \\
@@ -243,6 +294,35 @@ This section will list all the percepts that are usable in the StarCraft environ
             \cline{2-3}
 \end{tabularx}\\
 
+\noindent
+\textbf{Chokepoint/4 percept}\\
+\\
+\begin{tabularx}{\textwidth}{lX}
+ Description & All the chokepoints on the map. These are the narrow points on the map where only a limited amount of units can go through at the same time.  \\
+ Type & Send once \\
+ Syntax & \verb|chokepoint(<X1>,<Y1>,<X2>,<Y2>)| \\
+ Example & \verb|chokepoint(12, 15, 14, 17)| \\
+ \end{tabularx}
+ \begin{tabularx}{\textwidth}{l | c | p{8cm}|}
+ \cline{2-3}
+ Parameters & \textbf{\verb|<X1>|} & The x-coordinate of the first side of the chokepoint.\\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--$\infty$] \\
+            \cline{2-3}
+            & \textbf{\verb|<Y1>|} & The y-coordinate of the first side of the chokepoint.\\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--$\infty$] \\
+            \cline{2-3}
+            & \textbf{\verb|<X2>|} & The x-coordinate of the second side of the chokepoint.\\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--$\infty$] \\
+            \cline{2-3}
+            & \textbf{\verb|<Y2>|} & The y-coordinate of the second side of the chokepoint.\\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--$\infty$] \\
+            \cline{2-3}
+\end{tabularx}\\
+
 \subsection{Unit Percepts}
 \noindent
 \textbf{Friendly percept}\\
@@ -251,7 +331,7 @@ This section will list all the percepts that are usable in the StarCraft environ
  Description & Information about all the other (alive) units of the player. \\
  Type & Send always \\
  Syntax & \verb|friendly(<Type>,<ID>,<Condition>)| \\
- Example & \verb|friendly(Protoss Gateway, 26, [isBeingConstructed])| \\
+ Example & \verb|friendly(Protoss Gateway, 26, [beingConstructed])| \\
  \end{tabularx}
  \begin{tabularx}{\textwidth}{l | c | p{8cm}|}
  \cline{2-3}
@@ -592,7 +672,8 @@ This section will list all the percepts that are usable in the StarCraft environ
  Description & Shows all explored and non-obstructed construction sites. \\
  Type & Send always \\
  Syntax & (If Protoss) \verb|constructionSite(<X>,<Y>,<InPylonRange>)| \\
-        & (If Zerg/Terran) \verb|constructionSite(<X>,<Y>)| \\
+        & (If Zerg) \verb|constructionSite(<X>,<Y>,<onCreep>)|\\
+        & (If Terran) \verb|constructionSite(<X>,<Y>)| \\
  Example & \verb|constructionSite(66, 98, false)| \\
          & \verb|constructionSite(66, 98)| \\
  \end{tabularx}
@@ -607,6 +688,10 @@ This section will list all the percepts that are usable in the StarCraft environ
             & \textbf{Range} & [0--$\infty$] \\
             \cline{2-3}
             & \textbf{\verb|<InPylonRange>|} & Indicates whether the construction site is in range of a pylon (this is only for Protoss)\\
+            & \textbf{Type} & \verb|Boolean| \\
+            & \textbf{Range} & [True-False] \\
+            \cline{2-3}
+            & \textbf{\verb|<onCreep>|} & Indicates whether the construction site is on creep (this is only for Zerg)\\
             & \textbf{Type} & \verb|Boolean| \\
             & \textbf{Range} & [True-False] \\
             \cline{2-3}
