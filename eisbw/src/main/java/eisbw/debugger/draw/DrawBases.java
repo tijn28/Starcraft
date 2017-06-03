@@ -25,6 +25,7 @@ public class DrawBases extends IDraw {
 	protected void drawOnMap(JNIBWAPI api) throws TranslationException {
 		for (BaseLocation base : api.getMap().getBaseLocations()) {
 			api.drawCircle(base.getCenter(), 75, BWColor.Purple, false, false);
+			api.drawText(base.getPosition(), base.getPosition().getBX() + ", " + base.getPosition().getBY(), false);
 			if (base.isStartLocation()) {
 				api.drawText(base.getCenter(), "Starting Location", false);
 			}
