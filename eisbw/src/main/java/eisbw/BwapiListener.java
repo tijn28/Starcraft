@@ -64,7 +64,6 @@ public class BwapiListener extends BwapiEvents {
 				bwapi.start();
 			}
 		}.start();
-
 	}
 
 	@Override
@@ -181,6 +180,7 @@ public class BwapiListener extends BwapiEvents {
 		if (debug != null) {
 			debug.dispose();
 		}
+		bwapi.leaveGame();
 		game.clean();
 	}
 
