@@ -170,14 +170,12 @@ public class BwapiListener extends BwapiEvents {
 		// are removed
 		try {
 			TimeUnit.SECONDS.sleep(1);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
+		} catch (InterruptedException ignore) {
 		}
 		updateThread.terminate();
 		try {
 			updateThread.join();
-		} catch (InterruptedException ex) {
-			Thread.currentThread().interrupt();
+		} catch (InterruptedException ignore) {
 		}
 		pendingActions.clear();
 		if (debug != null) {

@@ -10,6 +10,7 @@ import java.util.Set;
 import java.util.logging.Logger;
 
 import eis.eis2java.translation.Filter;
+import eis.exceptions.ManagementException;
 import eis.iilang.Percept;
 import eisbw.percepts.GameSpeedPercept;
 import eisbw.percepts.Percepts;
@@ -231,6 +232,10 @@ public class Game {
 		nukePercepts = null;
 		mapPercepts = null;
 		previous.clear();
+		try {
+			env.kill();
+		} catch (ManagementException ignore) {
+		}
 	}
 
 	public int getAgentCount() {
