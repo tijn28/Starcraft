@@ -62,14 +62,18 @@ public class UnitsPerceiver extends Perceiver {
 				String unittype = (u.getType().getID() == UnitTypes.Zerg_Egg.getID()) ? u.getBuildType().getName()
 						: BwapiUtility.getUnitType(u);
 				unitpercepts.add(new FriendlyPercept(unittype, u.getID(), conditionHandler.getConditions()));
-				if(u.isBeingConstructed())
-				newunitpercepts.add(new NewUnitPercept(u.getID(), u.getPosition().getBX(), u.getPosition().getBY()));
+				if (u.isBeingConstructed())
+					newunitpercepts
+							.add(new NewUnitPercept(u.getID(), u.getPosition().getBX(), u.getPosition().getBY()));
 			} else {
 				unitpercepts
 						.add(new EnemyPercept(BwapiUtility.getUnitType(u), u.getID(), u.getHitPoints(), u.getShields(),
 								conditionHandler.getConditions(), u.getPosition().getBX(), u.getPosition().getBY()));
-				if (u.isAttacking() && u.getOrderTarget() != null) {
-					attackingpercepts.add(new Attacking(u.getID(), u.getOrderTarget().getID()));
+				if (u.getType().isAttackCapable()) {
+					Unit target = (u.getTarget() == null) ? u.getOrderTarget() : u.getTarget();
+					if (target != null && !units.contains(target)) {
+						attackingpercepts.add(new Attacking(u.getID(), target.getID()));
+					}
 				}
 			}
 		}
