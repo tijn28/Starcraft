@@ -1,9 +1,9 @@
 package eisbw.actions;
 
-import jnibwapi.JNIBWAPI;
-
 import java.util.HashMap;
 import java.util.Map;
+
+import jnibwapi.JNIBWAPI;
 
 /**
  * @author Danny & Harm - The ActionProvider.
@@ -59,6 +59,8 @@ public class ActionProvider {
 		actions.put("morph/1", new Morph(api));
 		actions.put("patrol/2", new Patrol(api));
 		actions.put("cancel/0", new Cancel(api));
+		actions.put("cancel/1", new Cancel(api));
 		actions.put("repair/1", new Repair(api));
+		actions.put("forfeit/0", new Forfeit(api));
 	}
 }

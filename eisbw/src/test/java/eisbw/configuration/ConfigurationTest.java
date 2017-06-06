@@ -46,9 +46,9 @@ public class ConfigurationTest {
     parameters.put("starcraft_location", new Identifier("scdir"));
     parameters.put("auto_menu", new Identifier("Single_Player"));
     Configuration config = new Configuration(parameters);
-    assertEquals("true",config.getDebugMode().getData());
-    assertEquals("terran",config.getOwnRace().getData());
-    assertEquals("zerg", config.getEnemyRace().getData());
+    assertEquals(true,config.getDebugMode());
+    assertEquals("terran",config.getOwnRace());
+    assertEquals("zerg", config.getEnemyRace());
     assertEquals("map",config.getMap());
     assertEquals("scdir",config.getScDir());
     assertEquals("Single_Player", config.getAutoMenu());

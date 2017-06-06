@@ -74,23 +74,41 @@ public class Game {
 	 */
 	public void update(JNIBWAPI bwapi) {
 		Map<String, Map<PerceptFilter, Set<Percept>>> unitPerceptHolder = new HashMap<>();
-		Map<PerceptFilter, Set<Percept>> perceptHolder = getPercepts(bwapi);
+		Map<PerceptFilter, Set<Percept>> globalPercepts = getGlobalPercepts(bwapi);
 		Map<String, StarcraftUnit> unitList = units.getStarcraftUnits();
 		for (Entry<String, StarcraftUnit> unit : unitList.entrySet()) {
-			Map<PerceptFilter, Set<Percept>> thisUnitPercepts = new HashMap<>(perceptHolder);
+			Map<PerceptFilter, Set<Percept>> thisUnitPercepts = new HashMap<>(unit.getValue().perceive());
 			if (unit.getValue().isWorker()) {
 				thisUnitPercepts.putAll(constructionPercepts);
 			}
+			if (!env.mapAgent()) {
+				thisUnitPercepts.putAll(globalPercepts); // UnitsPerceiver
+				if (nukePercepts != null) {
+					thisUnitPercepts.putAll(nukePercepts);
+				}
+				if (endGamePercepts != null) {
+					thisUnitPercepts.putAll(endGamePercepts);
+				}
+				if (mapPercepts != null) {
+					thisUnitPercepts.putAll(mapPercepts);
+				}
+				thisUnitPercepts.putAll(getGameSpeedPercept());
+			}
+			unitPerceptHolder.put(unit.getKey(), thisUnitPercepts);
+		}
+		if (env.mapAgent()) {
+			Map<PerceptFilter, Set<Percept>> thisUnitPercepts = new HashMap<>(globalPercepts);
 			if (nukePercepts != null) {
 				thisUnitPercepts.putAll(nukePercepts);
 			}
 			if (endGamePercepts != null) {
 				thisUnitPercepts.putAll(endGamePercepts);
 			}
-			thisUnitPercepts.putAll(mapPercepts);
+			if (mapPercepts != null) {
+				thisUnitPercepts.putAll(mapPercepts);
+			}
 			thisUnitPercepts.putAll(getGameSpeedPercept());
-			thisUnitPercepts.putAll(unit.getValue().perceive());
-			unitPerceptHolder.put(unit.getKey(), thisUnitPercepts);
+			unitPerceptHolder.put("mapAgent", thisUnitPercepts);
 		}
 		percepts = unitPerceptHolder;
 	}
@@ -183,7 +201,7 @@ public class Game {
 		}
 	}
 
-	private Map<PerceptFilter, Set<Percept>> getPercepts(JNIBWAPI bwapi) {
+	private Map<PerceptFilter, Set<Percept>> getGlobalPercepts(JNIBWAPI bwapi) {
 		Map<PerceptFilter, Set<Percept>> toReturn = new HashMap<>();
 		new UnitsPerceiver(bwapi).perceive(toReturn);
 		return toReturn;

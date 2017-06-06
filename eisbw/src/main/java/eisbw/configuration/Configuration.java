@@ -21,6 +21,7 @@ public class Configuration {
 	protected BooleanString debug = new BooleanString("false");
 	protected int speed = 20;
 	protected BooleanString invulnerable = new BooleanString("false");
+	protected BooleanString mapAgent = new BooleanString("false");
 
 	/**
 	 * The Configuration constructor.
@@ -63,6 +64,9 @@ public class Configuration {
 			case INVULNERABLE:
 				setInvulnerable(translator.translate2Java(entry.getValue(), BooleanString.class));
 				break;
+			case MAPAGENT:
+				setMapAgent(translator.translate2Java(entry.getValue(), BooleanString.class));
+				break;
 			default:
 				// Unreachable clause.
 				break;
@@ -76,6 +80,10 @@ public class Configuration {
 
 	private void setInvulnerable(BooleanString inv) {
 		this.invulnerable = inv;
+	}
+
+	private void setMapAgent(BooleanString mapagent) {
+		this.mapAgent = mapagent;
 	}
 
 	private void setSpeed(int speed) {
@@ -102,28 +110,32 @@ public class Configuration {
 		this.ownRace = race;
 	}
 
-	public BooleanString getInvulnerable() {
-		return invulnerable;
+	public boolean getInvulnerable() {
+		return debug.getValue();
+	}
+
+	public boolean getMapAgent() {
+		return mapAgent.getValue();
 	}
 
 	public int getSpeed() {
 		return speed;
 	}
 
-	public BooleanString getDebugMode() {
-		return debug;
+	public boolean getDebugMode() {
+		return debug.getValue();
 	}
 
 	public String getMap() {
 		return map;
 	}
 
-	public RaceString getOwnRace() {
-		return ownRace;
+	public String getOwnRace() {
+		return ownRace.getData();
 	}
 
-	public RaceString getEnemyRace() {
-		return enemyRace;
+	public String getEnemyRace() {
+		return enemyRace.getData();
 	}
 
 	public String getScDir() {

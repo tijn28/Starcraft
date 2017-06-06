@@ -20,4 +20,8 @@ public class BooleanString {
 	public String getData() {
 		return data;
 	}
+
+	public boolean getValue() {
+		return "true".equals(data);
+	}
 }

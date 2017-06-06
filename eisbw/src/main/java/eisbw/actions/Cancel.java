@@ -3,6 +3,7 @@ package eisbw.actions;
 import java.util.List;
 
 import eis.iilang.Action;
+import eis.iilang.Numeral;
 import eis.iilang.Parameter;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Unit;
@@ -10,7 +11,7 @@ import jnibwapi.types.RaceType.RaceTypes;
 import jnibwapi.types.TechType;
 
 /**
- * @author Danny & Harm - Cancels the training of a specified unit.
+ * @author Danny & Harm - Cancels the action of the current unit.
  *
  */
 public class Cancel extends StarcraftAction {
@@ -27,16 +28,26 @@ public class Cancel extends StarcraftAction {
 	@Override
 	public boolean isValid(Action action) {
 		List<Parameter> parameters = action.getParameters();
-		return parameters.isEmpty();
+		return parameters.isEmpty() || (parameters.size() == 1 && parameters.get(0) instanceof Numeral);
 	}
 
 	@Override
 	public boolean canExecute(Unit unit, Action action) {
-		return unit.getType().isBuilding() || api.getSelf().getRace().getID() == RaceTypes.Zerg.getID();
+		List<Parameter> parameters = action.getParameters();
+		if (parameters.isEmpty()) {
+			return unit.getType().isBuilding() || api.getSelf().getRace().getID() == RaceTypes.Zerg.getID();
+		} else {
+			return unit == null;
+		}
 	}
 
 	@Override
 	public void execute(Unit unit, Action action) {
+		if (unit == null) {
+			Numeral id = (Numeral) action.getParameters().get(0);
+			unit = this.api.getUnit(id.getValue().intValue());
+		}
+
 		if (unit.isMorphing()) {
 			unit.cancelMorph();
 		} else if (unit.isBeingConstructed()) {

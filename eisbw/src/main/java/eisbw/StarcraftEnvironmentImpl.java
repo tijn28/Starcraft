@@ -27,7 +27,7 @@ import java.util.logging.Logger;
 /**
  * @author Danny & Harm - The starcraft environment class which handles most
  *         environment logics.
- *         
+ * 
  */
 public class StarcraftEnvironmentImpl extends EIDefaultImpl {
 	private static final long serialVersionUID = 1L;
@@ -37,6 +37,7 @@ public class StarcraftEnvironmentImpl extends EIDefaultImpl {
 	private Configuration configuration;
 	private final Game game;
 	private final Set<String> registeredEntities;
+	private volatile boolean mapAgent = false;
 
 	/**
 	 * Constructor of the environment.
@@ -61,23 +62,28 @@ public class StarcraftEnvironmentImpl extends EIDefaultImpl {
 		setState(EnvironmentState.PAUSED);
 		Thread.currentThread().setPriority(3);
 		try {
-			configuration = new Configuration(parameters);			
-			if (!"test".equals(configuration.getOwnRace().getData())) {
-				bwapiListener = new BwapiListener(game, configuration.getScDir(),
-						"true".equals(configuration.getDebugMode().getData()),
-						"true".equals(configuration.getInvulnerable().getData()), 
-						configuration.getSpeed());
+			configuration = new Configuration(parameters);
+			if (!"test".equals(configuration.getOwnRace())) {
+				bwapiListener = new BwapiListener(game, configuration.getScDir(), configuration.getDebugMode(),
+						configuration.getInvulnerable(), configuration.getSpeed());
 
 				if (!"OFF".equals(configuration.getAutoMenu()) && !WindowsTools.isProcessRunning("Chaoslauncher.exe")) {
-					WindowsTools.startChaoslauncher(configuration.getOwnRace().getData(), 
-							configuration.getMap(), configuration.getScDir(),
-							configuration.getAutoMenu(), configuration.getEnemyRace().getData());
+					WindowsTools.startChaoslauncher(configuration.getOwnRace(), configuration.getMap(),
+							configuration.getScDir(), configuration.getAutoMenu(), configuration.getEnemyRace());
 				}
+			}
+			mapAgent = configuration.getMapAgent();
+			if (mapAgent) {
+				addEntity("mapAgent");
 			}
 			setState(EnvironmentState.RUNNING);
 		} catch (Exception ex) {
 			Logger.getLogger(StarcraftEnvironmentImpl.class.getName()).log(Level.SEVERE, null, ex);
 		}
+	}
+
+	public boolean mapAgent() {
+		return this.mapAgent;
 	}
 
 	@Override
