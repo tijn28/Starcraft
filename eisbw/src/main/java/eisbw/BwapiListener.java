@@ -16,6 +16,7 @@ import eisbw.units.StarcraftUnitFactory;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Position;
 import jnibwapi.Unit;
+import jnibwapi.types.RaceType;
 
 /**
  * @author Danny & Harm - The Listener of the BWAPI Events.
@@ -145,6 +146,9 @@ public class BwapiListener extends BwapiEvents {
 
 	@Override
 	public void unitMorph(int id) {
+          Unit unit = bwapi.getUnit(id);
+          if(unit.getType().getRaceID() == RaceType.RaceTypes.Terran.getID()) return;
+	  
 		unitDestroy(id);
 		unitComplete(id);
 	}
