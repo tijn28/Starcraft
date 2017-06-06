@@ -43,7 +43,7 @@ public class BuildingPerceiver extends UnitPerceiver {
 	}
 
 	private void researchedPercept(Map<PerceptFilter, Set<Percept>> toReturn) {
-		Set<Percept> percepts = new HashSet<>();
+		Set<Percept> percepts = new HashSet<>(1);
 		if (unit.getTech() != null && !unit.getTech().equals(TechType.TechTypes.None)) {
 			percepts.add(new ResearchingPercept(unit.getTech().getName()));
 		}
@@ -51,7 +51,7 @@ public class BuildingPerceiver extends UnitPerceiver {
 	}
 
 	private void rallyPointPercept(Map<PerceptFilter, Set<Percept>> toReturn) {
-		Set<Percept> percepts = new HashSet<>();
+		Set<Percept> percepts = new HashSet<>(1);
 		if (!unit.getRallyPosition().equals(Positions.None)) {
 			percepts.add(new RallyPointPercept(unit.getRallyPosition().getBX(), unit.getRallyPosition().getBY()));
 			toReturn.put(new PerceptFilter(Percepts.RALLYPOINT, Filter.Type.ON_CHANGE), percepts);
@@ -59,7 +59,7 @@ public class BuildingPerceiver extends UnitPerceiver {
 	}
 
 	private void upgradingPercept(Map<PerceptFilter, Set<Percept>> toReturn) {
-		Set<Percept> percepts = new HashSet<>();
+		Set<Percept> percepts = new HashSet<>(1);
 		if (unit.isUpgrading()) {
 			percepts.add(new UpgradePercept(unit.getUpgrade().getName()));
 			toReturn.put(new PerceptFilter(Percepts.UPGRADING, Filter.Type.ALWAYS), percepts);
@@ -67,7 +67,7 @@ public class BuildingPerceiver extends UnitPerceiver {
 	}
 
 	private void queueSizePercept(Map<PerceptFilter, Set<Percept>> toReturn) {
-		Set<Percept> percepts = new HashSet<>();
+		Set<Percept> percepts = new HashSet<>(1);
 		if ("Zerg Hatchery".equals(unit.getType().getName())) {
 			percepts.add(new QueueSizePercept(unit.getLarvaCount()));
 		} else {
@@ -77,7 +77,7 @@ public class BuildingPerceiver extends UnitPerceiver {
 	}
 
 	private void rallyUnitPercept(Map<PerceptFilter, Set<Percept>> toReturn) {
-		Set<Percept> percepts = new HashSet<>();
+		Set<Percept> percepts = new HashSet<>(1);
 		if (unit.getRallyUnit() != null) {
 			percepts.add(new RallyUnitPercept(unit.getRallyUnit().getID()));
 			toReturn.put(new PerceptFilter(Percepts.RALLYUNIT, Filter.Type.ON_CHANGE), percepts);

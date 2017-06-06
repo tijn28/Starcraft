@@ -30,15 +30,13 @@ public class WorkerPerceiver extends UnitPerceiver {
 	}
 
 	/**
-	 * Perceives the workerActivity percept.
+	 * Perceives all the worker percepts minus the terran worker percepts.
 	 * 
-	 * @param percepts
+	 * @param toReturn
 	 *            The list of percepts
-	 * @param unit
-	 *            the evaluated terran worker
-	 * @return the new list of percepts
 	 */
-	private void perceiveWorkerActivity(Set<Percept> percepts, Unit unit) {
+	private void workerActivity(Map<PerceptFilter, Set<Percept>> toReturn) {
+		Set<Percept> percepts = new HashSet<>(1);
 		if (unit.isGatheringGas()) {
 			percepts.add(new WorkerActivityPercept("gatheringGas"));
 		} else if (unit.isGatheringMinerals()) {
@@ -50,23 +48,12 @@ public class WorkerPerceiver extends UnitPerceiver {
 		} else {
 			percepts.add(new WorkerActivityPercept("idling"));
 		}
-	}
-
-	/**
-	 * Perceives all the worker percepts minus the terran worker percepts.
-	 * 
-	 * @param toReturn
-	 *            The list of percepts
-	 */
-	private void perceiveWorkers(Map<PerceptFilter, Set<Percept>> toReturn) {
-		Set<Percept> percepts = new HashSet<>();
-		perceiveWorkerActivity(percepts, unit);
 		toReturn.put(new PerceptFilter(Percepts.WORKERACTIVITY, Filter.Type.ON_CHANGE), percepts);
 	}
 
 	@Override
 	public Map<PerceptFilter, Set<Percept>> perceive(Map<PerceptFilter, Set<Percept>> toReturn) {
-		perceiveWorkers(toReturn);
+		workerActivity(toReturn);
 		resourcesPercepts(toReturn);
 		return toReturn;
 	}

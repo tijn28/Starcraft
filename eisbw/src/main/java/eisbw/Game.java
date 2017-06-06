@@ -12,12 +12,13 @@ import java.util.logging.Logger;
 import eis.eis2java.translation.Filter;
 import eis.exceptions.ManagementException;
 import eis.iilang.Percept;
+import eisbw.percepts.FramePercept;
 import eisbw.percepts.GameSpeedPercept;
+import eisbw.percepts.NukePercept;
 import eisbw.percepts.Percepts;
+import eisbw.percepts.WinnerPercept;
 import eisbw.percepts.perceivers.ConstructionSitePerceiver;
-import eisbw.percepts.perceivers.EndGamePerceiver;
 import eisbw.percepts.perceivers.MapPerceiver;
-import eisbw.percepts.perceivers.NukePerceiver;
 import eisbw.percepts.perceivers.PerceptFilter;
 import eisbw.percepts.perceivers.UnitsPerceiver;
 import eisbw.units.StarcraftUnit;
@@ -33,6 +34,7 @@ public class Game {
 	protected volatile Map<String, Map<PerceptFilter, Set<Percept>>> percepts;
 	protected Units units; // overriden in test
 	protected volatile Map<PerceptFilter, Set<Percept>> constructionPercepts;
+	protected volatile Map<PerceptFilter, Set<Percept>> framePercepts;
 	protected volatile Map<PerceptFilter, Set<Percept>> endGamePercepts;
 	protected volatile Map<PerceptFilter, Set<Percept>> nukePercepts;
 	protected final StarcraftEnvironmentImpl env;
@@ -92,6 +94,9 @@ public class Game {
 				if (mapPercepts != null) {
 					thisUnitPercepts.putAll(mapPercepts);
 				}
+				if (framePercepts != null) {
+					thisUnitPercepts.putAll(framePercepts);
+				}
 				thisUnitPercepts.putAll(getGameSpeedPercept());
 			}
 			unitPerceptHolder.put(unit.getKey(), thisUnitPercepts);
@@ -106,6 +111,9 @@ public class Game {
 			}
 			if (mapPercepts != null) {
 				thisUnitPercepts.putAll(mapPercepts);
+			}
+			if (framePercepts != null) {
+				thisUnitPercepts.putAll(framePercepts);
 			}
 			thisUnitPercepts.putAll(getGameSpeedPercept());
 			unitPerceptHolder.put("mapAgent", thisUnitPercepts);
@@ -170,6 +178,20 @@ public class Game {
 	}
 
 	/**
+	 * updates the frame count.
+	 * 
+	 * @param count
+	 *            The current frame count (per 50, matching c.site updates)
+	 */
+	public void updateFrameCount(int count) {
+		Map<PerceptFilter, Set<Percept>> toReturn = new HashMap<>(1);
+		Set<Percept> framepercept = new HashSet<>(1);
+		framepercept.add(new FramePercept(count));
+		toReturn.put(new PerceptFilter(Percepts.FRAME, Filter.Type.ON_CHANGE), framepercept);
+		framePercepts = toReturn;
+	}
+
+	/**
 	 * Updates the endGame percept.
 	 * 
 	 * @param bwapi
@@ -177,7 +199,9 @@ public class Game {
 	 */
 	public void updateEndGamePerceiver(JNIBWAPI bwapi, boolean winner) {
 		Map<PerceptFilter, Set<Percept>> toReturn = new HashMap<>();
-		new EndGamePerceiver(bwapi, winner).perceive(toReturn);
+		Set<Percept> endgamepercept = new HashSet<>(1);
+		endgamepercept.add(new WinnerPercept(winner));
+		toReturn.put(new PerceptFilter(Percepts.WINNER, Filter.Type.ALWAYS), endgamepercept);
 		endGamePercepts = toReturn;
 	}
 
@@ -192,7 +216,9 @@ public class Game {
 			nukePercepts = null;
 		} else {
 			Map<PerceptFilter, Set<Percept>> toReturn = new HashMap<>();
-			new NukePerceiver(bwapi, pos).perceive(toReturn);
+			Set<Percept> nukepercept = new HashSet<>(1);
+			nukepercept.add(new NukePercept(pos.getBX(), pos.getBY()));
+			toReturn.put(new PerceptFilter(Percepts.NUKE, Filter.Type.ON_CHANGE), nukepercept);
 			if (nukePercepts == null) {
 				nukePercepts = toReturn;
 			} else {
@@ -266,9 +292,9 @@ public class Game {
 
 	private Map<PerceptFilter, Set<Percept>> getGameSpeedPercept() {
 		Map<PerceptFilter, Set<Percept>> toReturn = new HashMap<PerceptFilter, Set<Percept>>();
-		Set<Percept> percepts = new HashSet<>();
-		percepts.add(new GameSpeedPercept(env.getFPS()));
-		toReturn.put(new PerceptFilter(Percepts.GAMESPEED, Filter.Type.ON_CHANGE), percepts);
+		Set<Percept> speedpercept = new HashSet<>(1);
+		speedpercept.add(new GameSpeedPercept(env.getFPS()));
+		toReturn.put(new PerceptFilter(Percepts.GAMESPEED, Filter.Type.ON_CHANGE), speedpercept);
 		return toReturn;
 	}
 

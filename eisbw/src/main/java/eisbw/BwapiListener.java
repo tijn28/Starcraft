@@ -104,12 +104,12 @@ public class BwapiListener extends BwapiEvents {
 			debug.debug(bwapi);
 		}
 
-		if (count++ == 50) {
+		if ((++count % 50) == 0) {
 			game.updateConstructionSites(bwapi);
-			count = 0;
+			game.updateFrameCount(count);
 		}
 
-		if (nuke > 0 && nuke++ == 50) {
+		if (nuke > 0 && ++nuke == 50) {
 			game.updateNukePerceiver(bwapi, null);
 			nuke = -1;
 		}

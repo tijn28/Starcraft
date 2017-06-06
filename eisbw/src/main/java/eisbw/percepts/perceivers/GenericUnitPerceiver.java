@@ -1,5 +1,10 @@
 package eisbw.percepts.perceivers;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import eis.eis2java.translation.Filter;
 import eis.iilang.Percept;
 import eisbw.BwapiUtility;
@@ -13,12 +18,6 @@ import eisbw.percepts.UnitLoadedPercept;
 import eisbw.units.ConditionHandler;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Unit;
-import jnibwapi.types.UnitType;
-
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * @author Danny & Harm - The perceiver which handles all the generic percepts.
@@ -56,12 +55,10 @@ public class GenericUnitPerceiver extends UnitPerceiver {
 	 *            The percept and reference of which kind of percept it is.
 	 */
 	private void statusPercept(Map<PerceptFilter, Set<Percept>> toReturn) {
-		Set<Percept> percepts = new HashSet<>();
-		ConditionHandler conditionHandler = new ConditionHandler(api, unit);
-
+		Set<Percept> percepts = new HashSet<>(1);
 		percepts.add(new StatusPercept(unit.getHitPoints(), unit.getShields(), unit.getEnergy(),
-				conditionHandler.getConditions(), unit.getPosition().getBX(), unit.getPosition().getBY()));
-
+				new ConditionHandler(api, unit).getConditions(), unit.getPosition().getBX(),
+				unit.getPosition().getBY()));
 		toReturn.put(new PerceptFilter(Percepts.STATUS, Filter.Type.ON_CHANGE), percepts);
 	}
 
@@ -70,12 +67,9 @@ public class GenericUnitPerceiver extends UnitPerceiver {
 	 *            The percept and reference of which kind of percept it is.
 	 */
 	private void selfPercept(Map<PerceptFilter, Set<Percept>> toReturn) {
-		Set<Percept> percepts = new HashSet<>();
-		UnitType type = unit.getType();
-
-		percepts.add(new SelfPercept(unit.getID(), BwapiUtility.getUnitType(unit), type.getMaxHitPoints(),
-				type.getMaxShields(), type.getMaxEnergy()));
-
+		Set<Percept> percepts = new HashSet<>(1);
+		percepts.add(new SelfPercept(unit.getID(), BwapiUtility.getUnitType(unit), unit.getType().getMaxHitPoints(),
+				unit.getType().getMaxShields(), unit.getType().getMaxEnergy()));
 		toReturn.put(new PerceptFilter(Percepts.SELF, Filter.Type.ONCE), percepts);
 	}
 
@@ -84,11 +78,9 @@ public class GenericUnitPerceiver extends UnitPerceiver {
 	 *            The percept and reference of which kind of percept it is.
 	 */
 	private void resourcesPercept(Map<PerceptFilter, Set<Percept>> toReturn) {
-		Set<Percept> percepts = new HashSet<>();
-
+		Set<Percept> percepts = new HashSet<>(1);
 		percepts.add(new ResourcesPercept(api.getSelf().getMinerals(), api.getSelf().getGas(),
 				api.getSelf().getSupplyUsed(), api.getSelf().getSupplyTotal()));
-
 		toReturn.put(new PerceptFilter(Percepts.RESOURCES, Filter.Type.ON_CHANGE), percepts);
 	}
 
@@ -97,12 +89,10 @@ public class GenericUnitPerceiver extends UnitPerceiver {
 	 *            The percept and reference of which kind of percept it is.
 	 */
 	private void defenceMatrixPercept(Map<PerceptFilter, Set<Percept>> toReturn) {
-		Set<Percept> percepts = new HashSet<>();
-
+		Set<Percept> percepts = new HashSet<>(1);
 		if (unit.isDefenseMatrixed()) {
 			percepts.add(new DefensiveMatrixPercept(unit.getDefenseMatrixPoints()));
 		}
-
 		toReturn.put(new PerceptFilter(Percepts.DEFENSIVEMATRIX, Filter.Type.ALWAYS), percepts);
 	}
 
@@ -113,7 +103,7 @@ public class GenericUnitPerceiver extends UnitPerceiver {
 	 *            The loaded units
 	 */
 	private void unitLoadedPercept(Map<PerceptFilter, Set<Percept>> toReturn, List<Unit> loadedUnits) {
-		Set<Percept> percepts = new HashSet<>();
+		Set<Percept> percepts = new HashSet<>(loadedUnits.size());
 		for (Unit u : loadedUnits) {
 			if (u != null) {
 				percepts.add(new UnitLoadedPercept(u.getID(), u.getType().getName()));
@@ -129,7 +119,7 @@ public class GenericUnitPerceiver extends UnitPerceiver {
 	 *            The loaded units
 	 */
 	private void spaceProvidedPercept(Map<PerceptFilter, Set<Percept>> toReturn, List<Unit> loadedUnits) {
-		Set<Percept> percepts = new HashSet<>();
+		Set<Percept> percepts = new HashSet<>(1);
 		percepts.add(new SpaceProvidedPercept(loadedUnits.size(), unit.getType().getSpaceProvided()));
 		toReturn.put(new PerceptFilter(Percepts.SPACEPROVIDED, Filter.Type.ON_CHANGE), percepts);
 	}

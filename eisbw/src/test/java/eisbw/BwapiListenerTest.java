@@ -155,9 +155,9 @@ public class BwapiListenerTest {
 	public void matchFrame_test() throws ActException {
 		listener.matchFrame();
 		verify(game, times(0)).updateConstructionSites(bwapi);
-		listener.count = 50;
+		listener.count = 49;
 		listener.matchFrame();
-		assertTrue(listener.count == 0);
+		assertTrue(listener.count == 50);
 		verify(game, times(1)).updateConstructionSites(bwapi);
 		listener.performEntityAction("unit", new Action("stop"));
 		eis.iilang.Parameter[] list = new eis.iilang.Parameter[1];

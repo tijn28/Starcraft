@@ -12,6 +12,9 @@ public class WinnerPercept extends Percept {
 
 	/**
 	 * The WinnerPercept constructor.
+	 * 
+	 * @param boolean
+	 *            true if won, false if lost.
 	 */
 	public WinnerPercept(boolean winner) {
 		super(Percepts.WINNER, new TruthValue(winner));
