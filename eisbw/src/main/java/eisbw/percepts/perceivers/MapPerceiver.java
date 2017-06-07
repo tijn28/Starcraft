@@ -1,6 +1,16 @@
 package eisbw.percepts.perceivers;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+
 import eis.eis2java.translation.Filter;
+import eis.iilang.Numeral;
+import eis.iilang.Parameter;
 import eis.iilang.Percept;
 import eisbw.UnitTypesEx;
 import eisbw.percepts.BasePercept;
@@ -9,19 +19,14 @@ import eisbw.percepts.ChokepointPercept;
 import eisbw.percepts.EnemyRacePercept;
 import eisbw.percepts.MapPercept;
 import eisbw.percepts.Percepts;
+import eisbw.percepts.RegionPercept;
 import jnibwapi.BaseLocation;
 import jnibwapi.ChokePoint;
 import jnibwapi.JNIBWAPI;
-import jnibwapi.Player;
 import jnibwapi.Position;
+import jnibwapi.Region;
 import jnibwapi.Unit;
 import jnibwapi.types.UnitType;
-
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
 
 /**
  * @author Danny & Harm - The perceiver which handles all the map percepts.
@@ -40,14 +45,19 @@ public class MapPerceiver extends Perceiver {
 
 	@Override
 	public Map<PerceptFilter, Set<Percept>> perceive(Map<PerceptFilter, Set<Percept>> toReturn) {
-		Set<Percept> percepts = new HashSet<>();
 		jnibwapi.Map map = api.getMap();
 
-		Percept mapPercept = new MapPercept(map.getSize().getBX(), map.getSize().getBY());
-		percepts.add(mapPercept);
+		Set<Percept> mapPercept = new HashSet<>(1);
+		mapPercept.add(new MapPercept(map.getSize().getBX(), map.getSize().getBY()));
+		toReturn.put(new PerceptFilter(Percepts.MAP, Filter.Type.ONCE), mapPercept);
 
-		/** Distance calculation between resource groups and base location. **/
-		HashMap<Integer, Position> distanceMatrix = new HashMap<>();
+		Set<Percept> enemyRacePercept = new HashSet<>(1);
+		enemyRacePercept
+				.add(new EnemyRacePercept(api.getEnemies().iterator().next().getRace().getName().toLowerCase()));
+		toReturn.put(new PerceptFilter(Percepts.ENEMYRACE, Filter.Type.ONCE), enemyRacePercept);
+
+		/** Distance calculation between resource groups and base location **/
+		Map<Integer, Position> distanceMatrix = new HashMap<>();
 		for (Unit u : api.getNeutralUnits()) {
 			UnitType unitType = u.getType();
 			if (UnitTypesEx.isMineralField(unitType)) {
@@ -56,11 +66,7 @@ public class MapPerceiver extends Perceiver {
 				}
 			}
 		}
-
-		for (Player p : api.getEnemies()) {
-			percepts.add(new EnemyRacePercept(p.getRace().getName().toLowerCase()));
-		}
-
+		Set<Percept> basePercepts = new HashSet<>(map.getBaseLocations().size());
 		for (BaseLocation location : map.getBaseLocations()) {
 			int resourcegroup = -1;
 			double distance = Integer.MAX_VALUE;
@@ -74,18 +80,34 @@ public class MapPerceiver extends Perceiver {
 
 			Percept basePercept = new BasePercept(location.getPosition().getBX(), location.getPosition().getBY(),
 					location.isStartLocation(), resourcegroup);
-			percepts.add(basePercept);
+			basePercepts.add(basePercept);
 		}
+		toReturn.put(new PerceptFilter(Percepts.BASE, Filter.Type.ONCE), basePercepts);
 
+		Set<Percept> chokepointPercepts = new HashSet<>(map.getChokePoints().size());
 		for (ChokePoint cp : map.getChokePoints()) {
 			Percept chokeCenterPercept = new ChokepointCenterPercept(cp.getCenter().getBX(), cp.getCenter().getBY(),
-					(int)cp.getRadius());
-			percepts.add(chokeCenterPercept);
+					(int) cp.getRadius());
+			chokepointPercepts.add(chokeCenterPercept);
 			Percept chokePercept = new ChokepointPercept(cp.getFirstSide().getBX(), cp.getFirstSide().getBY(),
 					cp.getSecondSide().getBX(), cp.getSecondSide().getBY());
-			percepts.add(chokePercept);
+			chokepointPercepts.add(chokePercept);
 		}
-		toReturn.put(new PerceptFilter(Percepts.MAP, Filter.Type.ONCE), percepts);
+		toReturn.put(new PerceptFilter(Percepts.CHOKEPOINT, Filter.Type.ONCE), chokepointPercepts);
+
+		Set<Percept> regionPercepts = new HashSet<>(map.getRegions().size());
+		for (Region r : map.getRegions()) {
+			Position center = r.getCenter();
+			int height = map.getGroundHeight(center);
+			List<Parameter> connected = new LinkedList<>();
+			for (Region c : r.getConnectedRegions()) {
+				connected.add(new Numeral(c.getID()));
+			}
+			Percept regionPercept = new RegionPercept(r.getID(), center.getBX(), center.getBY(), height, connected);
+			regionPercepts.add(regionPercept);
+		}
+		toReturn.put(new PerceptFilter(Percepts.REGION, Filter.Type.ONCE), regionPercepts);
+
 		return toReturn;
 	}
 }

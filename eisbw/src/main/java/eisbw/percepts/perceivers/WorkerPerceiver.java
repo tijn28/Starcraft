@@ -63,17 +63,15 @@ public class WorkerPerceiver extends UnitPerceiver {
 		Set<Percept> geysers = new HashSet<>();
 		for (Unit u : api.getNeutralUnits()) {
 			UnitType unitType = u.getType();
-			if (u.isVisible()) {
-				if (UnitTypesEx.isMineralField(unitType)) {
-					MineralFieldPercept mineralfield = new MineralFieldPercept(u.getID(), u.getResources(),
-							u.getResourceGroup(), u.getPosition().getBX(), u.getPosition().getBY());
-					minerals.add(mineralfield);
-				} else if (UnitTypesEx.isVespeneGeyser(unitType)) {
-					VespeneGeyserPercept geyser = new VespeneGeyserPercept(u.getID(), u.getResources(),
-							u.getResourceGroup(), u.getPosition().getBX(), u.getPosition().getBY());
-					geysers.add(geyser);
+			if (UnitTypesEx.isMineralField(unitType)) {
+				MineralFieldPercept mineralfield = new MineralFieldPercept(u.getID(), u.getResources(),
+						u.getResourceGroup(), u.getPosition().getBX(), u.getPosition().getBY());
+				minerals.add(mineralfield);
+			} else if (UnitTypesEx.isVespeneGeyser(unitType)) {
+				VespeneGeyserPercept geyser = new VespeneGeyserPercept(u.getID(), u.getResources(),
+						u.getResourceGroup(), u.getPosition().getBX(), u.getPosition().getBY());
+				geysers.add(geyser);
 
-				}
 			}
 		}
 		for (Unit u : api.getMyUnits()) {

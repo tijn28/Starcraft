@@ -6,6 +6,7 @@ import eis.iilang.Percept;
 /**
  * @author Danny & Harm - The Space Provided percept.
  *
+ * @TODO remove (can be derived from the unitLoaded percept)
  */
 public class SpaceProvidedPercept extends Percept {
 	private static final long serialVersionUID = 1L;

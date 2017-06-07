@@ -35,6 +35,7 @@ public class Percepts {
 	public static final String GAMESPEED = "gameSpeed";
 	public static final String FRAME = "frame";
 	public static final String NUKE = "nuke";
+	public static final String REGION = "region";
 
 	private Percepts() {
 		// Private constructor because this is a static class

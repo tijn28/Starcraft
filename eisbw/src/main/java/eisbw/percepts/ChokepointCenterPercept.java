@@ -5,7 +5,8 @@ import eis.iilang.Percept;
 
 /**
  * @author Danny & Harm - The Chokepoint/3 percept.
- *
+ * 
+ * @TODO remove (can be derived from the chokepoint/4 percept)
  */
 public class ChokepointCenterPercept extends Percept {
 	private static final long serialVersionUID = 1L;
