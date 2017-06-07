@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -18,8 +19,8 @@ import javax.swing.SwingConstants;
 public class CheatButtons extends JPanel implements ActionListener {
 	private static final long serialVersionUID = 1L;
 
+	private final List<String> actions = new LinkedList<>();
 	private final Color buttonBackground;
-	private final List<String> actions;
 
 	/**
 	 * Constructor for buttons that inject cheats into the game.
@@ -30,7 +31,6 @@ public class CheatButtons extends JPanel implements ActionListener {
 		JLabel label = new JLabel("Cheat actions", SwingConstants.CENTER);
 		add(label, BorderLayout.NORTH);
 
-		actions = new LinkedList<>();
 		JButton resources = new JButton("Give resources");
 		resources.setActionCommand("SHOW ME THE MONEY");
 		resources.addActionListener(this);
@@ -66,7 +66,7 @@ public class CheatButtons extends JPanel implements ActionListener {
 	}
 
 	public List<String> getActions() {
-		return actions;
+		return Collections.unmodifiableList(actions);
 	}
 
 	/**

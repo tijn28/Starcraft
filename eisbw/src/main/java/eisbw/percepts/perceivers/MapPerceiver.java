@@ -1,8 +1,8 @@
 package eisbw.percepts.perceivers;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -106,9 +106,9 @@ public class MapPerceiver extends Perceiver {
 		Set<Percept> regionPercepts = new HashSet<>(map.getRegions().size());
 		for (Region r : map.getRegions()) {
 			int height = map.getGroundHeight(r.getCenter());
-			List<Parameter> polygon = new LinkedList<>();
+			List<Parameter> polygon = new ArrayList<>(r.getPolygon().length);
 			for (Position p : r.getPolygon()) {
-				List<Parameter> xy = new LinkedList<>();
+				List<Parameter> xy = new ArrayList<>(2);
 				xy.add(new Numeral(p.getBX()));
 				xy.add(new Numeral(p.getBY()));
 				polygon.add(new ParameterList(xy));

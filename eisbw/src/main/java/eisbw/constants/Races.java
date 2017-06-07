@@ -1,6 +1,6 @@
 package eisbw.constants;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,7 +21,7 @@ public class Races {
 	 */
 	public static List<String> getRaceList() {
 		if (raceNames == null) {
-			raceNames = new LinkedList<>();
+			raceNames = new ArrayList<>(8);
 			raceNames.add("terran");
 			raceNames.add("protoss");
 			raceNames.add("zerg");

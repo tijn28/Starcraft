@@ -1,5 +1,6 @@
 package eisbw;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -250,7 +251,7 @@ public class Game {
 		if (percepts.containsKey(entity)) {
 			return translatePercepts(entity, percepts.get(entity));
 		} else {
-			return new LinkedList<>();
+			return new ArrayList<>(0);
 		}
 	}
 
