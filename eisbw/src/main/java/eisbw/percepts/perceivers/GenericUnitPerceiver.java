@@ -10,7 +10,6 @@ import eis.iilang.Percept;
 import eisbw.BwapiUtility;
 import eisbw.percepts.DefensiveMatrixPercept;
 import eisbw.percepts.Percepts;
-import eisbw.percepts.RegionUnitPercept;
 import eisbw.percepts.ResourcesPercept;
 import eisbw.percepts.SelfPercept;
 import eisbw.percepts.SpaceProvidedPercept;
@@ -20,7 +19,6 @@ import eisbw.units.ConditionHandler;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Player;
 import jnibwapi.Position;
-import jnibwapi.Region;
 import jnibwapi.Unit;
 import jnibwapi.types.UnitType;
 
@@ -65,12 +63,6 @@ public class GenericUnitPerceiver extends UnitPerceiver {
 		statusPercept.add(new StatusPercept(unit.getHitPoints(), unit.getShields(), unit.getEnergy(),
 				new ConditionHandler(api, unit).getConditions(), pos.getBX(), pos.getBY()));
 		toReturn.put(new PerceptFilter(Percepts.STATUS, Filter.Type.ON_CHANGE), statusPercept);
-		Region region = (api.getMap() == null) ? null : api.getMap().getRegion(pos);
-		if (region != null) {
-			Set<Percept> regionPercept = new HashSet<>(1);
-			regionPercept.add(new RegionUnitPercept(region.getID()));
-			toReturn.put(new PerceptFilter(Percepts.REGION, Filter.Type.ON_CHANGE), regionPercept);
-		}
 	}
 
 	/**
