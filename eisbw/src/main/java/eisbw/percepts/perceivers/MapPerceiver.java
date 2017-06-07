@@ -16,6 +16,7 @@ import eisbw.UnitTypesEx;
 import eisbw.percepts.BasePercept;
 import eisbw.percepts.ChokepointCenterPercept;
 import eisbw.percepts.ChokepointPercept;
+import eisbw.percepts.ChokepointRegionPercept;
 import eisbw.percepts.EnemyRacePercept;
 import eisbw.percepts.MapPercept;
 import eisbw.percepts.Percepts;
@@ -94,6 +95,10 @@ public class MapPerceiver extends Perceiver {
 			Percept chokePercept = new ChokepointPercept(cp.getFirstSide().getBX(), cp.getFirstSide().getBY(),
 					cp.getSecondSide().getBX(), cp.getSecondSide().getBY());
 			chokepointPercepts.add(chokePercept);
+			Percept chokeRegionPercept = new ChokepointRegionPercept(cp.getFirstSide().getBX(),
+					cp.getFirstSide().getBY(), cp.getSecondSide().getBX(), cp.getSecondSide().getBY(),
+					cp.getFirstRegion().getID(), cp.getSecondRegion().getID());
+			chokepointPercepts.add(chokeRegionPercept);
 		}
 		toReturn.put(new PerceptFilter(Percepts.CHOKEPOINT, Filter.Type.ONCE), chokepointPercepts);
 
