@@ -19,10 +19,10 @@ public class BasePercept extends Percept {
 	 * @param isStart
 	 *            Indicates whether the base location is a starting location or
 	 *            not.
-	 * @param regionId
-	 *            The region ID of the base location.
+	 * @param resourceGroup
+	 *            The resourceGroup matching with the base location.
 	 */
-	public BasePercept(int xpos, int ypos, boolean isStart, int regionId) {
-		super(Percepts.BASE, new Numeral(xpos), new Numeral(ypos), new TruthValue(isStart), new Numeral(regionId));
+	public BasePercept(int xpos, int ypos, boolean isStart, int resourceGroup) {
+		super(Percepts.BASE, new Numeral(xpos), new Numeral(ypos), new TruthValue(isStart), new Numeral(resourceGroup));
 	}
 }
