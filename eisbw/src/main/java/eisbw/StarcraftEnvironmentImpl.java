@@ -74,7 +74,7 @@ public class StarcraftEnvironmentImpl extends EIDefaultImpl {
 			}
 			mapAgent = configuration.getMapAgent();
 			if (mapAgent) {
-				addEntity("mapAgent");
+				addEntity("mapAgent", "mapAgent");
 			}
 			setState(EnvironmentState.RUNNING);
 		} catch (Exception ex) {
