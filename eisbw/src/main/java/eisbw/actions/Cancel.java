@@ -37,13 +37,14 @@ public class Cancel extends StarcraftAction {
 		if (parameters.isEmpty()) {
 			return unit.getType().isBuilding() || api.getSelf().getRace().getID() == RaceTypes.Zerg.getID();
 		} else {
-			return unit == null;
+			return true;
 		}
 	}
 
 	@Override
 	public void execute(Unit unit, Action action) {
-		if (unit == null) {
+		List<Parameter> parameters = action.getParameters();
+		if (!parameters.isEmpty()) {
 			Numeral id = (Numeral) action.getParameters().get(0);
 			unit = this.api.getUnit(id.getValue().intValue());
 		}

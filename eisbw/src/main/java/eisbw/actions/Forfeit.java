@@ -30,7 +30,7 @@ public class Forfeit extends StarcraftAction {
 
 	@Override
 	public boolean canExecute(Unit unit, Action action) {
-		return unit == null;
+		return true;
 	}
 
 	@Override
