@@ -51,10 +51,12 @@ public class MapPerceiver extends Perceiver {
 		mapPercept.add(new MapPercept(map.getSize().getBX(), map.getSize().getBY()));
 		toReturn.put(new PerceptFilter(Percepts.MAP, Filter.Type.ONCE), mapPercept);
 
-		Set<Percept> enemyRacePercept = new HashSet<>(1);
-		enemyRacePercept
-				.add(new EnemyRacePercept(api.getEnemies().iterator().next().getRace().getName().toLowerCase()));
-		toReturn.put(new PerceptFilter(Percepts.ENEMYRACE, Filter.Type.ONCE), enemyRacePercept);
+		if (!api.getEnemies().isEmpty()) {
+			Set<Percept> enemyRacePercept = new HashSet<>(1);
+			enemyRacePercept
+					.add(new EnemyRacePercept(api.getEnemies().iterator().next().getRace().getName().toLowerCase()));
+			toReturn.put(new PerceptFilter(Percepts.ENEMYRACE, Filter.Type.ONCE), enemyRacePercept);
+		} // FIXME: we only support 1 enemy now
 
 		/** Distance calculation between resource groups and base location **/
 		Map<Integer, Position> distanceMatrix = new HashMap<>();

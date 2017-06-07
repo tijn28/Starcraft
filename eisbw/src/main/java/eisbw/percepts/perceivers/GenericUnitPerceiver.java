@@ -65,7 +65,7 @@ public class GenericUnitPerceiver extends UnitPerceiver {
 		statusPercept.add(new StatusPercept(unit.getHitPoints(), unit.getShields(), unit.getEnergy(),
 				new ConditionHandler(api, unit).getConditions(), pos.getBX(), pos.getBY()));
 		toReturn.put(new PerceptFilter(Percepts.STATUS, Filter.Type.ON_CHANGE), statusPercept);
-		Region region = api.getMap().getRegion(pos);
+		Region region = (api.getMap() == null) ? null : api.getMap().getRegion(pos);
 		if (region != null) {
 			Set<Percept> regionPercept = new HashSet<>(1);
 			regionPercept.add(new RegionUnitPercept(region.getID()));

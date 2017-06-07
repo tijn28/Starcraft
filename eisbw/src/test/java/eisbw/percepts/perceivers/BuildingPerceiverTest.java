@@ -1,9 +1,19 @@
 package eisbw.percepts.perceivers;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
+
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import eis.iilang.Percept;
 import jnibwapi.JNIBWAPI;
@@ -14,17 +24,6 @@ import jnibwapi.Unit;
 import jnibwapi.types.TechType;
 import jnibwapi.types.UnitType;
 import jnibwapi.types.UpgradeType.UpgradeTypes;
-
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 public class BuildingPerceiverTest {
 
@@ -64,28 +63,28 @@ public class BuildingPerceiverTest {
   @Test
   public void size_test() {
     Map<PerceptFilter, Set<Percept>> toReturn = new HashMap<>();
-    assertEquals(5, perciever.perceive(toReturn).size());
+    assertEquals(4, perciever.perceive(toReturn).size());
     when(unit.getRallyPosition()).thenReturn(Positions.None);
     toReturn = new HashMap<>();
-    assertEquals(4, perciever.perceive(toReturn).size());
+    assertEquals(3, perciever.perceive(toReturn).size());
     when(unit.getRallyUnit()).thenReturn(null);
     toReturn = new HashMap<>();
-    assertEquals(3, perciever.perceive(toReturn).size());
+    assertEquals(2, perciever.perceive(toReturn).size());
     toReturn = new HashMap<>();
     when(unit.isUpgrading()).thenReturn(false);
-    assertEquals(2, perciever.perceive(toReturn).size());
+    assertEquals(1, perciever.perceive(toReturn).size());
     toReturn = new HashMap<>();
     List<Unit> loadedunits = new LinkedList<>();
     loadedunits.add(unit);
     loadedunits.add(null);
     when(unit.getLoadedUnits()).thenReturn(loadedunits);
-    assertEquals(2, perciever.perceive(toReturn).size());
+    assertEquals(1, perciever.perceive(toReturn).size());
     toReturn = new HashMap<>();
     when(unitType.getSpaceProvided()).thenReturn(0);
-    assertEquals(2, perciever.perceive(toReturn).size());
+    assertEquals(1, perciever.perceive(toReturn).size());
     toReturn = new HashMap<>();
     when(self.isResearched(any(TechType.class))).thenReturn(true);
-    assertTrue(perciever.perceive(toReturn).size() > 1);
+    assertEquals(1, perciever.perceive(toReturn).size());
   }
   
 }
