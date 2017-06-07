@@ -66,16 +66,12 @@ public class StarcraftEnvironmentImpl extends EIDefaultImpl {
 			if (!"test".equals(configuration.getOwnRace())) {
 				bwapiListener = new BwapiListener(game, configuration.getScDir(), configuration.getDebugMode(),
 						configuration.getInvulnerable(), configuration.getSpeed());
-
 				if (!"OFF".equals(configuration.getAutoMenu()) && !WindowsTools.isProcessRunning("Chaoslauncher.exe")) {
 					WindowsTools.startChaoslauncher(configuration.getOwnRace(), configuration.getMap(),
 							configuration.getScDir(), configuration.getAutoMenu(), configuration.getEnemyRace());
 				}
 			}
 			mapAgent = configuration.getMapAgent();
-			if (mapAgent) {
-				addEntity("mapAgent", "mapAgent");
-			}
 			setState(EnvironmentState.RUNNING);
 		} catch (Exception ex) {
 			Logger.getLogger(StarcraftEnvironmentImpl.class.getName()).log(Level.SEVERE, null, ex);

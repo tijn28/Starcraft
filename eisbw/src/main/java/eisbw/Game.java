@@ -56,6 +56,12 @@ public class Game {
 		env = environment;
 	}
 
+	public void mapAgent() {
+		if (env.mapAgent()) {
+			env.addToEnvironment("mapAgent", "mapAgent");
+		}
+	}
+
 	/**
 	 * Update the map.
 	 * 
@@ -198,7 +204,7 @@ public class Game {
 	 *            - the JNIBWAPI
 	 */
 	public void updateEndGamePerceiver(JNIBWAPI bwapi, boolean winner) {
-		Map<PerceptFilter, Set<Percept>> toReturn = new HashMap<>();
+		Map<PerceptFilter, Set<Percept>> toReturn = new HashMap<>(1);
 		Set<Percept> endgamepercept = new HashSet<>(1);
 		endgamepercept.add(new WinnerPercept(winner));
 		toReturn.put(new PerceptFilter(Percepts.WINNER, Filter.Type.ALWAYS), endgamepercept);
@@ -274,6 +280,7 @@ public class Game {
 		constructionPercepts = null;
 		endGamePercepts = null;
 		nukePercepts = null;
+		framePercepts = null;
 		mapPercepts = null;
 		previous.clear();
 		try {
@@ -291,7 +298,7 @@ public class Game {
 	}
 
 	private Map<PerceptFilter, Set<Percept>> getGameSpeedPercept() {
-		Map<PerceptFilter, Set<Percept>> toReturn = new HashMap<PerceptFilter, Set<Percept>>();
+		Map<PerceptFilter, Set<Percept>> toReturn = new HashMap<>(1);
 		Set<Percept> speedpercept = new HashSet<>(1);
 		speedpercept.add(new GameSpeedPercept(env.getFPS()));
 		toReturn.put(new PerceptFilter(Percepts.GAMESPEED, Filter.Type.ON_CHANGE), speedpercept);

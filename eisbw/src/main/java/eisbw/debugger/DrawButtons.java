@@ -45,7 +45,7 @@ public class DrawButtons extends JPanel implements ActionListener {
 		JLabel label = new JLabel("Draw actions", SwingConstants.CENTER);
 		add(label, BorderLayout.NORTH);
 
-		draw = new HashMap<>();
+		draw = new HashMap<>(5);
 		draw.put(Draw.CONSTRUCTION_SITES.getName(), new DrawConstructionSite(game));
 		draw.put(Draw.CHOKEPOINTS.getName(), new DrawChokepoints(game));
 		draw.put(Draw.BASE_LOCATIONS.getName(), new DrawBases(game));

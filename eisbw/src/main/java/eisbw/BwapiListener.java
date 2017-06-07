@@ -90,6 +90,8 @@ public class BwapiListener extends BwapiEvents {
 			bwapi.drawTargets(true);
 			bwapi.enableUserInput();
 		}
+
+		game.mapAgent();
 	}
 
 	@Override
