@@ -11,7 +11,6 @@ import java.util.Set;
 import eis.eis2java.translation.Filter;
 import eis.iilang.Numeral;
 import eis.iilang.Parameter;
-import eis.iilang.ParameterList;
 import eis.iilang.Percept;
 import eisbw.UnitTypesEx;
 import eisbw.percepts.BasePercept;
@@ -105,15 +104,13 @@ public class MapPerceiver extends Perceiver {
 
 		Set<Percept> regionPercepts = new HashSet<>(map.getRegions().size());
 		for (Region r : map.getRegions()) {
-			int height = map.getGroundHeight(r.getCenter());
-			List<Parameter> polygon = new ArrayList<>(r.getPolygon().length);
-			for (Position p : r.getPolygon()) {
-				List<Parameter> xy = new ArrayList<>(2);
-				xy.add(new Numeral(p.getBX()));
-				xy.add(new Numeral(p.getBY()));
-				polygon.add(new ParameterList(xy));
+			Position center = r.getCenter();
+			int height = map.getGroundHeight(center);
+			List<Parameter> connected = new ArrayList<>(r.getConnectedRegions().size());
+			for (Region c : r.getConnectedRegions()) {
+				connected.add(new Numeral(c.getID()));
 			}
-			Percept regionPercept = new RegionPercept(r.getID(), height, polygon);
+			Percept regionPercept = new RegionPercept(r.getID(), center.getBX(), center.getBY(), height, connected);
 			regionPercepts.add(regionPercept);
 		}
 		toReturn.put(new PerceptFilter(Percepts.REGION, Filter.Type.ONCE), regionPercepts);

@@ -17,12 +17,17 @@ public class RegionPercept extends Percept {
 	/**
 	 * @param id
 	 *            The identifier of the region.
+	 * @param xpos
+	 *            The x coordinate of the center of the region.
+	 * @param ypos
+	 *            The y coordinate of the center of the region.
 	 * @param height
 	 *            The height of the region.
-	 * @param polygon
-	 *            A list of [x,y] combinations describing the region.
+	 * @param connected
+	 *            The identifiers of all regions connected to this region.
 	 */
-	public RegionPercept(int id, int height, List<Parameter> polygon) {
-		super(Percepts.REGION, new Numeral(id), new Numeral(height), new ParameterList(polygon));
+	public RegionPercept(int id, int xpos, int ypos, int height, List<Parameter> connected) {
+		super(Percepts.REGION, new Numeral(id), new Numeral(xpos), new Numeral(ypos), new Numeral(height),
+				new ParameterList(connected));
 	}
 }

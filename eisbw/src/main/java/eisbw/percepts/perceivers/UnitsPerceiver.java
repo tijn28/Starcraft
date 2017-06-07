@@ -1,25 +1,27 @@
 package eisbw.percepts.perceivers;
 
+import java.util.HashSet;
+//import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import eis.eis2java.translation.Filter;
 //import eis.iilang.Identifier;
 //import eis.iilang.Parameter;
 import eis.iilang.Percept;
 import eisbw.BwapiUtility;
 import eisbw.percepts.Attacking;
-import eisbw.percepts.Percepts;
-import eisbw.units.ConditionHandler;
+import eisbw.percepts.EnemyPercept;
 import eisbw.percepts.FriendlyPercept;
 import eisbw.percepts.NewUnitPercept;
-import eisbw.percepts.EnemyPercept;
+import eisbw.percepts.Percepts;
+import eisbw.percepts.RegionUnitPercept;
+import eisbw.units.ConditionHandler;
 import jnibwapi.JNIBWAPI;
+import jnibwapi.Region;
 import jnibwapi.Unit;
 import jnibwapi.types.UnitType.UnitTypes;
-
-import java.util.HashSet;
-//import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * @author Danny & Harm - The perceiver which handles all the unit percepts.
@@ -52,7 +54,7 @@ public class UnitsPerceiver extends Perceiver {
 	 *            - the map that will be returned
 	 */
 	private void setUnitPercepts(List<Unit> units, Set<Percept> newunitpercepts, Set<Percept> unitpercepts,
-			Set<Percept> attackingpercepts) {
+			Set<Percept> attackingpercepts, Set<Percept> regionpercepts) {
 		for (Unit u : units) {
 			if (u.isBeingConstructed() && u.isLoaded()) {
 				continue; // Fix for the phantom marines bug
@@ -76,6 +78,11 @@ public class UnitsPerceiver extends Perceiver {
 					}
 				}
 			}
+			Region region = (api.getMap() == null) ? null : api.getMap().getRegion(u.getPosition());
+			if (region != null) {
+				regionpercepts.add(new RegionUnitPercept(u.getID(), region.getID()));
+			} // FIXME: this should be in the UnitPerceiver for friendlies
+				// (without id parameter) and in the enemy percept for enemies
 		}
 	}
 
@@ -85,16 +92,18 @@ public class UnitsPerceiver extends Perceiver {
 		Set<Percept> friendlypercepts = new HashSet<>();
 		Set<Percept> enemypercepts = new HashSet<>();
 		Set<Percept> attackingpercepts = new HashSet<>();
+		Set<Percept> regionpercepts = new HashSet<>();
 
 		// perceive friendly units
-		setUnitPercepts(api.getMyUnits(), newunitpercepts, friendlypercepts, attackingpercepts);
+		setUnitPercepts(api.getMyUnits(), newunitpercepts, friendlypercepts, attackingpercepts,regionpercepts);
 		// perceive enemy units
-		setUnitPercepts(api.getEnemyUnits(), null, enemypercepts, attackingpercepts);
+		setUnitPercepts(api.getEnemyUnits(), null, enemypercepts, attackingpercepts,regionpercepts);
 
 		toReturn.put(new PerceptFilter(Percepts.FRIENDLY, Filter.Type.ALWAYS), friendlypercepts);
 		toReturn.put(new PerceptFilter(Percepts.ENEMY, Filter.Type.ALWAYS), enemypercepts);
 		toReturn.put(new PerceptFilter(Percepts.ATTACKING, Filter.Type.ALWAYS), attackingpercepts);
 		toReturn.put(new PerceptFilter(Percepts.NEWUNIT, Filter.Type.ON_CHANGE), newunitpercepts);
+		toReturn.put(new PerceptFilter(Percepts.REGION, Filter.Type.ON_CHANGE), regionpercepts);
 
 		return toReturn;
 	}
