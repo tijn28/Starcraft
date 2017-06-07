@@ -1,6 +1,5 @@
 package eisbw;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -128,8 +127,8 @@ public class Game {
 		percepts = unitPerceptHolder;
 	}
 
-	private List<Percept> translatePercepts(String unitName, Map<PerceptFilter, Set<Percept>> map) {
-		List<Percept> percept = new LinkedList<>();
+	private LinkedList<Percept> translatePercepts(String unitName, Map<PerceptFilter, Set<Percept>> map) {
+		LinkedList<Percept> percept = new LinkedList<>();
 		if (!previous.containsKey(unitName)) {
 			previous.put(unitName, new HashMap<String, Set<Percept>>());
 		}
@@ -247,11 +246,11 @@ public class Game {
 	 *            - the name of the unit
 	 * @return the percepts
 	 */
-	public List<Percept> getPercepts(String entity) {
+	public LinkedList<Percept> getPercepts(String entity) {
 		if (percepts.containsKey(entity)) {
 			return translatePercepts(entity, percepts.get(entity));
 		} else {
-			return new ArrayList<>(0);
+			return new LinkedList<>();
 		}
 	}
 
