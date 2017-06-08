@@ -29,6 +29,7 @@ public class KnowledgeExport {
 			case 9: // science vessel
 			case 11: // dropship
 			case 12: // battlecruiser
+			case 13: // spider mine (given to vultures)
 			case 32: // firebat
 			case 34: // medic
 			case 58: // valkyrie
@@ -62,9 +63,10 @@ public class KnowledgeExport {
 			case 70: // scout
 			case 71: // arbiter
 			case 72: // carrier
-			case 73: // interceptor
+			case 73: // interceptor (produced by carriers)
 			case 83: // reaver
 			case 84: // observer
+			case 85: // scarab (produced by reavers)
 				// TERRAN BUILDINGS
 			case 106: // command center
 			case 107: // comsat station
@@ -137,8 +139,17 @@ public class KnowledgeExport {
 		}
 	}
 
+	private static String getName(UnitType type) {
+		String name = type.getName();
+		if (name.length() > 17 && "Terran Siege Tank".equals(name.substring(0, 17))) {
+			return "Terran Siege Tank";
+		} else {
+			return name;
+		}
+	}
+
 	private static String getUnitType(UnitType type) {
-		return String.format("unitType('%s').", type.getName());
+		return String.format("unitType('%s').", getName(type));
 	}
 
 	private static String getUnitCosts(UnitType type) {
@@ -161,7 +172,7 @@ public class KnowledgeExport {
 			}
 		}
 		requirements += "]";
-		return String.format("costs('%s',%d,%d,%d,%d,%s).", type.getName(), type.getMineralPrice(), type.getGasPrice(),
+		return String.format("costs('%s',%d,%d,%d,%d,%s).", getName(type), type.getMineralPrice(), type.getGasPrice(),
 				type.getSupplyRequired() - type.getSupplyProvided(), type.getBuildTime(), requirements);
 	}
 
@@ -210,7 +221,7 @@ public class KnowledgeExport {
 			conditions += "'" + condition + "'";
 		}
 		conditions += "]";
-		return String.format("stats('%s',%d,%d,%d,%s).", type.getName(), type.getMaxHitPoints(), type.getMaxShields(),
+		return String.format("stats('%s',%d,%d,%d,%s).", getName(type), type.getMaxHitPoints(), type.getMaxShields(),
 				type.getMaxEnergy(), conditions);
 	}
 
@@ -218,7 +229,7 @@ public class KnowledgeExport {
 		int spaceRequired = (type.getSpaceRequired() >= 255) ? 0 : type.getSpaceRequired();
 		int spaceProvided = (type.getSpaceProvided() >= 255) ? 0 : type.getSpaceProvided();
 		// FIXME: use its weapon/spell range instead of its sight range?
-		return String.format("metrics('%s',%d,%d,%d,%d).", type.getName(), type.getTileWidth(), type.getTileHeight(),
+		return String.format("metrics('%s',%d,%d,%d,%d).", getName(type), type.getTileWidth(), type.getTileHeight(),
 				type.getSightRange(), spaceRequired - spaceProvided);
 	}
 }
