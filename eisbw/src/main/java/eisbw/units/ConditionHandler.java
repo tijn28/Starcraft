@@ -8,7 +8,6 @@ import eis.iilang.Parameter;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Unit;
 import jnibwapi.types.RaceType.RaceTypes;
-import jnibwapi.types.UnitType.UnitTypes;
 
 /**
  * @author Danny & Harm - The condition perceiver.
@@ -87,35 +86,6 @@ public class ConditionHandler {
 	}
 
 	/**
-	 * Sets all conditions caused by Zerg units.
-	 *
-	 * @param conditions
-	 *            The conditions of the unit
-	 */
-	private void zergAbilityConditions(List<Parameter> conditions) {
-		// caused by a Queen
-		if (this.unit.isEnsnared()) {
-			conditions.add(new Identifier("ensnared"));
-		}
-		// caused by a Queen
-		if (this.unit.isParasited()) {
-			conditions.add(new Identifier("parasited"));
-		}
-		// caused by a Defiler
-		if (this.unit.isPlagued()) {
-			conditions.add(new Identifier("plagued"));
-		}
-		// caused by a Defiler
-		if (this.unit.isUnderDarkSwarm()) {
-			conditions.add(new Identifier("darkSwarmed"));
-		}
-		// caused by a Defiler
-		if (this.unit.getAcidSporeCount() > 0) {
-			conditions.add(new Identifier("acidSpored"));
-		}
-	}
-
-	/**
 	 * Sets all conditions caused by Terran units.
 	 *
 	 * @param conditions
@@ -166,15 +136,44 @@ public class ConditionHandler {
 	}
 
 	/**
+	 * Sets all conditions caused by Zerg units.
+	 *
+	 * @param conditions
+	 *            The conditions of the unit
+	 */
+	private void zergAbilityConditions(List<Parameter> conditions) {
+		// caused by a Queen
+		if (this.unit.isEnsnared()) {
+			conditions.add(new Identifier("ensnared"));
+		}
+		// caused by a Queen
+		if (this.unit.isParasited()) {
+			conditions.add(new Identifier("parasited"));
+		}
+		// caused by a Defiler
+		if (this.unit.isPlagued()) {
+			conditions.add(new Identifier("plagued"));
+		}
+		// caused by a Defiler
+		if (this.unit.isUnderDarkSwarm()) {
+			conditions.add(new Identifier("darkSwarmed"));
+		}
+		// caused by a Defiler
+		if (this.unit.getAcidSporeCount() > 0) {
+			conditions.add(new Identifier("acidSpored"));
+		}
+	}
+
+	/**
 	 * Sets all the conditions caused by abilities.
 	 *
 	 * @param conditions
 	 *            The conditions of the unit
 	 */
 	private void setAbilityConditions(List<Parameter> conditions) {
-		zergAbilityConditions(conditions);
 		terranAbilityConditions(conditions);
 		protossAbilityConditions(conditions);
+		zergAbilityConditions(conditions);
 	}
 
 	/**
@@ -264,11 +263,12 @@ public class ConditionHandler {
 
 		if (this.unit.getType().getRaceID() == RaceTypes.Terran.getID()) {
 			setTerranConditions(conditions);
-		} else if (this.unit.getType().getID() == UnitTypes.Protoss_Reaver.getID()) {
+		} else if (this.unit.getType().getRaceID() == RaceTypes.Protoss.getID()) {
 			setProtossConditions(conditions);
-		} else {
+		} else if (this.unit.getType().getRaceID() == RaceTypes.Zerg.getID()) {
 			setZergConditions(conditions);
 		}
+
 		if (this.unit.getType().isWorker()) {
 			setWorkerConditions(conditions);
 		}
