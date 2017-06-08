@@ -1,13 +1,13 @@
 package eisbw.units;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import eis.iilang.Identifier;
 import eis.iilang.Parameter;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Unit;
 import jnibwapi.types.RaceType.RaceTypes;
-
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * @author Danny & Harm - The condition perceiver.
@@ -34,101 +34,101 @@ public class ConditionHandler {
 	 * @return The conditions of the (moving) unit.
 	 */
 	private void setTerranConditions(List<Parameter> conditions) {
-		if (unit.isStimmed()) {
+		if (this.unit.isStimmed()) {
 			conditions.add(new Identifier("stimmed"));
 		}
-		if (unit.isSieged()) {
+		if (this.unit.isSieged()) {
 			conditions.add(new Identifier("sieged"));
 		}
-		if (unit.isDefenseMatrixed()) {
+		if (this.unit.isDefenseMatrixed()) {
 			conditions.add(new Identifier("defenseMatrixed"));
 		}
 		// building-specific
-		if (unit.isLifted()) {
+		if (this.unit.isLifted()) {
 			conditions.add(new Identifier("lifted"));
 		}
-		if (unit.getAddon() != null) {
-			conditions.add(new Identifier(unit.getAddon().getType().getName()));
+		if (this.unit.getAddon() != null) {
+			conditions.add(new Identifier(this.unit.getAddon().getType().getName()));
 		}
-		if (unit.isNukeReady()) {
+		if (this.unit.isNukeReady()) {
 			conditions.add(new Identifier("nukeReady"));
 		}
 	}
 
 	/**
 	 * Sets all conditions caused by Zerg units.
-	 * 
+	 *
 	 * @param conditions
 	 *            The conditions of the unit
 	 */
 	private void zergAbilityConditions(List<Parameter> conditions) {
 		// caused by a Queen
-		if (unit.isEnsnared()) {
+		if (this.unit.isEnsnared()) {
 			conditions.add(new Identifier("ensnared"));
 		}
 		// caused by a Queen
-		if (unit.isParasited()) {
+		if (this.unit.isParasited()) {
 			conditions.add(new Identifier("parasited"));
 		}
 		// caused by a Defiler
-		if (unit.isPlagued()) {
+		if (this.unit.isPlagued()) {
 			conditions.add(new Identifier("plagued"));
 		}
 		// caused by a Defiler
-		if (unit.isUnderDarkSwarm()) {
+		if (this.unit.isUnderDarkSwarm()) {
 			conditions.add(new Identifier("darkSwarmed"));
 		}
 	}
 
 	/**
 	 * Sets all conditions caused by Terran units.
-	 * 
+	 *
 	 * @param conditions
 	 *            The conditions of the unit
 	 */
 	private void terranAbilityConditions(List<Parameter> conditions) {
 		// caused by a Medic
-		if (unit.isBlind()) {
+		if (this.unit.isBlind()) {
 			conditions.add(new Identifier("blinded"));
 		}
 		// caused by a Ghost
-		if (unit.isLockedDown()) {
+		if (this.unit.isLockedDown()) {
 			conditions.add(new Identifier("lockDowned"));
 		}
 		// caused by a Science Vessel
-		if (unit.isIrradiated()) {
+		if (this.unit.isIrradiated()) {
 			conditions.add(new Identifier("irradiated"));
 		}
 	}
 
 	/**
 	 * Sets all conditions caused by Protoss units.
-	 * 
+	 *
 	 * @param conditions
 	 *            The conditions of the unit
 	 */
 	private void protossAbilityConditions(List<Parameter> conditions) {
 		// caused by a High Templar
-		if (unit.isUnderStorm()) {
+		if (this.unit.isUnderStorm()) {
 			conditions.add(new Identifier("underStorm"));
 		}
 		// caused by an Arbiter
-		if (unit.isStasised()) {
+		if (this.unit.isStasised()) {
 			conditions.add(new Identifier("stasised"));
 		}
 		// caused by a Dark Archon
-		if (unit.isMaelstrommed()) {
+		if (this.unit.isMaelstrommed()) {
 			conditions.add(new Identifier("maelstrommed"));
 		}
 		// caused by a Corsair
-		if (unit.isUnderDisruptionWeb()) {
+		if (this.unit.isUnderDisruptionWeb()) {
 			conditions.add(new Identifier("disruptionWebbed"));
 		}
 	}
 
 	/**
 	 * Sets all the conditions caused by abilities.
-	 * 
+	 *
 	 * @param conditions
 	 *            The conditions of the unit
 	 */
@@ -144,20 +144,20 @@ public class ConditionHandler {
 	 * @return The conditions of the (moving) unit.
 	 */
 	private void setMovingConditions(List<Parameter> conditions) {
-		if (unit.isMoving()) {
+		if (this.unit.isMoving()) {
 			conditions.add(new Identifier("moving"));
 		}
 		// if (unit.isStuck()) {
 		// is generated quite a lot :(
 		// conditions.add(new Identifier("stuck"));
 		// }
-		if (unit.isFollowing()) {
+		if (this.unit.isFollowing()) {
 			conditions.add(new Identifier("following"));
 		}
-		if (unit.isPatrolling()) {
+		if (this.unit.isPatrolling()) {
 			conditions.add(new Identifier("patrolling"));
 		}
-		if (unit.isLoaded()) {
+		if (this.unit.isLoaded()) {
 			conditions.add(new Identifier("loaded"));
 		}
 		setAbilityConditions(conditions);
@@ -169,32 +169,36 @@ public class ConditionHandler {
 	 * @return The conditions of generic unit.
 	 */
 	private void setGenericConditions(List<Parameter> conditions) {
-		if (unit.isIdle()) {
+		if (this.unit.isIdle()) {
 			conditions.add(new Identifier("idle"));
 		}
-		if (unit.getType().isFlyer()) { // useful shortcut
+		if (this.unit.getType().isFlyer()) { // useful shortcut
 			conditions.add(new Identifier("flying"));
 		}
-		if (unit.isMorphing()) {
+		if (this.unit.isMorphing()) {
 			conditions.add(new Identifier("morphing"));
 		}
-		if (unit.isBurrowed()) {
+		if (this.unit.isBurrowed()) {
 			conditions.add(new Identifier("burrowed"));
 		}
-		if (!unit.isCompleted()) { // isBeingConstructed can be false for terran
-									// buildings not being worked on by a scv
+		if (!this.unit.isCompleted()) { // isBeingConstructed can be false for
+										// terran
+			// buildings not being worked on by a scv
 			conditions.add(new Identifier("beingConstructed"));
 		}
-		if (unit.isBeingHealed()) { // works for medic heal and scv repair
+		if (this.unit.isBeingHealed()) { // works for medic heal and scv repair
 			conditions.add(new Identifier("beingHealed"));
 		}
-		if (unit.isCloaked()) {
+		if (this.unit.isCloaked()) {
 			conditions.add(new Identifier("cloaked"));
 		}
-		if (unit.isAttacking()) { // includes medic heal
+		if (this.unit.isDetected()) {
+			conditions.add(new Identifier("detected"));
+		}
+		if (this.unit.isAttacking()) { // includes medic heal
 			conditions.add(new Identifier("attacking"));
 		}
-		if (unit.isUnderAttack()) {
+		if (this.unit.isUnderAttack()) {
 			conditions.add(new Identifier("underAttack"));
 		}
 	}
@@ -205,13 +209,13 @@ public class ConditionHandler {
 	 * @return The conditions of the worker units.
 	 */
 	private void setWorkerConditions(List<Parameter> conditions) {
-		if (unit.isCarryingGas() || unit.isCarryingMinerals()) {
+		if (this.unit.isCarryingGas() || this.unit.isCarryingMinerals()) {
 			conditions.add(new Identifier("carrying"));
 		}
-		if (unit.isConstructing()) {
+		if (this.unit.isConstructing()) {
 			conditions.add(new Identifier("constructing"));
 		}
-		if (unit.isRepairing()) {
+		if (this.unit.isRepairing()) {
 			conditions.add(new Identifier("repairing"));
 		}
 	}
@@ -223,13 +227,13 @@ public class ConditionHandler {
 		List<Parameter> conditions = new LinkedList<>();
 		setGenericConditions(conditions);
 
-		if (unit.getType().getRaceID() == RaceTypes.Terran.getID()) {
+		if (this.unit.getType().getRaceID() == RaceTypes.Terran.getID()) {
 			setTerranConditions(conditions);
 		}
-		if (unit.getType().isWorker()) {
+		if (this.unit.getType().isWorker()) {
 			setWorkerConditions(conditions);
 		}
-		if (unit.getType().isCanMove()) {
+		if (this.unit.getType().isCanMove()) {
 			setMovingConditions(conditions);
 		}
 
