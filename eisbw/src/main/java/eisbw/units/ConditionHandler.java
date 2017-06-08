@@ -8,6 +8,7 @@ import eis.iilang.Parameter;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Unit;
 import jnibwapi.types.RaceType.RaceTypes;
+import jnibwapi.types.UnitType.UnitTypes;
 
 /**
  * @author Danny & Harm - The condition perceiver.
@@ -31,7 +32,7 @@ public class ConditionHandler {
 	/**
 	 * @param conditions
 	 *            The conditions of the unit
-	 * @return The conditions of the (moving) unit.
+	 * @return The conditions of a terran unit.
 	 */
 	private void setTerranConditions(List<Parameter> conditions) {
 		if (this.unit.isStimmed()) {
@@ -52,6 +53,36 @@ public class ConditionHandler {
 		}
 		if (this.unit.isNukeReady()) {
 			conditions.add(new Identifier("nukeReady"));
+		}
+		// for vultures
+		if (this.unit.getSpiderMineCount() > 0) {
+			conditions.add(new Identifier("hasMines"));
+		}
+	}
+
+	/**
+	 * @param conditions
+	 *            The conditions of the unit
+	 * @return The conditions of a protoss unit.
+	 */
+	private void setProtossConditions(List<Parameter> conditions) {
+		// for reavers
+		if (this.unit.getScarabCount() > 0) {
+			conditions.add(new Identifier("hasScarabs"));
+		}
+	}
+
+	/**
+	 * @param conditions
+	 *            The conditions of the unit
+	 * @return The conditions of a protoss unit.
+	 */
+	private void setZergConditions(List<Parameter> conditions) {
+		if (this.unit.isMorphing()) {
+			conditions.add(new Identifier("morphing"));
+		}
+		if (this.unit.isBurrowed()) {
+			conditions.add(new Identifier("burrowed"));
 		}
 	}
 
@@ -78,6 +109,10 @@ public class ConditionHandler {
 		if (this.unit.isUnderDarkSwarm()) {
 			conditions.add(new Identifier("darkSwarmed"));
 		}
+		// caused by a Defiler
+		if (this.unit.getAcidSporeCount() > 0) {
+			conditions.add(new Identifier("acidSpored"));
+		}
 	}
 
 	/**
@@ -98,6 +133,10 @@ public class ConditionHandler {
 		// caused by a Science Vessel
 		if (this.unit.isIrradiated()) {
 			conditions.add(new Identifier("irradiated"));
+		}
+		// caused by medic heal or scv repair
+		if (this.unit.isBeingHealed()) {
+			conditions.add(new Identifier("beingHealed"));
 		}
 	}
 
@@ -160,7 +199,6 @@ public class ConditionHandler {
 		if (this.unit.isLoaded()) {
 			conditions.add(new Identifier("loaded"));
 		}
-		setAbilityConditions(conditions);
 	}
 
 	/**
@@ -175,19 +213,9 @@ public class ConditionHandler {
 		if (this.unit.getType().isFlyer()) { // useful shortcut
 			conditions.add(new Identifier("flying"));
 		}
-		if (this.unit.isMorphing()) {
-			conditions.add(new Identifier("morphing"));
-		}
-		if (this.unit.isBurrowed()) {
-			conditions.add(new Identifier("burrowed"));
-		}
 		if (!this.unit.isCompleted()) { // isBeingConstructed can be false for
-										// terran
-			// buildings not being worked on by a scv
+										// terran buildings not being worked on
 			conditions.add(new Identifier("beingConstructed"));
-		}
-		if (this.unit.isBeingHealed()) { // works for medic heal and scv repair
-			conditions.add(new Identifier("beingHealed"));
 		}
 		if (this.unit.isCloaked()) {
 			conditions.add(new Identifier("cloaked"));
@@ -200,6 +228,13 @@ public class ConditionHandler {
 		}
 		if (this.unit.isUnderAttack()) {
 			conditions.add(new Identifier("underAttack"));
+		}
+		if (this.unit.isStartingAttack()) {
+			conditions.add(new Identifier("startingAttack"));
+		}
+		if (this.unit.getAirWeaponCooldown() > 0 || this.unit.getGroundWeaponCooldown() > 0
+				|| this.unit.getSpellCooldown() > 0) {
+			conditions.add(new Identifier("coolingDown"));
 		}
 	}
 
@@ -229,12 +264,17 @@ public class ConditionHandler {
 
 		if (this.unit.getType().getRaceID() == RaceTypes.Terran.getID()) {
 			setTerranConditions(conditions);
+		} else if (this.unit.getType().getID() == UnitTypes.Protoss_Reaver.getID()) {
+			setProtossConditions(conditions);
+		} else {
+			setZergConditions(conditions);
 		}
 		if (this.unit.getType().isWorker()) {
 			setWorkerConditions(conditions);
 		}
 		if (this.unit.getType().isCanMove()) {
 			setMovingConditions(conditions);
+			setAbilityConditions(conditions);
 		}
 
 		return conditions;
