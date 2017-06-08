@@ -1,8 +1,11 @@
 package eisbw.percepts.perceivers;
 
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
 import eis.eis2java.translation.Filter;
 import eis.iilang.Percept;
-import eisbw.UnitTypesEx;
 import eisbw.percepts.MineralFieldPercept;
 import eisbw.percepts.Percepts;
 import eisbw.percepts.VespeneGeyserPercept;
@@ -10,10 +13,7 @@ import eisbw.percepts.WorkerActivityPercept;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Unit;
 import jnibwapi.types.UnitType;
-
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import jnibwapi.types.UnitType.UnitTypes;
 
 /**
  * @author Danny & Harm - The perceiver which handles all the worker percepts.
@@ -31,19 +31,19 @@ public class WorkerPerceiver extends UnitPerceiver {
 
 	/**
 	 * Perceives all the worker percepts minus the terran worker percepts.
-	 * 
+	 *
 	 * @param toReturn
 	 *            The list of percepts
 	 */
 	private void workerActivity(Map<PerceptFilter, Set<Percept>> toReturn) {
 		Set<Percept> percepts = new HashSet<>(1);
-		if (unit.isGatheringGas()) {
+		if (this.unit.isGatheringGas()) {
 			percepts.add(new WorkerActivityPercept("gatheringGas"));
-		} else if (unit.isGatheringMinerals()) {
+		} else if (this.unit.isGatheringMinerals()) {
 			percepts.add(new WorkerActivityPercept("gatheringMinerals"));
-		} else if (unit.isConstructing()) {
+		} else if (this.unit.isConstructing()) {
 			percepts.add(new WorkerActivityPercept("constructing"));
-		} else if (unit.isRepairing()) {
+		} else if (this.unit.isRepairing()) {
 			percepts.add(new WorkerActivityPercept("repairing"));
 		} else {
 			percepts.add(new WorkerActivityPercept("idling"));
@@ -61,20 +61,20 @@ public class WorkerPerceiver extends UnitPerceiver {
 	private void resourcesPercepts(Map<PerceptFilter, Set<Percept>> toReturn) {
 		Set<Percept> minerals = new HashSet<>();
 		Set<Percept> geysers = new HashSet<>();
-		for (Unit u : api.getNeutralUnits()) {
+		for (Unit u : this.api.getNeutralUnits()) {
 			UnitType unitType = u.getType();
-			if (UnitTypesEx.isMineralField(unitType)) {
+			if (unitType.isMineralField()) {
 				MineralFieldPercept mineralfield = new MineralFieldPercept(u.getID(), u.getResources(),
 						u.getResourceGroup(), u.getPosition().getBX(), u.getPosition().getBY());
 				minerals.add(mineralfield);
-			} else if (UnitTypesEx.isVespeneGeyser(unitType)) {
+			} else if (unitType.getID() == UnitTypes.Resource_Vespene_Geyser.getID()) {
 				VespeneGeyserPercept geyser = new VespeneGeyserPercept(u.getID(), u.getResources(),
 						u.getResourceGroup(), u.getPosition().getBX(), u.getPosition().getBY());
 				geysers.add(geyser);
 
 			}
 		}
-		for (Unit u : api.getMyUnits()) {
+		for (Unit u : this.api.getMyUnits()) {
 			UnitType unitType = u.getType();
 			if (unitType.isRefinery()) {
 				VespeneGeyserPercept geyser = new VespeneGeyserPercept(u.getID(), u.getResources(),

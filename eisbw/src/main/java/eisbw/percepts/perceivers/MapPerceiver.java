@@ -12,7 +12,6 @@ import eis.eis2java.translation.Filter;
 import eis.iilang.Numeral;
 import eis.iilang.Parameter;
 import eis.iilang.Percept;
-import eisbw.UnitTypesEx;
 import eisbw.percepts.BasePercept;
 import eisbw.percepts.ChokepointCenterPercept;
 import eisbw.percepts.ChokepointPercept;
@@ -36,7 +35,7 @@ import jnibwapi.types.UnitType;
 public class MapPerceiver extends Perceiver {
 	/**
 	 * The MapPerceiver constructor.
-	 * 
+	 *
 	 * @param api
 	 *            The BWAPI
 	 */
@@ -46,24 +45,24 @@ public class MapPerceiver extends Perceiver {
 
 	@Override
 	public Map<PerceptFilter, Set<Percept>> perceive(Map<PerceptFilter, Set<Percept>> toReturn) {
-		jnibwapi.Map map = api.getMap();
+		jnibwapi.Map map = this.api.getMap();
 
 		Set<Percept> mapPercept = new HashSet<>(1);
 		mapPercept.add(new MapPercept(map.getSize().getBX(), map.getSize().getBY()));
 		toReturn.put(new PerceptFilter(Percepts.MAP, Filter.Type.ONCE), mapPercept);
 
-		if (!api.getEnemies().isEmpty()) {
+		if (!this.api.getEnemies().isEmpty()) {
 			Set<Percept> enemyRacePercept = new HashSet<>(1);
-			enemyRacePercept
-					.add(new EnemyRacePercept(api.getEnemies().iterator().next().getRace().getName().toLowerCase()));
+			enemyRacePercept.add(
+					new EnemyRacePercept(this.api.getEnemies().iterator().next().getRace().getName().toLowerCase()));
 			toReturn.put(new PerceptFilter(Percepts.ENEMYRACE, Filter.Type.ONCE), enemyRacePercept);
 		} // FIXME: we only support 1 enemy now
 
 		/** Distance calculation between resource groups and base location **/
 		Map<Integer, Position> distanceMatrix = new HashMap<>();
-		for (Unit u : api.getNeutralUnits()) {
+		for (Unit u : this.api.getNeutralUnits()) {
 			UnitType unitType = u.getType();
-			if (UnitTypesEx.isMineralField(unitType)) {
+			if (unitType.isMineralField()) {
 				if (!distanceMatrix.containsKey(u.getResourceGroup())) {
 					distanceMatrix.put(u.getResourceGroup(), u.getPosition());
 				}
