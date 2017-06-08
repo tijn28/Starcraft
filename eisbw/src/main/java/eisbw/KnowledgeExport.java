@@ -200,7 +200,8 @@ public class KnowledgeExport {
 		if (type.isRobotic()) {
 			conditionlist.add("robotic");
 		}
-		// TODO: add abilities as can###
+		// TODO: add its abilities as can###
+		// TODO: add canTarget### for its weapon/spells
 		String conditions = "[";
 		boolean hadFirst = false;
 		for (String condition : conditionlist) {
@@ -219,6 +220,7 @@ public class KnowledgeExport {
 	private static String getUnitMetrics(UnitType type) {
 		int spaceRequired = (type.getSpaceRequired() >= 255) ? 0 : type.getSpaceRequired();
 		int spaceProvided = (type.getSpaceProvided() >= 255) ? 0 : type.getSpaceProvided();
+		// FIXME: use its weapon/spell range instead of its sight range?
 		return String.format("metrics('%s',%d,%d,%d,%d).", type.getName(), type.getTileWidth(), type.getTileHeight(),
 				type.getSightRange(), spaceRequired - spaceProvided);
 	}
