@@ -12,7 +12,7 @@ public class MapPercept extends Percept {
 
 	/**
 	 * The MapPercept constructor.
-	 * 
+	 *
 	 * @param width
 	 *            The width of the map
 	 * @param height

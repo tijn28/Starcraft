@@ -12,7 +12,7 @@ public class NukePercept extends Percept {
 
 	/**
 	 * The NukePercept constructor.
-	 * 
+	 *
 	 * @param xpos
 	 *            The x-coordinate of the nuke drop point.
 	 * @param ypos

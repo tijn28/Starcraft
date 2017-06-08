@@ -16,7 +16,7 @@ import jnibwapi.Unit;
 public class Move extends StarcraftMovableAction {
 	/**
 	 * The Move constructor.
-	 * 
+	 *
 	 * @param api
 	 *            The BWAPI
 	 */

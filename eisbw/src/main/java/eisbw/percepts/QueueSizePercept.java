@@ -12,7 +12,7 @@ public class QueueSizePercept extends Percept {
 
 	/**
 	 * The QueueSize constructor.
-	 * 
+	 *
 	 * @param queueSize
 	 *            The size of the queue.
 	 */

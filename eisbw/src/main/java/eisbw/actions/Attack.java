@@ -16,7 +16,7 @@ import jnibwapi.types.UnitType;
 public class Attack extends StarcraftAction {
 	/**
 	 * The Attack constructor.
-	 * 
+	 *
 	 * @param api
 	 *            The BWAPI
 	 */
@@ -40,8 +40,8 @@ public class Attack extends StarcraftAction {
 	public void execute(Unit unit, Action action) {
 		List<Parameter> parameters = action.getParameters();
 		int targetId = ((Numeral) parameters.get(0)).getValue().intValue();
-		Unit target = api.getUnit(targetId);
-		
+		Unit target = this.api.getUnit(targetId);
+
 		unit.attack(target, false);
 	}
 

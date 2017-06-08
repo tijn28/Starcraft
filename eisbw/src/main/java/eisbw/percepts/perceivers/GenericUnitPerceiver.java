@@ -44,8 +44,8 @@ public class GenericUnitPerceiver extends UnitPerceiver {
 		selfPercept(toReturn);
 		statusPercept(toReturn);
 
-		if (unit.getType().getSpaceProvided() > 0) {
-			List<Unit> loadedUnits = unit.getLoadedUnits();
+		if (this.unit.getType().getSpaceProvided() > 0) {
+			List<Unit> loadedUnits = this.unit.getLoadedUnits();
 			spaceProvidedPercept(toReturn, loadedUnits);
 			unitLoadedPercept(toReturn, loadedUnits);
 		}
@@ -59,9 +59,9 @@ public class GenericUnitPerceiver extends UnitPerceiver {
 	 */
 	private void statusPercept(Map<PerceptFilter, Set<Percept>> toReturn) {
 		Set<Percept> statusPercept = new HashSet<>(1);
-		Position pos = unit.getPosition();
-		statusPercept.add(new StatusPercept(unit.getHitPoints(), unit.getShields(), unit.getEnergy(),
-				new ConditionHandler(api, unit).getConditions(), pos.getBX(), pos.getBY()));
+		Position pos = this.unit.getPosition();
+		statusPercept.add(new StatusPercept(this.unit.getHitPoints(), this.unit.getShields(), this.unit.getEnergy(),
+				new ConditionHandler(this.api, this.unit).getConditions(), pos.getBX(), pos.getBY()));
 		toReturn.put(new PerceptFilter(Percepts.STATUS, Filter.Type.ON_CHANGE), statusPercept);
 	}
 
@@ -71,8 +71,8 @@ public class GenericUnitPerceiver extends UnitPerceiver {
 	 */
 	private void selfPercept(Map<PerceptFilter, Set<Percept>> toReturn) {
 		Set<Percept> selfPercept = new HashSet<>(1);
-		UnitType type = unit.getType();
-		selfPercept.add(new SelfPercept(unit.getID(), BwapiUtility.getUnitType(unit), type.getMaxHitPoints(),
+		UnitType type = this.unit.getType();
+		selfPercept.add(new SelfPercept(this.unit.getID(), BwapiUtility.getUnitType(this.unit), type.getMaxHitPoints(),
 				type.getMaxShields(), type.getMaxEnergy()));
 		toReturn.put(new PerceptFilter(Percepts.SELF, Filter.Type.ONCE), selfPercept);
 	}
@@ -83,7 +83,7 @@ public class GenericUnitPerceiver extends UnitPerceiver {
 	 */
 	private void resourcesPercept(Map<PerceptFilter, Set<Percept>> toReturn) {
 		Set<Percept> resourcePercept = new HashSet<>(1);
-		Player self = api.getSelf();
+		Player self = this.api.getSelf();
 		resourcePercept.add(
 				new ResourcesPercept(self.getMinerals(), self.getGas(), self.getSupplyUsed(), self.getSupplyTotal()));
 		toReturn.put(new PerceptFilter(Percepts.RESOURCES, Filter.Type.ON_CHANGE), resourcePercept);
@@ -95,8 +95,8 @@ public class GenericUnitPerceiver extends UnitPerceiver {
 	 */
 	private void defensiveMatrixPercept(Map<PerceptFilter, Set<Percept>> toReturn) {
 		Set<Percept> defensiveMatrixPercept = new HashSet<>(1);
-		if (unit.isDefenseMatrixed()) {
-			defensiveMatrixPercept.add(new DefensiveMatrixPercept(unit.getDefenseMatrixPoints()));
+		if (this.unit.isDefenseMatrixed()) {
+			defensiveMatrixPercept.add(new DefensiveMatrixPercept(this.unit.getDefenseMatrixPoints()));
 			toReturn.put(new PerceptFilter(Percepts.DEFENSIVEMATRIX, Filter.Type.ALWAYS), defensiveMatrixPercept);
 		}
 	}
@@ -127,7 +127,7 @@ public class GenericUnitPerceiver extends UnitPerceiver {
 	 */
 	private void spaceProvidedPercept(Map<PerceptFilter, Set<Percept>> toReturn, List<Unit> loadedUnits) {
 		Set<Percept> spaceProvidedPercept = new HashSet<>(1);
-		spaceProvidedPercept.add(new SpaceProvidedPercept(loadedUnits.size(), unit.getType().getSpaceProvided()));
+		spaceProvidedPercept.add(new SpaceProvidedPercept(loadedUnits.size(), this.unit.getType().getSpaceProvided()));
 		toReturn.put(new PerceptFilter(Percepts.SPACEPROVIDED, Filter.Type.ON_CHANGE), spaceProvidedPercept);
 	}
 }

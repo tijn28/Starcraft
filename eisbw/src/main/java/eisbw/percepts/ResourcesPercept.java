@@ -12,7 +12,7 @@ public class ResourcesPercept extends Percept {
 
 	/**
 	 * The ResourcesPercept constructor.
-	 * 
+	 *
 	 * @param minerals
 	 *            The amount of collected minerals.
 	 * @param gas

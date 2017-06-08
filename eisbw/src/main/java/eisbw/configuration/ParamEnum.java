@@ -12,10 +12,10 @@ public enum ParamEnum {
 	private final String parameter;
 
 	private ParamEnum(String name) {
-		parameter = name;
+		this.parameter = name;
 	}
 
 	public String getParam() {
-		return parameter;
+		return this.parameter;
 	}
 }

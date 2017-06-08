@@ -12,7 +12,7 @@ import jnibwapi.Unit;
 public class UnloadUnit extends StarcraftLoadingAction {
 	/**
 	 * The UnloadUnit constructor.
-	 * 
+	 *
 	 * @param api
 	 *            The BWAPI
 	 */
@@ -22,7 +22,7 @@ public class UnloadUnit extends StarcraftLoadingAction {
 
 	@Override
 	public void execute(Unit unit, Action action) {
-		Unit target = api.getUnit(((Numeral) action.getParameters().get(0)).getValue().intValue());
+		Unit target = this.api.getUnit(((Numeral) action.getParameters().get(0)).getValue().intValue());
 
 		unit.unload(target);
 	}

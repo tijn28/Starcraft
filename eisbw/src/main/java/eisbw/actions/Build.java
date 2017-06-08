@@ -20,7 +20,7 @@ import jnibwapi.types.UnitType;
 public class Build extends StarcraftAction {
 	/**
 	 * The Build constructor.
-	 * 
+	 *
 	 * @param api
 	 *            The BWAPI
 	 */
@@ -50,7 +50,7 @@ public class Build extends StarcraftAction {
 		String type = ((Identifier) params.get(0)).getValue();
 		int tx = ((Numeral) params.get(1)).getValue().intValue();
 		int ty = ((Numeral) params.get(2)).getValue().intValue();
-		
+
 		unit.build(new Position(tx, ty, PosType.BUILD), getUnitType(type));
 	}
 

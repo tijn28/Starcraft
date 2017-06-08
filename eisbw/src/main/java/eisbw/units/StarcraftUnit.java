@@ -1,14 +1,13 @@
 package eisbw.units;
 
-import eis.iilang.Percept;
-
-import eisbw.percepts.perceivers.IPerceiver;
-import eisbw.percepts.perceivers.PerceptFilter;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import eis.iilang.Percept;
+import eisbw.percepts.perceivers.IPerceiver;
+import eisbw.percepts.perceivers.PerceptFilter;
 
 /**
  * @author Danny & Harm - The class which gathers all the percepts of a
@@ -21,7 +20,7 @@ public class StarcraftUnit {
 
 	/**
 	 * A starcraft unit with perceivers.
-	 * 
+	 *
 	 * @param perceivers
 	 *            - list with perceivers to percept from.
 	 * @param worker
@@ -34,7 +33,7 @@ public class StarcraftUnit {
 
 	/**
 	 * Perceive this units' percepts.
-	 * 
+	 *
 	 * @return - a list of percepts.
 	 */
 	public Map<PerceptFilter, Set<Percept>> perceive() {
@@ -46,6 +45,6 @@ public class StarcraftUnit {
 	}
 
 	public boolean isWorker() {
-		return worker;
+		return this.worker;
 	}
 }

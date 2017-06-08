@@ -1,5 +1,8 @@
 package eisbw.debugger.draw;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import eis.eis2java.exception.TranslationException;
 import eis.eis2java.translation.Translator;
 import eis.iilang.Parameter;
@@ -11,9 +14,6 @@ import jnibwapi.Position.PosType;
 import jnibwapi.types.RaceType.RaceTypes;
 import jnibwapi.util.BWColor;
 
-import java.util.LinkedList;
-import java.util.List;
-
 /**
  * @author Danny & Harm - The class which handles the drawing of the
  *         construction sites of the dev. tool.
@@ -22,7 +22,7 @@ import java.util.List;
 public class DrawConstructionSite extends IDraw {
 	/**
 	 * The DrawConstructionSite constructor.
-	 * 
+	 *
 	 * @param game
 	 *            The current game.
 	 */
@@ -33,7 +33,7 @@ public class DrawConstructionSite extends IDraw {
 	@Override
 	protected void drawOnMap(JNIBWAPI api) throws TranslationException {
 		Translator translator = Translator.getInstance();
-		List<Percept> percepts = game.getConstructionSites();
+		List<Percept> percepts = this.game.getConstructionSites();
 		for (Percept percept : percepts) {
 			LinkedList<Parameter> params = percept.getParameters();
 			int xpos = translator.translate2Java(params.get(0), Integer.class);
@@ -43,12 +43,13 @@ public class DrawConstructionSite extends IDraw {
 						BWColor.Blue, false, false);
 			} else {
 				boolean bool = translator.translate2Java(params.get(2), Boolean.class);
-				if (bool)
+				if (bool) {
 					api.drawBox(new Position(xpos, ypos, PosType.BUILD),
 							new Position(xpos + 3, ypos + 3, PosType.BUILD), BWColor.Blue, false, false);
-				else
+				} else {
 					api.drawBox(new Position(xpos, ypos, PosType.BUILD),
 							new Position(xpos + 3, ypos + 3, PosType.BUILD), BWColor.Red, false, false);
+				}
 			}
 		}
 	}

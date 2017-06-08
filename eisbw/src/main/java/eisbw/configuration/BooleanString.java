@@ -9,7 +9,7 @@ public class BooleanString {
 
 	/**
 	 * The BooleanString constructor.
-	 * 
+	 *
 	 * @param data
 	 *            The boolean string.
 	 */
@@ -18,10 +18,10 @@ public class BooleanString {
 	}
 
 	public String getData() {
-		return data;
+		return this.data;
 	}
 
 	public boolean getValue() {
-		return "true".equals(data);
+		return "true".equals(this.data);
 	}
 }

@@ -22,7 +22,7 @@ public class DebugWindow extends JFrame {
 
 	/**
 	 * Constructs a debug window for the game.
-	 * 
+	 *
 	 * @param game
 	 *            - the game data.
 	 */
@@ -35,36 +35,36 @@ public class DebugWindow extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
 
-		speedSlider = new SpeedSlider();
-		contentPane.add(speedSlider);
+		this.speedSlider = new SpeedSlider();
+		contentPane.add(this.speedSlider);
 
-		cheats = new CheatButtons();
-		contentPane.add(cheats);
+		this.cheats = new CheatButtons();
+		contentPane.add(this.cheats);
 
-		draw = new DrawButtons(game);
-		contentPane.add(draw);
+		this.draw = new DrawButtons(game);
+		contentPane.add(this.draw);
 
 		setVisible(true);
 	}
 
 	private List<String> getActions() {
-		List<String> result = cheats.getActions();
-		cheats.clean();
+		List<String> result = this.cheats.getActions();
+		this.cheats.clean();
 		return result;
 	}
 
 	/**
 	 * Gets current FPS.
-	 * 
+	 *
 	 * @return current FPS value
 	 */
 	public int getFPS() {
-		return speedSlider.getFPS();
+		return this.speedSlider.getFPS();
 	}
 
 	/**
 	 * Iterates over the debug options and executes.
-	 * 
+	 *
 	 * @param bwapi
 	 *            - the API.
 	 */
@@ -74,9 +74,9 @@ public class DebugWindow extends JFrame {
 			bwapi.sendText(iter.next());
 			iter.remove();
 		}
-		if (speedSlider.speedChanged()) {
-			bwapi.setGameSpeed(speedSlider.getSpeed());
+		if (this.speedSlider.speedChanged()) {
+			bwapi.setGameSpeed(this.speedSlider.getSpeed());
 		}
-		draw.draw(bwapi);
+		this.draw.draw(bwapi);
 	}
 }

@@ -16,7 +16,7 @@ import jnibwapi.types.TechType;
 public abstract class StarcraftTechAction extends StarcraftAction {
 	/**
 	 * The StarcraftTechAction constructor.
-	 * 
+	 *
 	 * @param api
 	 *            The BWAPI
 	 */

@@ -13,7 +13,7 @@ public class GameSpeedPercept extends Percept {
 
 	/**
 	 * The GameSpeedPercept constructor.
-	 * 
+	 *
 	 * @param speed
 	 *            The current game FPS
 	 */

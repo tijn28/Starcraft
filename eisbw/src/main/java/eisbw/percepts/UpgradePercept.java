@@ -12,7 +12,7 @@ public class UpgradePercept extends Percept {
 
 	/**
 	 * The UpgradePercept constructor.
-	 * 
+	 *
 	 * @param upgrade
 	 *            The name of the upgrade type.
 	 */

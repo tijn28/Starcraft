@@ -44,43 +44,43 @@ public class BuildingPerceiver extends UnitPerceiver {
 
 	private void researchedPercept(Map<PerceptFilter, Set<Percept>> toReturn) {
 		Set<Percept> researchedPercept = new HashSet<>(1);
-		if (unit.getTech() != null && !unit.getTech().equals(TechType.TechTypes.None)) {
-			researchedPercept.add(new ResearchingPercept(unit.getTech().getName()));
+		if (this.unit.getTech() != null && !this.unit.getTech().equals(TechType.TechTypes.None)) {
+			researchedPercept.add(new ResearchingPercept(this.unit.getTech().getName()));
 			toReturn.put(new PerceptFilter(Percepts.RESEARCHING, Filter.Type.ALWAYS), researchedPercept);
 		}
 	}
 
 	private void rallyPointPercept(Map<PerceptFilter, Set<Percept>> toReturn) {
 		Set<Percept> rallyPointPercept = new HashSet<>(1);
-		if (unit.getRallyPosition() != null && !unit.getRallyPosition().equals(Positions.None)) {
-			rallyPointPercept
-					.add(new RallyPointPercept(unit.getRallyPosition().getBX(), unit.getRallyPosition().getBY()));
+		if (this.unit.getRallyPosition() != null && !this.unit.getRallyPosition().equals(Positions.None)) {
+			rallyPointPercept.add(
+					new RallyPointPercept(this.unit.getRallyPosition().getBX(), this.unit.getRallyPosition().getBY()));
 			toReturn.put(new PerceptFilter(Percepts.RALLYPOINT, Filter.Type.ON_CHANGE), rallyPointPercept);
 		}
 	}
 
 	private void upgradingPercept(Map<PerceptFilter, Set<Percept>> toReturn) {
 		Set<Percept> upgradingPercept = new HashSet<>(1);
-		if (unit.isUpgrading()) {
-			upgradingPercept.add(new UpgradePercept(unit.getUpgrade().getName()));
+		if (this.unit.isUpgrading()) {
+			upgradingPercept.add(new UpgradePercept(this.unit.getUpgrade().getName()));
 			toReturn.put(new PerceptFilter(Percepts.UPGRADING, Filter.Type.ALWAYS), upgradingPercept);
 		}
 	}
 
 	private void queueSizePercept(Map<PerceptFilter, Set<Percept>> toReturn) {
 		Set<Percept> queueSizePercept = new HashSet<>(1);
-		if ("Zerg Hatchery".equals(unit.getType().getName())) {
-			queueSizePercept.add(new QueueSizePercept(unit.getLarvaCount()));
+		if ("Zerg Hatchery".equals(this.unit.getType().getName())) {
+			queueSizePercept.add(new QueueSizePercept(this.unit.getLarvaCount()));
 		} else {
-			queueSizePercept.add(new QueueSizePercept(unit.getTrainingQueueSize()));
+			queueSizePercept.add(new QueueSizePercept(this.unit.getTrainingQueueSize()));
 		}
 		toReturn.put(new PerceptFilter(Percepts.QUEUESIZE, Filter.Type.ON_CHANGE), queueSizePercept);
 	}
 
 	private void rallyUnitPercept(Map<PerceptFilter, Set<Percept>> toReturn) {
 		Set<Percept> rallyUnitPercept = new HashSet<>(1);
-		if (unit.getRallyUnit() != null) {
-			rallyUnitPercept.add(new RallyUnitPercept(unit.getRallyUnit().getID()));
+		if (this.unit.getRallyUnit() != null) {
+			rallyUnitPercept.add(new RallyUnitPercept(this.unit.getRallyUnit().getID()));
 			toReturn.put(new PerceptFilter(Percepts.RALLYUNIT, Filter.Type.ON_CHANGE), rallyUnitPercept);
 		}
 	}

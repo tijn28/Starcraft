@@ -16,7 +16,7 @@ import jnibwapi.types.TechType;
 public class Research extends StarcraftTechAction {
 	/**
 	 * The Research constructor.
-	 * 
+	 *
 	 * @param api
 	 *            The BWAPI
 	 */
@@ -35,7 +35,7 @@ public class Research extends StarcraftTechAction {
 	public void execute(Unit unit, Action action) {
 		List<Parameter> parameters = action.getParameters();
 		TechType techType = getTechType(((Identifier) parameters.get(0)).getValue());
-		
+
 		unit.research(techType);
 	}
 

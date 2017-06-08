@@ -1,12 +1,12 @@
 package eisbw.percepts;
 
+import java.util.List;
+
 import eis.iilang.Identifier;
 import eis.iilang.Numeral;
 import eis.iilang.Parameter;
 import eis.iilang.ParameterList;
 import eis.iilang.Percept;
-
-import java.util.List;
 
 /**
  * @author Danny & Harm - The Enemy percept which gives information about the
@@ -18,7 +18,7 @@ public class EnemyPercept extends Percept {
 
 	/**
 	 * Constructor EnemyPercept.
-	 * 
+	 *
 	 * @param type
 	 *            The unit type
 	 * @param id

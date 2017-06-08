@@ -31,7 +31,7 @@ public class Repair extends StarcraftAction {
 	public void execute(Unit unit, Action action) {
 		List<Parameter> parameters = action.getParameters();
 		int targetId = ((Numeral) parameters.get(0)).getValue().intValue();
-		Unit target = api.getUnit(targetId);
+		Unit target = this.api.getUnit(targetId);
 
 		unit.repair(target, false);
 	}

@@ -1,9 +1,9 @@
 package eisbw.percepts.perceivers;
 
-import eis.iilang.Percept;
-
 import java.util.Map;
 import java.util.Set;
+
+import eis.iilang.Percept;
 
 /**
  * @author Danny & Harm - The interface of all perceivers.

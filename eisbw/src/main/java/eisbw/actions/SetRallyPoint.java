@@ -17,7 +17,7 @@ import jnibwapi.Unit;
 public class SetRallyPoint extends StarcraftAction {
 	/**
 	 * The SetRallyPoint constructor.
-	 * 
+	 *
 	 * @param api
 	 *            The BWAPI
 	 */
@@ -41,7 +41,7 @@ public class SetRallyPoint extends StarcraftAction {
 		List<Parameter> parameters = action.getParameters();
 		int xpos = ((Numeral) parameters.get(0)).getValue().intValue();
 		int ypos = ((Numeral) parameters.get(1)).getValue().intValue();
-		
+
 		unit.setRallyPoint(new Position(xpos, ypos, PosType.BUILD));
 	}
 

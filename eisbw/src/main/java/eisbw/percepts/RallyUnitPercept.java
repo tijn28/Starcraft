@@ -12,7 +12,7 @@ public class RallyUnitPercept extends Percept {
 
 	/**
 	 * The RallyUnitPercept constructor.
-	 * 
+	 *
 	 * @param id
 	 *            The id of the unit.
 	 */

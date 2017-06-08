@@ -16,7 +16,7 @@ import jnibwapi.types.UpgradeType;
 public class Upgrade extends StarcraftAction {
 	/**
 	 * The Upgrade constructor.
-	 * 
+	 *
 	 * @param api
 	 *            The BWAPI.
 	 */
@@ -27,8 +27,8 @@ public class Upgrade extends StarcraftAction {
 	@Override
 	public boolean isValid(Action action) {
 		List<Parameter> parameters = action.getParameters();
-			return parameters.size() == 1 && parameters.get(0) instanceof Identifier
-					&& getUpgradeType(((Identifier) parameters.get(0)).getValue()) != null;
+		return parameters.size() == 1 && parameters.get(0) instanceof Identifier
+				&& getUpgradeType(((Identifier) parameters.get(0)).getValue()) != null;
 	}
 
 	@Override

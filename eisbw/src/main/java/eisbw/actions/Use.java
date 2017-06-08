@@ -16,7 +16,7 @@ import jnibwapi.types.TechType;
 public class Use extends StarcraftTechAction {
 	/**
 	 * The Use constructor.
-	 * 
+	 *
 	 * @param api
 	 *            The BWAPI.
 	 */

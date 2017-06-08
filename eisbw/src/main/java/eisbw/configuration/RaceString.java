@@ -9,7 +9,7 @@ public class RaceString {
 
 	/**
 	 * The RaceString constructor.
-	 * 
+	 *
 	 * @param data
 	 *            The race string.
 	 */
@@ -18,6 +18,6 @@ public class RaceString {
 	}
 
 	public String getData() {
-		return data;
+		return this.data;
 	}
 }

@@ -17,7 +17,7 @@ import jnibwapi.Unit;
 public class Land extends StarcraftMovableAction {
 	/**
 	 * The Land constructor.
-	 * 
+	 *
 	 * @param api
 	 *            The BWAPI
 	 */
@@ -35,7 +35,7 @@ public class Land extends StarcraftMovableAction {
 		List<Parameter> parameters = action.getParameters();
 		int xpos = ((Numeral) parameters.get(0)).getValue().intValue();
 		int ypos = ((Numeral) parameters.get(1)).getValue().intValue();
-		
+
 		unit.land(new Position(xpos, ypos, PosType.BUILD));
 	}
 

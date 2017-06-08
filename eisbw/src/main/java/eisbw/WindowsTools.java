@@ -21,7 +21,7 @@ public class WindowsTools {
 
 	/**
 	 * Check if a process is running on the system.
-	 * 
+	 *
 	 * @param process
 	 *            the name of the process.
 	 * @return true iff a process is running.
@@ -47,7 +47,7 @@ public class WindowsTools {
 
 	/**
 	 * Starts the Chaoslauncher with launch rules.
-	 * 
+	 *
 	 * @param race
 	 *            the race specified in the mas2g
 	 * @param map
@@ -64,12 +64,13 @@ public class WindowsTools {
 	public static void startChaoslauncher(String race, String map, String scDir, String autoMenu, String enemyRace)
 			throws IOException {
 		populateInitFile(race, map, scDir, autoMenu, enemyRace);
-		if (autoMenu.toLowerCase().equals("lan"))
+		if (autoMenu.toLowerCase().equals("lan")) {
 			Runtime.getRuntime().exec(new String[] { scDir + "\\Chaoslauncher\\Chaoslauncher - MultiInstance.exe" },
 					null, new File(scDir + "\\Chaoslauncher\\"));
-		else
+		} else {
 			Runtime.getRuntime().exec(scDir + "\\Chaoslauncher\\Chaoslauncher.exe", null,
 					new File(scDir + "\\Chaoslauncher\\"));
+		}
 	}
 
 	private static void populateInitFile(String race, String map, String scDir, String autoMenu, String enemyRace) {
@@ -95,8 +96,9 @@ public class WindowsTools {
 		iniFile += "[auto_menu]" + newLine;
 		iniFile += "auto_menu = " + autoMenu + newLine + newLine;
 
-		if (autoMenu.toLowerCase().equals("lan"))
+		if (autoMenu.toLowerCase().equals("lan")) {
 			iniFile += "lan_mode = local pc" + newLine + newLine;
+		}
 
 		iniFile += "pause_dbg = OFF" + newLine + newLine;
 

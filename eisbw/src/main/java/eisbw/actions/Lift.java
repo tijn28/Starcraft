@@ -16,7 +16,7 @@ import jnibwapi.types.RaceType.RaceTypes;
 public class Lift extends StarcraftAction {
 	/**
 	 * The Lift constructor.
-	 * 
+	 *
 	 * @param api
 	 *            The BWAPI
 	 */

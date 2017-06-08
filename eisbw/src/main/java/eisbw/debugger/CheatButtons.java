@@ -43,7 +43,7 @@ public class CheatButtons extends JPanel implements ActionListener {
 		godmode.setActionCommand("power overwhelming");
 		godmode.addActionListener(this);
 
-		buttonBackground = resources.getBackground();
+		this.buttonBackground = resources.getBackground();
 
 		JPanel cheatbuttons = new JPanel();
 
@@ -56,23 +56,23 @@ public class CheatButtons extends JPanel implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		actions.add(event.getActionCommand());
+		this.actions.add(event.getActionCommand());
 		JButton buttonPressed = (JButton) event.getSource();
 		if (buttonPressed.getBackground().equals(Color.GRAY)) {
-			buttonPressed.setBackground(buttonBackground);
+			buttonPressed.setBackground(this.buttonBackground);
 		} else {
 			buttonPressed.setBackground(Color.GRAY);
 		}
 	}
 
 	public List<String> getActions() {
-		return Collections.unmodifiableList(actions);
+		return Collections.unmodifiableList(this.actions);
 	}
 
 	/**
 	 * Clean the actionqueue.
 	 */
 	public void clean() {
-		actions.clear();
+		this.actions.clear();
 	}
 }

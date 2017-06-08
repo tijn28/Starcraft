@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
+import javax.swing.SwingConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -24,7 +25,7 @@ public class SpeedSlider extends JPanel {
 	private int fastest = 0;
 
 	private boolean changed = false;
-	private int speed = initialSpeed;
+	private int speed = this.initialSpeed;
 
 	/**
 	 * Slider to change gamespeed.
@@ -34,12 +35,12 @@ public class SpeedSlider extends JPanel {
 
 		final JLabel showSpeed = new JLabel("Current FPS: " + getFPS());
 
-		final JSlider slider = new JSlider(JSlider.HORIZONTAL, fastest, slowest, initialSpeed);
+		final JSlider slider = new JSlider(SwingConstants.HORIZONTAL, this.fastest, this.slowest, this.initialSpeed);
 		slider.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent event) {
-				changed = true;
-				speed = slider.getValue();
+				SpeedSlider.this.changed = true;
+				SpeedSlider.this.speed = slider.getValue();
 				if (slider.getValue() == 0) {
 					showSpeed.setText("Current FPS: MAX");
 				} else {
@@ -52,7 +53,7 @@ public class SpeedSlider extends JPanel {
 		slider.setMinorTickSpacing(1);
 		slider.setPaintTicks(true);
 
-		Hashtable<Integer, JLabel> labels = new Hashtable<Integer, JLabel>();
+		Hashtable<Integer, JLabel> labels = new Hashtable<>();
 		labels.put(0, new JLabel("MAX"));
 		labels.put(10, new JLabel("100"));
 		labels.put(20, new JLabel("50"));
@@ -91,26 +92,27 @@ public class SpeedSlider extends JPanel {
 
 	/**
 	 * The on change function.
-	 * 
+	 *
 	 * @return true iff changed.
 	 */
 	public boolean speedChanged() {
-		if (changed) {
-			changed = false;
+		if (this.changed) {
+			this.changed = false;
 			return true;
 		}
 		return false;
 	}
 
 	public int getSpeed() {
-		return speed;
+		return this.speed;
 	}
 
 	public int getFPS() {
-		if (speed > 0)
-			return (1000 / speed);
-		else
+		if (this.speed > 0) {
+			return (1000 / this.speed);
+		} else {
 			// max fps
 			return 1000;
+		}
 	}
 }

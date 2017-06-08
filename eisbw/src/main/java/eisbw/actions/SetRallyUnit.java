@@ -15,7 +15,7 @@ import jnibwapi.Unit;
 public class SetRallyUnit extends StarcraftAction {
 	/**
 	 * The SetRallyUnit constructor.
-	 * 
+	 *
 	 * @param api
 	 *            The BWAPI
 	 */
@@ -38,7 +38,7 @@ public class SetRallyUnit extends StarcraftAction {
 	public void execute(Unit unit, Action action) {
 		List<Parameter> parameters = action.getParameters();
 		int unitId = ((Numeral) parameters.get(0)).getValue().intValue();
-		unit.setRallyPoint(api.getUnit(unitId));
+		unit.setRallyPoint(this.api.getUnit(unitId));
 	}
 
 	@Override

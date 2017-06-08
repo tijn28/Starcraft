@@ -15,7 +15,7 @@ import jnibwapi.Unit;
 public abstract class StarcraftLoadingAction extends StarcraftAction {
 	/**
 	 * The StarcraftLoadingAction constructor.
-	 * 
+	 *
 	 * @param api
 	 *            The BWAPI
 	 */

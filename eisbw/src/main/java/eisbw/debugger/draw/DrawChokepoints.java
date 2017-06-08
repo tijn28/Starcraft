@@ -12,7 +12,7 @@ import jnibwapi.util.BWColor;
 public class DrawChokepoints extends IDraw {
 	/**
 	 * Draw the chokepoints on the map.
-	 * 
+	 *
 	 * @param game
 	 *            - the game object
 	 */

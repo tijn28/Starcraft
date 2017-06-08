@@ -19,7 +19,7 @@ public class AttackMove extends StarcraftMovableAction {
 
 	/**
 	 * The AttackMove constructor.
-	 * 
+	 *
 	 * @param api
 	 *            The BWAPI
 	 */

@@ -9,10 +9,10 @@ public enum Draw {
 	private final String parameter;
 
 	private Draw(String name) {
-		parameter = name;
+		this.parameter = name;
 	}
 
 	public String getName() {
-		return parameter;
+		return this.parameter;
 	}
 }

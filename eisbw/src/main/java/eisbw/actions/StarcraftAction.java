@@ -17,7 +17,7 @@ public abstract class StarcraftAction {
 
 	/**
 	 * The StarcraftAction constructor.
-	 * 
+	 *
 	 * @param api
 	 *            The BWAPI
 	 */

@@ -14,7 +14,7 @@ import jnibwapi.Unit;
 public class UnloadAll extends StarcraftLoadingAction {
 	/**
 	 * The UnloadAll constructor.
-	 * 
+	 *
 	 * @param api
 	 *            The BWAPI
 	 */

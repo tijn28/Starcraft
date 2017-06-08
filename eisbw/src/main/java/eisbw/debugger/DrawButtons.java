@@ -35,7 +35,7 @@ public class DrawButtons extends JPanel implements ActionListener {
 
 	/**
 	 * Toggle switches to draw in the game.
-	 * 
+	 *
 	 * @param game
 	 *            - the game data.
 	 */
@@ -45,12 +45,12 @@ public class DrawButtons extends JPanel implements ActionListener {
 		JLabel label = new JLabel("Draw actions", SwingConstants.CENTER);
 		add(label, BorderLayout.NORTH);
 
-		draw = new HashMap<>(5);
-		draw.put(Draw.CONSTRUCTION_SITES.getName(), new DrawConstructionSite(game));
-		draw.put(Draw.CHOKEPOINTS.getName(), new DrawChokepoints(game));
-		draw.put(Draw.BASE_LOCATIONS.getName(), new DrawBases(game));
-		draw.put(Draw.BUILDING_DETAILS.getName(), new DrawBuildingDetails(game));
-		draw.put("AgentCount", new AgentCounter(game));
+		this.draw = new HashMap<>(5);
+		this.draw.put(Draw.CONSTRUCTION_SITES.getName(), new DrawConstructionSite(game));
+		this.draw.put(Draw.CHOKEPOINTS.getName(), new DrawChokepoints(game));
+		this.draw.put(Draw.BASE_LOCATIONS.getName(), new DrawBases(game));
+		this.draw.put(Draw.BUILDING_DETAILS.getName(), new DrawBuildingDetails(game));
+		this.draw.put("AgentCount", new AgentCounter(game));
 
 		JButton buildButton = new JButton("Build Locations");
 		buildButton.setActionCommand(Draw.CONSTRUCTION_SITES.getName());
@@ -65,7 +65,7 @@ public class DrawButtons extends JPanel implements ActionListener {
 		buildingButton.setActionCommand(Draw.BUILDING_DETAILS.getName());
 		buildingButton.addActionListener(this);
 
-		buttonBackground = buildButton.getBackground();
+		this.buttonBackground = buildButton.getBackground();
 
 		JPanel drawPanel = new JPanel();
 
@@ -79,10 +79,10 @@ public class DrawButtons extends JPanel implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		draw.get(event.getActionCommand()).toggle();
+		this.draw.get(event.getActionCommand()).toggle();
 		JButton buttonPressed = (JButton) event.getSource();
 		if (buttonPressed.getBackground().equals(Color.GRAY)) {
-			buttonPressed.setBackground(buttonBackground);
+			buttonPressed.setBackground(this.buttonBackground);
 		} else {
 			buttonPressed.setBackground(Color.GRAY);
 		}
@@ -90,7 +90,7 @@ public class DrawButtons extends JPanel implements ActionListener {
 
 	/**
 	 * Draw on screen.
-	 * 
+	 *
 	 * @param api
 	 *            - the API.
 	 * @throws NoTranslatorException
@@ -99,7 +99,7 @@ public class DrawButtons extends JPanel implements ActionListener {
 	 *             iff translation fails.
 	 */
 	public void draw(JNIBWAPI api) {
-		for (Entry<String, IDraw> drawable : draw.entrySet()) {
+		for (Entry<String, IDraw> drawable : this.draw.entrySet()) {
 			drawable.getValue().draw(api);
 		}
 	}

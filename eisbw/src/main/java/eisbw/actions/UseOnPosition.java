@@ -18,7 +18,7 @@ import jnibwapi.types.TechType;
 public class UseOnPosition extends StarcraftAction {
 	/**
 	 * The UseOnPosition constructor.
-	 * 
+	 *
 	 * @param api
 	 *            The BWAPI.
 	 */

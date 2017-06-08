@@ -13,7 +13,7 @@ public class SpaceProvidedPercept extends Percept {
 
 	/**
 	 * The SpaceProvidedPercept.
-	 * 
+	 *
 	 * @param used
 	 *            The already used amount of space.
 	 * @param max

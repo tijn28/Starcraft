@@ -5,7 +5,7 @@ import eis.iilang.Percept;
 
 /**
  * @author Danny & Harm - The Chokepoint/6 percept.
- * 
+ *
  */
 public class ChokepointRegionPercept extends Percept {
 	private static final long serialVersionUID = 1L;

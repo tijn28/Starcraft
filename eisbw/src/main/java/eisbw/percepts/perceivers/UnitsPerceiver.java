@@ -38,7 +38,7 @@ public class UnitsPerceiver extends Perceiver {
 
 	/**
 	 * Sets some of the generic Unit percepts.
-	 * 
+	 *
 	 * @param units
 	 *            The perceived units
 	 * @param newunitpercepts
@@ -59,14 +59,15 @@ public class UnitsPerceiver extends Perceiver {
 			if (u.isBeingConstructed() && u.isLoaded()) {
 				continue; // Fix for the phantom marines bug
 			}
-			ConditionHandler conditionHandler = new ConditionHandler(api, u);
+			ConditionHandler conditionHandler = new ConditionHandler(this.api, u);
 			if (newunitpercepts != null) {
 				String unittype = (u.getType().getID() == UnitTypes.Zerg_Egg.getID()) ? u.getBuildType().getName()
 						: BwapiUtility.getUnitType(u);
 				unitpercepts.add(new FriendlyPercept(unittype, u.getID(), conditionHandler.getConditions()));
-				if (u.isBeingConstructed())
+				if (u.isBeingConstructed()) {
 					newunitpercepts
 							.add(new NewUnitPercept(u.getID(), u.getPosition().getBX(), u.getPosition().getBY()));
+				}
 			} else {
 				unitpercepts
 						.add(new EnemyPercept(BwapiUtility.getUnitType(u), u.getID(), u.getHitPoints(), u.getShields(),
@@ -78,7 +79,7 @@ public class UnitsPerceiver extends Perceiver {
 					}
 				}
 			}
-			Region region = (api.getMap() == null) ? null : api.getMap().getRegion(u.getPosition());
+			Region region = (this.api.getMap() == null) ? null : this.api.getMap().getRegion(u.getPosition());
 			if (region != null) {
 				regionpercepts.add(new RegionUnitPercept(u.getID(), region.getID()));
 			} // FIXME: this should be in the UnitPerceiver for friendlies
@@ -95,9 +96,9 @@ public class UnitsPerceiver extends Perceiver {
 		Set<Percept> regionpercepts = new HashSet<>();
 
 		// perceive friendly units
-		setUnitPercepts(api.getMyUnits(), newunitpercepts, friendlypercepts, attackingpercepts,regionpercepts);
+		setUnitPercepts(this.api.getMyUnits(), newunitpercepts, friendlypercepts, attackingpercepts, regionpercepts);
 		// perceive enemy units
-		setUnitPercepts(api.getEnemyUnits(), null, enemypercepts, attackingpercepts,regionpercepts);
+		setUnitPercepts(this.api.getEnemyUnits(), null, enemypercepts, attackingpercepts, regionpercepts);
 
 		toReturn.put(new PerceptFilter(Percepts.FRIENDLY, Filter.Type.ALWAYS), friendlypercepts);
 		toReturn.put(new PerceptFilter(Percepts.ENEMY, Filter.Type.ALWAYS), enemypercepts);

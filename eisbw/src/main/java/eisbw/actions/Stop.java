@@ -15,7 +15,7 @@ import jnibwapi.types.UnitType;
 public class Stop extends StarcraftAction {
 	/**
 	 * The Stop constructor.
-	 * 
+	 *
 	 * @param api
 	 *            The BWAPI
 	 */

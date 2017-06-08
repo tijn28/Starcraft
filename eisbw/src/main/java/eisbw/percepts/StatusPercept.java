@@ -1,11 +1,11 @@
 package eisbw.percepts;
 
+import java.util.List;
+
 import eis.iilang.Numeral;
 import eis.iilang.Parameter;
 import eis.iilang.ParameterList;
 import eis.iilang.Percept;
-
-import java.util.List;
 
 /**
  * @author Danny & Harm - The Status percept.

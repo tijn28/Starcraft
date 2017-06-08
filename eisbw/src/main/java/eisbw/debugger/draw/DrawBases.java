@@ -13,7 +13,7 @@ import jnibwapi.util.BWColor;
 public class DrawBases extends IDraw {
 	/**
 	 * Draw the baselocations on the map.
-	 * 
+	 *
 	 * @param game
 	 *            - the game object
 	 */

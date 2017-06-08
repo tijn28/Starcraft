@@ -14,7 +14,7 @@ import jnibwapi.Unit;
 public class Forfeit extends StarcraftAction {
 	/**
 	 * The Forfeit constructor.
-	 * 
+	 *
 	 * @param api
 	 *            The BWAPI
 	 */
@@ -35,7 +35,7 @@ public class Forfeit extends StarcraftAction {
 
 	@Override
 	public void execute(Unit unit, Action action) {
-		api.leaveGame();
+		this.api.leaveGame();
 	}
 
 	@Override

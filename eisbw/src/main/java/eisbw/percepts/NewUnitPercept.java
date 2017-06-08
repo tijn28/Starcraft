@@ -13,8 +13,8 @@ public class NewUnitPercept extends Percept {
 
 	/**
 	 * Constructor NewUnitPercept.
-	 * 
-	 * 
+	 *
+	 *
 	 * @param id
 	 *            The ID of the unit
 	 * @param x

@@ -13,7 +13,7 @@ public class UnitLoadedPercept extends Percept {
 
 	/**
 	 * The UnitLoadedPercept constructor,
-	 * 
+	 *
 	 * @param id
 	 *            The id of the (loaded) unit.
 	 * @param type

@@ -1,12 +1,12 @@
 package eisbw.percepts;
 
+import java.util.List;
+
 import eis.iilang.Identifier;
 import eis.iilang.Numeral;
 import eis.iilang.Parameter;
 import eis.iilang.ParameterList;
 import eis.iilang.Percept;
-
-import java.util.List;
 
 /**
  * @author Danny & Harm - The Friendly percept which gives information about
@@ -18,7 +18,7 @@ public class FriendlyPercept extends Percept {
 
 	/**
 	 * Constructor FriendlyPercept.
-	 * 
+	 *
 	 * @param type
 	 *            The unit type (TODO: maybe move type to newunit?)
 	 * @param id

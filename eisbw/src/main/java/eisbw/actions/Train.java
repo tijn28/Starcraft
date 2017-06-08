@@ -14,42 +14,42 @@ import jnibwapi.types.UnitType;
  *
  */
 public class Train extends StarcraftAction {
-  /**
-   * The Train constructor.
-   * 
-   * @param api
-   *          The BWAPI
-   */
-  public Train(JNIBWAPI api) {
-    super(api);
-  }
+	/**
+	 * The Train constructor.
+	 * 
+	 * @param api
+	 *            The BWAPI
+	 */
+	public Train(JNIBWAPI api) {
+		super(api);
+	}
 
-  @Override
-  public boolean isValid(Action action) {
-    List<Parameter> parameters = action.getParameters();
-     return parameters.size() == 1 && parameters.get(0) instanceof Identifier
-          && getUnitType(((Identifier) parameters.get(0)).getValue()) != null;
-  }
+	@Override
+	public boolean isValid(Action action) {
+		List<Parameter> parameters = action.getParameters();
+		return parameters.size() == 1 && parameters.get(0) instanceof Identifier
+				&& getUnitType(((Identifier) parameters.get(0)).getValue()) != null;
+	}
 
-  @Override
-  public boolean canExecute(Unit unit, Action action) {
-    return unit.getType().isProduceCapable();
-  }
+	@Override
+	public boolean canExecute(Unit unit, Action action) {
+		return unit.getType().isProduceCapable();
+	}
 
-  @Override
-  public void execute(Unit unit, Action action) {
-    List<Parameter> parameters = action.getParameters();
-    String tobuild = ((Identifier) parameters.get(0)).getValue();
-    if ("Terran Siege Tank".equals(tobuild)) {
-      tobuild = "Terran Siege Tank Tank Mode";
-    }
-    UnitType unitType = getUnitType(tobuild);
+	@Override
+	public void execute(Unit unit, Action action) {
+		List<Parameter> parameters = action.getParameters();
+		String tobuild = ((Identifier) parameters.get(0)).getValue();
+		if ("Terran Siege Tank".equals(tobuild)) {
+			tobuild = "Terran Siege Tank Tank Mode";
+		}
+		UnitType unitType = getUnitType(tobuild);
 
-    unit.train(unitType);
-  }
+		unit.train(unitType);
+	}
 
-  @Override
-  public String toString() {
-    return "train(Type)";
-  }
+	@Override
+	public String toString() {
+		return "train(Type)";
+	}
 }

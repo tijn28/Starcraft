@@ -12,7 +12,7 @@ public class RallyPointPercept extends Percept {
 
 	/**
 	 * The RallyPointPercept constructor.
-	 * 
+	 *
 	 * @param xpos
 	 *            The x-coordinate of the rallypoint.
 	 * @param ypos

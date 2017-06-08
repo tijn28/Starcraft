@@ -12,7 +12,7 @@ public class VespeneGeyserPercept extends Percept {
 
 	/**
 	 * The VespeneGeyserPercept constructor.
-	 * 
+	 *
 	 * @param id
 	 *            The id of the Vespene Geyser.
 	 * @param resources

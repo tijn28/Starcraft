@@ -1,11 +1,11 @@
 package eisbw;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import eisbw.units.Units;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Unit;
-
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * @author Danny & Harm - The thread which handles all the percept updates.
@@ -19,7 +19,7 @@ public class UpdateThread extends Thread {
 
 	/**
 	 * Constructs a thread.
-	 * 
+	 *
 	 * @param game
 	 *            - the game data class.
 	 * @param bwapi
@@ -29,7 +29,7 @@ public class UpdateThread extends Thread {
 		this.bwapi = bwapi;
 		this.game = game;
 		this.units = game.getUnits();
-		running = true;
+		this.running = true;
 	}
 
 	/**
@@ -37,7 +37,7 @@ public class UpdateThread extends Thread {
 	 */
 	public void terminate() {
 		synchronized (this) {
-			running = false;
+			this.running = false;
 			notifyAll();
 		}
 	}
@@ -46,7 +46,7 @@ public class UpdateThread extends Thread {
 	public void run() {
 		Thread.currentThread().setName("Update thread");
 		synchronized (this) {
-			while (running) {
+			while (this.running) {
 				update();
 				try {
 					wait();
@@ -58,19 +58,19 @@ public class UpdateThread extends Thread {
 	}
 
 	protected void update() {
-		game.update(bwapi);
-		if (units.getUninitializedUnits() != null) {
+		this.game.update(this.bwapi);
+		if (this.units.getUninitializedUnits() != null) {
 			List<Unit> toAdd = new LinkedList<>();
 			Unit unit;
-			while ((unit = units.getUninitializedUnits().poll()) != null) {
+			while ((unit = this.units.getUninitializedUnits().poll()) != null) {
 				String unitName = BwapiUtility.getUnitName(unit);
-				if (unit.isCompleted() && game.isInitialized(unitName)) {
-					game.getEnvironment().addToEnvironment(unitName, BwapiUtility.getEisUnitType(unit));
+				if (unit.isCompleted() && this.game.isInitialized(unitName)) {
+					this.game.getEnvironment().addToEnvironment(unitName, BwapiUtility.getEisUnitType(unit));
 				} else {
 					toAdd.add(unit);
 				}
 			}
-			units.getUninitializedUnits().addAll(toAdd);
+			this.units.getUninitializedUnits().addAll(toAdd);
 		}
 	}
 }

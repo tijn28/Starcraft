@@ -15,7 +15,7 @@ import jnibwapi.Unit;
 public abstract class StarcraftMovableAction extends StarcraftAction {
 	/**
 	 * The Starcraft MovableAction constructor.
-	 * 
+	 *
 	 * @param api
 	 *            The BWAPI.
 	 */

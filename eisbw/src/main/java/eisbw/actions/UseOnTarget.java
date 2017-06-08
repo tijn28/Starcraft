@@ -17,7 +17,7 @@ import jnibwapi.types.TechType;
 public class UseOnTarget extends StarcraftAction {
 	/**
 	 * The UseOnTarget constructor.
-	 * 
+	 *
 	 * @param api
 	 *            The BWAPI.
 	 */
@@ -29,7 +29,8 @@ public class UseOnTarget extends StarcraftAction {
 	public boolean isValid(Action action) {
 		List<Parameter> parameters = action.getParameters();
 		return parameters.size() == 2 && parameters.get(0) instanceof Identifier
-					&& getTechType(((Identifier) parameters.get(0)).getValue()) != null && parameters.get(1) instanceof Numeral;
+				&& getTechType(((Identifier) parameters.get(0)).getValue()) != null
+				&& parameters.get(1) instanceof Numeral;
 	}
 
 	@Override
@@ -43,8 +44,8 @@ public class UseOnTarget extends StarcraftAction {
 	public void execute(Unit unit, Action action) {
 		List<Parameter> parameters = action.getParameters();
 		TechType techType = getTechType(((Identifier) parameters.get(0)).getValue());
-		
-		unit.useTech(techType, api.getUnit(((Numeral) parameters.get(1)).getValue().intValue()));
+
+		unit.useTech(techType, this.api.getUnit(((Numeral) parameters.get(1)).getValue().intValue()));
 	}
 
 	@Override

@@ -16,7 +16,7 @@ import jnibwapi.types.UnitType;
 public class BuildAddon extends StarcraftAction {
 	/**
 	 * The BuildAddon constructor.
-	 * 
+	 *
 	 * @param api
 	 *            The BWAPI
 	 */

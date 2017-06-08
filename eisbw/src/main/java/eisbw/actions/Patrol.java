@@ -17,7 +17,7 @@ import jnibwapi.Unit;
 public class Patrol extends StarcraftMovableAction {
 	/**
 	 * The Patrol constructor.
-	 * 
+	 *
 	 * @param api
 	 *            The BWAPI
 	 */

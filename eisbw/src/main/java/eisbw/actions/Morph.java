@@ -17,7 +17,7 @@ import jnibwapi.types.UnitType;
 public class Morph extends StarcraftAction {
 	/**
 	 * The Morph constructor.
-	 * 
+	 *
 	 * @param api
 	 *            The BWAPI
 	 */
@@ -37,7 +37,7 @@ public class Morph extends StarcraftAction {
 
 	@Override
 	public boolean canExecute(Unit unit, Action action) {
-		return api.getSelf().getRace().getID() == RaceTypes.Zerg.getID();
+		return this.api.getSelf().getRace().getID() == RaceTypes.Zerg.getID();
 	}
 
 	@Override

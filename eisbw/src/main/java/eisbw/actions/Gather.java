@@ -16,7 +16,7 @@ import jnibwapi.types.UnitType;
 public class Gather extends StarcraftAction {
 	/**
 	 * The Gather constructor.
-	 * 
+	 *
 	 * @param api
 	 *            The BWAPI
 	 */
@@ -39,8 +39,8 @@ public class Gather extends StarcraftAction {
 	@Override
 	public void execute(Unit unit, Action action) {
 		int targetId = ((Numeral) action.getParameters().get(0)).getValue().intValue();
-		
-		unit.gather(api.getUnit(targetId), false);
+
+		unit.gather(this.api.getUnit(targetId), false);
 	}
 
 	@Override

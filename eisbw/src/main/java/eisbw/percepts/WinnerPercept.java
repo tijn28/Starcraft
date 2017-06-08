@@ -12,7 +12,7 @@ public class WinnerPercept extends Percept {
 
 	/**
 	 * The WinnerPercept constructor.
-	 * 
+	 *
 	 * @param boolean
 	 *            true if won, false if lost.
 	 */

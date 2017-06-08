@@ -1,5 +1,12 @@
 package eisbw;
 
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import eis.EIDefaultImpl;
 import eis.eis2java.translation.Translator;
 import eis.exceptions.ActException;
@@ -17,17 +24,10 @@ import eisbw.translators.BooleanStringTranslator;
 import eisbw.translators.ParamEnumTranslator;
 import eisbw.translators.RaceStringTranslator;
 
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 /**
  * @author Danny & Harm - The starcraft environment class which handles most
  *         environment logics.
- * 
+ *
  */
 public class StarcraftEnvironmentImpl extends EIDefaultImpl {
 	private static final long serialVersionUID = 1L;
@@ -45,8 +45,8 @@ public class StarcraftEnvironmentImpl extends EIDefaultImpl {
 	public StarcraftEnvironmentImpl() {
 		super();
 		installTranslators();
-		registeredEntities = new HashSet<>();
-		game = new Game(this);
+		this.registeredEntities = new HashSet<>();
+		this.game = new Game(this);
 	}
 
 	private void installTranslators() {
@@ -62,16 +62,19 @@ public class StarcraftEnvironmentImpl extends EIDefaultImpl {
 		setState(EnvironmentState.PAUSED);
 		Thread.currentThread().setPriority(3);
 		try {
-			configuration = new Configuration(parameters);
-			if (!"test".equals(configuration.getOwnRace())) {
-				bwapiListener = new BwapiListener(game, configuration.getScDir(), configuration.getDebugMode(),
-						configuration.getInvulnerable(), configuration.getSpeed());
-				if (!"OFF".equals(configuration.getAutoMenu()) && !WindowsTools.isProcessRunning("Chaoslauncher.exe")) {
-					WindowsTools.startChaoslauncher(configuration.getOwnRace(), configuration.getMap(),
-							configuration.getScDir(), configuration.getAutoMenu(), configuration.getEnemyRace());
+			this.configuration = new Configuration(parameters);
+			if (!"test".equals(this.configuration.getOwnRace())) {
+				this.bwapiListener = new BwapiListener(this.game, this.configuration.getScDir(),
+						this.configuration.getDebugMode(), this.configuration.getInvulnerable(),
+						this.configuration.getSpeed());
+				if (!"OFF".equals(this.configuration.getAutoMenu())
+						&& !WindowsTools.isProcessRunning("Chaoslauncher.exe")) {
+					WindowsTools.startChaoslauncher(this.configuration.getOwnRace(), this.configuration.getMap(),
+							this.configuration.getScDir(), this.configuration.getAutoMenu(),
+							this.configuration.getEnemyRace());
 				}
 			}
-			mapAgent = configuration.getMapAgent();
+			this.mapAgent = this.configuration.getMapAgent();
 			setState(EnvironmentState.RUNNING);
 		} catch (Exception ex) {
 			Logger.getLogger(StarcraftEnvironmentImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -84,12 +87,12 @@ public class StarcraftEnvironmentImpl extends EIDefaultImpl {
 
 	@Override
 	protected LinkedList<Percept> getAllPerceptsFromEntity(String entity) throws NoEnvironmentException {
-		return (LinkedList<Percept>) game.getPercepts(entity);
+		return this.game.getPercepts(entity);
 	}
 
 	@Override
 	protected boolean isSupportedByEnvironment(Action action) {
-		return bwapiListener.getAction(action) != null;
+		return this.bwapiListener.getAction(action) != null;
 	}
 
 	@Override
@@ -99,18 +102,18 @@ public class StarcraftEnvironmentImpl extends EIDefaultImpl {
 
 	@Override
 	protected boolean isSupportedByEntity(Action action, String entity) {
-		return bwapiListener.isSupportedByEntity(action, entity);
+		return this.bwapiListener.isSupportedByEntity(action, entity);
 	}
 
 	@Override
 	protected Percept performEntityAction(String entity, Action action) throws ActException {
-		bwapiListener.performEntityAction(entity, action);
+		this.bwapiListener.performEntityAction(entity, action);
 		return null;
 	}
 
 	/**
 	 * Adds a unit to the environment.
-	 * 
+	 *
 	 * @param unitName
 	 *            - the name of the unit
 	 * @param eisUnitType
@@ -118,23 +121,23 @@ public class StarcraftEnvironmentImpl extends EIDefaultImpl {
 	 */
 	public void addToEnvironment(String unitName, String eisUnitType) {
 		try {
-			if (!registeredEntities.contains(unitName)) {
-				registeredEntities.add(unitName);
+			if (!this.registeredEntities.contains(unitName)) {
+				this.registeredEntities.add(unitName);
 				addEntity(unitName, eisUnitType);
 			}
 		} catch (EntityException exception) {
-			logger.log(Level.WARNING, "Could not add " + unitName + " to the environment", exception);
+			this.logger.log(Level.WARNING, "Could not add " + unitName + " to the environment", exception);
 		}
 	}
 
 	/**
 	 * Deletes a unit from the environment.
-	 * 
+	 *
 	 * @param unitName
 	 *            - the name of the unit
 	 */
 	public void deleteFromEnvironment(String unitName) {
-		if (!registeredEntities.contains(unitName)) {
+		if (!this.registeredEntities.contains(unitName)) {
 			return;
 		}
 		try {
@@ -143,17 +146,17 @@ public class StarcraftEnvironmentImpl extends EIDefaultImpl {
 			for (String agent : agents) {
 				unregisterAgent(agent);
 			}
-			registeredEntities.remove(unitName);
+			this.registeredEntities.remove(unitName);
 		} catch (EntityException exception) {
-			logger.log(Level.WARNING, "Could not delete " + unitName + " from the environment", exception);
+			this.logger.log(Level.WARNING, "Could not delete " + unitName + " from the environment", exception);
 		} catch (RelationException exception) {
-			logger.log(Level.WARNING, "Exception when deleting entity from the environment", exception);
+			this.logger.log(Level.WARNING, "Exception when deleting entity from the environment", exception);
 		} catch (AgentException exception) {
-			logger.log(Level.WARNING, "Exception when deleting agent from the environment", exception);
+			this.logger.log(Level.WARNING, "Exception when deleting agent from the environment", exception);
 		}
 	}
 
 	public int getFPS() {
-		return bwapiListener.getFPS();
+		return this.bwapiListener.getFPS();
 	}
 }

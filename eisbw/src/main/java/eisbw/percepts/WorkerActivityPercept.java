@@ -13,10 +13,10 @@ public class WorkerActivityPercept extends Percept {
 
 	/**
 	 * The WorkerActivityPercept constructor.
-	 * 
+	 *
 	 * @param activity
 	 *            The current activity of the worker unit.
-	 * 
+	 *
 	 * @FIXME can be removed now because of the conditions in the state percept?
 	 */
 	public WorkerActivityPercept(String activity) {

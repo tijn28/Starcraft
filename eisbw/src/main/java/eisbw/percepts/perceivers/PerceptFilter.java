@@ -12,7 +12,7 @@ public class PerceptFilter {
 
 	/**
 	 * The PerceptFilter constructor.
-	 * 
+	 *
 	 * @param name
 	 *            The name of the percept.
 	 * @param type
@@ -24,11 +24,11 @@ public class PerceptFilter {
 	}
 
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
 	public Type getType() {
-		return type;
+		return this.type;
 	}
 
 	@Override
@@ -40,11 +40,11 @@ public class PerceptFilter {
 			return false;
 		}
 		PerceptFilter that = (PerceptFilter) other;
-		return name.equals(that.getName());
+		return this.name.equals(that.getName());
 	}
 
 	@Override
 	public int hashCode() {
-		return name.hashCode();
+		return this.name.hashCode();
 	}
 }

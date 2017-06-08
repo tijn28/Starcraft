@@ -15,7 +15,7 @@ import jnibwapi.util.BWColor;
 public class DrawBuildingDetails extends IDraw {
 	/**
 	 * The DrawBuildingDetails constructor.
-	 * 
+	 *
 	 * @param game
 	 *            The current game.
 	 */
@@ -62,9 +62,9 @@ public class DrawBuildingDetails extends IDraw {
 
 	@Override
 	public void draw(JNIBWAPI api) {
-		api.drawHealth(toggle);
-		api.drawTargets(toggle);
-		api.drawIDs(toggle);
+		api.drawHealth(this.toggle);
+		api.drawTargets(this.toggle);
+		api.drawIDs(this.toggle);
 		super.draw(api);
 	}
 }

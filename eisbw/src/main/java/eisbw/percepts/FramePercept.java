@@ -12,7 +12,7 @@ public class FramePercept extends Percept {
 
 	/**
 	 * The FramePercept constructor.
-	 * 
+	 *
 	 * @param frame
 	 *            The frame number
 	 */

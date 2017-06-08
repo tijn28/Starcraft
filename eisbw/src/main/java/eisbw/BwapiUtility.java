@@ -26,7 +26,7 @@ public class BwapiUtility {
 
 	/**
 	 * Get the name of a unit.
-	 * 
+	 *
 	 * @param unit
 	 *            - the unit that has to be named.
 	 * @return the name of the unit.
@@ -47,7 +47,7 @@ public class BwapiUtility {
 
 	/**
 	 * Get the EIS unittype of a unit.
-	 * 
+	 *
 	 * @param unit
 	 *            - the unit that you want yhe Type from.
 	 * @return the type of a unit.
@@ -64,7 +64,7 @@ public class BwapiUtility {
 
 	/**
 	 * Convert EIS type to unit.
-	 * 
+	 *
 	 * @param type
 	 *            - the type to be converted.
 	 * @return the unit.
@@ -80,7 +80,7 @@ public class BwapiUtility {
 
 	/**
 	 * Convert type string to a techtype.
-	 * 
+	 *
 	 * @param type
 	 *            - the string to be converted.
 	 * @return a techtype.
@@ -96,7 +96,7 @@ public class BwapiUtility {
 
 	/**
 	 * Convert a string to a upgradetype.
-	 * 
+	 *
 	 * @param type
 	 *            - the string to be converted.
 	 * @return a upgradetype.

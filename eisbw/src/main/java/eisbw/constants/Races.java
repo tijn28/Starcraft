@@ -16,7 +16,7 @@ public class Races {
 
 	/**
 	 * Get a list from all racenames
-	 * 
+	 *
 	 * @return racenames.
 	 */
 	public static List<String> getRaceList() {

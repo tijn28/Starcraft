@@ -1,12 +1,12 @@
 package eisbw.configuration;
 
+import java.util.Map;
+import java.util.Map.Entry;
+
 import eis.eis2java.exception.TranslationException;
 import eis.eis2java.translation.Translator;
 import eis.iilang.Identifier;
 import eis.iilang.Parameter;
-
-import java.util.Map;
-import java.util.Map.Entry;
 
 /**
  * @author Danny & Harm - This class handles all the possible configurations.
@@ -25,7 +25,7 @@ public class Configuration {
 
 	/**
 	 * The Configuration constructor.
-	 * 
+	 *
 	 * @param parameters
 	 *            The given config parameters.
 	 * @throws TranslationException
@@ -75,7 +75,7 @@ public class Configuration {
 	}
 
 	private void setEnemyRace(RaceString race) {
-		enemyRace = race;
+		this.enemyRace = race;
 	}
 
 	private void setInvulnerable(BooleanString inv) {
@@ -111,38 +111,38 @@ public class Configuration {
 	}
 
 	public boolean getInvulnerable() {
-		return debug.getValue();
+		return this.debug.getValue();
 	}
 
 	public boolean getMapAgent() {
-		return mapAgent.getValue();
+		return this.mapAgent.getValue();
 	}
 
 	public int getSpeed() {
-		return speed;
+		return this.speed;
 	}
 
 	public boolean getDebugMode() {
-		return debug.getValue();
+		return this.debug.getValue();
 	}
 
 	public String getMap() {
-		return map;
+		return this.map;
 	}
 
 	public String getOwnRace() {
-		return ownRace.getData();
+		return this.ownRace.getData();
 	}
 
 	public String getEnemyRace() {
-		return enemyRace.getData();
+		return this.enemyRace.getData();
 	}
 
 	public String getScDir() {
-		return scDir;
+		return this.scDir;
 	}
 
 	public String getAutoMenu() {
-		return autoMenu;
+		return this.autoMenu;
 	}
 }
