@@ -188,9 +188,6 @@ public class KnowledgeExport {
 		if (type.isOrganic()) {
 			conditionlist.add("organic");
 		}
-		if (type.isRegenerates()) {
-			conditionlist.add("regenerates");
-		}
 		if (type.isRequiresCreep()) {
 			conditionlist.add("requiresCreep");
 		}
