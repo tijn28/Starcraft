@@ -14,6 +14,7 @@ import jnibwapi.util.BWColor;
  */
 public class DrawUnitDetails extends IDraw {
 	private final static int barHeight = 18;
+	private final static BWColor barColor = BWColor.Blue;
 
 	/**
 	 * The DrawBuildingDetails constructor.
@@ -32,7 +33,6 @@ public class DrawUnitDetails extends IDraw {
 			int total = 0;
 			int done = 0;
 			String txt = "";
-			BWColor color = BWColor.Blue;
 			if (unit.getRemainingResearchTime() > 0) {
 				total = unit.getTech().getResearchTime();
 				done = total - unit.getRemainingResearchTime();
@@ -46,9 +46,10 @@ public class DrawUnitDetails extends IDraw {
 			if (total > 0) {
 				int width = unit.getType().getTileWidth() * 32;
 				Position start = new Position(unit.getPosition().getPX() - width / 2, unit.getPosition().getPY() - 30);
-				api.drawBox(start, new Position(start.getPX() + width, start.getPY() + barHeight), color, false, false);
+				api.drawBox(start, new Position(start.getPX() + width, start.getPY() + barHeight), barColor, false,
+						false);
 				int progress = (int) ((double) done / (double) total * width);
-				api.drawBox(start, new Position(start.getPX() + progress, start.getPY() + barHeight), color, true,
+				api.drawBox(start, new Position(start.getPX() + progress, start.getPY() + barHeight), barColor, true,
 						false);
 				api.drawText(new Position(start.getPX() + 5, start.getPY() + 2), txt, false);
 			}
