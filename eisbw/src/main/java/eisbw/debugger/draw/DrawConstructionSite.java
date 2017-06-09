@@ -1,6 +1,5 @@
 package eisbw.debugger.draw;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import eis.eis2java.exception.TranslationException;
@@ -35,7 +34,7 @@ public class DrawConstructionSite extends IDraw {
 		Translator translator = Translator.getInstance();
 		List<Percept> percepts = this.game.getConstructionSites();
 		for (Percept percept : percepts) {
-			LinkedList<Parameter> params = percept.getParameters();
+			List<Parameter> params = percept.getParameters();
 			int xpos = translator.translate2Java(params.get(0), Integer.class);
 			int ypos = translator.translate2Java(params.get(1), Integer.class);
 			if (api.getSelf().getRace().getID() == RaceTypes.Terran.getID()) {

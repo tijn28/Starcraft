@@ -89,11 +89,13 @@ public class BwapiListener extends BwapiEvents {
 		// START THE DEBUG TOOLS.
 		if (this.debugmode) {
 			this.debug = new DebugWindow(this.game);
-			this.bwapi.drawTargets(true);
 			this.bwapi.enableUserInput();
 		}
 
 		this.game.mapAgent();
+
+		KnowledgeExport.export(); // TEMP
+		this.logger.info(new File("export.pl").getPath());
 	}
 
 	@Override

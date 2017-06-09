@@ -18,7 +18,7 @@ import eis.eis2java.exception.TranslationException;
 import eisbw.Game;
 import eisbw.debugger.draw.AgentCounter;
 import eisbw.debugger.draw.DrawBases;
-import eisbw.debugger.draw.DrawBuildingDetails;
+import eisbw.debugger.draw.DrawUnitDetails;
 import eisbw.debugger.draw.DrawChokepoints;
 import eisbw.debugger.draw.DrawConstructionSite;
 import eisbw.debugger.draw.IDraw;
@@ -49,7 +49,7 @@ public class DrawButtons extends JPanel implements ActionListener {
 		this.draw.put(Draw.CONSTRUCTION_SITES.getName(), new DrawConstructionSite(game));
 		this.draw.put(Draw.CHOKEPOINTS.getName(), new DrawChokepoints(game));
 		this.draw.put(Draw.BASE_LOCATIONS.getName(), new DrawBases(game));
-		this.draw.put(Draw.BUILDING_DETAILS.getName(), new DrawBuildingDetails(game));
+		this.draw.put(Draw.BUILDING_DETAILS.getName(), new DrawUnitDetails(game));
 		this.draw.put("AgentCount", new AgentCounter(game));
 
 		JButton buildButton = new JButton("Build Locations");

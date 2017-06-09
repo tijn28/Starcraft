@@ -25,7 +25,7 @@ import java.util.List;
 
 public class DrawBuildingDetailsTest {
 
-  private DrawBuildingDetails draw;
+  private DrawUnitDetails draw;
   private List<Unit> units;
 
   @Mock
@@ -58,7 +58,7 @@ public class DrawBuildingDetailsTest {
     when(unit2.getType()).thenReturn(unitType);
     when(unit2.getPosition()).thenReturn(new Position(1, 1));
 
-    draw = new DrawBuildingDetails(null);
+    draw = new DrawUnitDetails(null);
     draw.toggle();
     draw.draw(bwapi);
 
