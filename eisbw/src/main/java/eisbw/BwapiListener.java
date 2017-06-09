@@ -94,8 +94,7 @@ public class BwapiListener extends BwapiEvents {
 
 		this.game.mapAgent();
 
-		KnowledgeExport.export(); // TEMP
-		this.logger.info(new File("export.pl").getPath());
+		// KnowledgeExport.export();
 	}
 
 	@Override
