@@ -16,6 +16,7 @@ import jnibwapi.JNIBWAPI;
 import jnibwapi.Position.Positions;
 import jnibwapi.Unit;
 import jnibwapi.types.TechType;
+import jnibwapi.types.UnitType.UnitTypes;
 
 /**
  * @author Danny & Harm - The perceiver which handles all the building percepts.
@@ -69,7 +70,9 @@ public class BuildingPerceiver extends UnitPerceiver {
 
 	private void queueSizePercept(Map<PerceptFilter, Set<Percept>> toReturn) {
 		Set<Percept> queueSizePercept = new HashSet<>(1);
-		if ("Zerg Hatchery".equals(this.unit.getType().getName())) {
+		if (this.unit.getType().getID() == UnitTypes.Zerg_Hatchery.getID()
+				|| this.unit.getType().getID() == UnitTypes.Zerg_Lair.getID()
+				|| this.unit.getType().getID() == UnitTypes.Zerg_Hive.getID()) {
 			queueSizePercept.add(new QueueSizePercept(this.unit.getLarvaCount()));
 		} else {
 			queueSizePercept.add(new QueueSizePercept(this.unit.getTrainingQueueSize()));
