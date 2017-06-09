@@ -13,7 +13,7 @@ For more information please see the [Wiki](https://github.com/eishub/Starcraft/w
 - The MAS is capable of playing all three races.
 
 ### Project overview
-The project contains the following folders:
+The project contains the following folders: 
 
 * **EISBW:** The EIS implementation of BWAPI. 
 * **libs:** Files required for building the interface and running the various examples.
