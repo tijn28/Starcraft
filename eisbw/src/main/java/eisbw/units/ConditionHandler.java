@@ -228,9 +228,9 @@ public class ConditionHandler {
 		if (this.unit.isUnderAttack()) {
 			conditions.add(new Identifier("underAttack"));
 		}
-		if (this.unit.isStartingAttack()) {
-			conditions.add(new Identifier("startingAttack"));
-		}
+		// if (this.unit.isStartingAttack()) {
+		// conditions.add(new Identifier("startingAttack"));
+		// }
 		if (this.unit.getAirWeaponCooldown() > 0 || this.unit.getGroundWeaponCooldown() > 0
 				|| this.unit.getSpellCooldown() > 0) {
 			conditions.add(new Identifier("coolingDown"));
