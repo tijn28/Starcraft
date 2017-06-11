@@ -335,6 +335,100 @@ This section will list all the percepts that are usable in the StarCraft environ
             \cline{2-3}
 \end{tabularx}\\
 
+
+\noindent
+\textbf{Chokepoint/6 percept}\\
+\\
+\begin{tabularx}{\textwidth}{lX}
+ Description & All the chokepoints on the map. These are the narrow points on the map where only a limited amount of units can go through at the same time. This percept also sends the regions that this chokepoint connects.  \\
+ Type & Send once \\
+ Syntax & \verb|chokepoint(<X1>,<Y1>,<X2>,<Y2>,<RegionID1>,<RegionID2>)| \\
+ Example & \verb|chokepoint(12, 15, 14, 17, 1, 2)| \\
+ \end{tabularx}
+ \begin{tabularx}{\textwidth}{l | c | p{8cm}|}
+ \cline{2-3}
+ Parameters & \textbf{\verb|<X1>|} & The x-coordinate of the first side of the chokepoint.\\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--$\infty$] \\
+            \cline{2-3}
+            & \textbf{\verb|<Y1>|} & The y-coordinate of the first side of the chokepoint.\\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--$\infty$] \\
+            \cline{2-3}
+            & \textbf{\verb|<X2>|} & The x-coordinate of the second side of the chokepoint.\\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--$\infty$] \\
+            \cline{2-3}
+            & \textbf{\verb|<Y2>|} & The y-coordinate of the second side of the chokepoint.\\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--$\infty$] \\
+            \cline{2-3}
+             & \textbf{\verb|<RegionID1>|} & The ID of the first region.\\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--$\infty$] \\
+            \cline{2-3}
+             & \textbf{\verb|<RegionID2>|} & The ID of the second region.\\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--$\infty$] \\
+            \cline{2-3}
+\end{tabularx}\\
+
+
+\noindent
+\textbf{Region/5 percept}\\
+\\
+\begin{tabularx}{\textwidth}{lX}
+ Description & All the regions on the map. Regions are connected by chokepoints and can be on high or low ground. \\
+ Type & Send once \\
+ Syntax & \verb|region(<Id>,<CenterX>,<CenterY>,<Height>,<ConnectedRegionsList>)| \\
+ Example & \verb|region(12, 15, 14, 17, [1,2])| \\
+ \end{tabularx}
+ \begin{tabularx}{\textwidth}{l | c | p{8cm}|}
+ \cline{2-3}
+ Parameters & \textbf{\verb|<Id>|} & The ID of the region.\\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--$\infty$] \\
+            \cline{2-3}
+            & \textbf{\verb|<CenterX>|} & The x-coordinate of the center of the region.\\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--$\infty$] \\
+            \cline{2-3}
+            & \textbf{\verb|<CenterY>|} & The y-coordinate of the center of the region.\\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--$\infty$] \\
+            \cline{2-3}
+            & \textbf{\verb|<Height>|} & The height of the region.\\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--$\infty$] \\
+            \cline{2-3}
+            & \textbf{\verb|<ConnectedRegionsList>|} & A list of regions that are connected to this region.\\
+            & \textbf{Type} & \verb|List| \\
+            \cline{2-3}
+\end{tabularx}\\
+
+\noindent
+\textbf{Region/2 percept}\\
+\\
+\begin{tabularx}{\textwidth}{lX}
+ Description & All the regions on the map. Regions are connected by chokepoints and can be on high or low ground. \\
+ Type & Send on change \\
+ Syntax & \verb|region(<UnitID>,<RegionID>)| \\
+ Example & \verb|region(12, 15)| \\
+ \end{tabularx}
+ \begin{tabularx}{\textwidth}{l | c | p{8cm}|}
+ \cline{2-3}
+ Parameters & \textbf{\verb|<UnitID>|} & The Id of a unit in a region. Sent for every visible unit.\\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--$\infty$] \\
+            \cline{2-3}
+            & \textbf{\verb|<RegionID>|} & The ID of the region.\\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--$\infty$] \\
+            \cline{2-3}
+            
+\end{tabularx}\\
+
+
 \subsection{Unit Percepts}
 \noindent
 \textbf{Friendly percept}\\
