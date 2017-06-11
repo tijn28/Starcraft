@@ -195,7 +195,8 @@ This section will list all the actions that are usable in the Starcraft environm
 \section{Cancel action}
 \begin{tabularx}{\textwidth}{lX}
  Desription & Cancel the construction of the unit. \\
- Syntax & \verb|cancel| \\
+ Syntax & \verb|cancel(<Id>)| \\
+ Parameters & \verb|<ID>|: The \textit{ID} of the building/unit to cancel upgrading/morphing etc.\\
  Pre & The unit is morphing, beingConstructed, researching or upgrading. \\
  Post & The morphing, construction, upgrading or researching is cancelled.
 \end{tabularx}
