@@ -161,15 +161,15 @@ This section will list all the percepts that are usable in the StarCraft environ
  Example & When playing against a random race.
  \end{tabularx}
  \begin{lstlisting}
- if bel(enemyRace(unknown), enemy(Type,_,_,_,_), 
- sub_string(Type, 0,1,_,Race)) then { 
-   if bel(Race = "Z") then delete(enemyRace(unknown)) 
-   + insert(enemyRace(zerg)). 
-   if bel(Race = "P") then delete(enemyRace(unknown)) 
-   + insert(enemyRace(protoss)). 
-   if bel(Race = "T") then delete(enemyRace(unknown)) 
-   + insert(enemyRace(terran)). 
-  } 
+ if bel(enemyRace(unknown), enemy(Type,_,_,_,_),
+ sub_string(Type, 0,1,_,Race)) then {
+   if bel(Race = "Z") then delete(enemyRace(unknown))
+   + insert(enemyRace(zerg)).
+   if bel(Race = "P") then delete(enemyRace(unknown))
+   + insert(enemyRace(protoss)).
+   if bel(Race = "T") then delete(enemyRace(unknown))
+   + insert(enemyRace(terran)).
+  }
  \end{lstlisting}
  \begin{tabularx}{\textwidth}{l | c | p{8cm}|}
  \cline{2-3}
@@ -390,6 +390,7 @@ This section will list all the percepts that are usable in the StarCraft environ
  Type & Send always \\
  Syntax & \verb|enemy(<Type>,<ID>,<Health>,<Shield>,<Condition>,<X>,<Y>)| \\
  Example & \verb|enemy(Zerg Overlord, 12, 200, 0, [flying], 120, 96)| \\
+ Note & \verb|Enemy units that are cloaked are also percepted, but cannot be attacked. They have the 'cloaked' condition.|
  \end{tabularx}
  \begin{tabularx}{\textwidth}{l | c | p{8cm}|}
  \cline{2-3}
