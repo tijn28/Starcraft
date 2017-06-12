@@ -46,10 +46,10 @@ public class Build extends StarcraftAction {
 
 	@Override
 	public void execute(Unit unit, Action action) {
-		List<Parameter> params = action.getParameters();
-		String type = ((Identifier) params.get(0)).getValue();
-		int tx = ((Numeral) params.get(1)).getValue().intValue();
-		int ty = ((Numeral) params.get(2)).getValue().intValue();
+		List<Parameter> parameters = action.getParameters();
+		String type = ((Identifier) parameters.get(0)).getValue();
+		int tx = ((Numeral) parameters.get(1)).getValue().intValue();
+		int ty = ((Numeral) parameters.get(2)).getValue().intValue();
 
 		unit.build(new Position(tx, ty, PosType.BUILD), getUnitType(type));
 	}

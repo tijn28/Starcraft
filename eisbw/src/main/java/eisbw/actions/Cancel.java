@@ -45,11 +45,13 @@ public class Cancel extends StarcraftAction {
 	public void execute(Unit unit, Action action) {
 		List<Parameter> parameters = action.getParameters();
 		if (!parameters.isEmpty()) {
-			Numeral id = (Numeral) action.getParameters().get(0);
+			Numeral id = (Numeral) parameters.get(0);
 			unit = this.api.getUnit(id.getValue().intValue());
 		}
 
-		if (unit.isMorphing()) {
+		if (unit == null) {
+			return;
+		} else if (unit.isMorphing()) {
 			unit.cancelMorph();
 		} else if (unit.isBeingConstructed()) {
 			unit.cancelConstruction();

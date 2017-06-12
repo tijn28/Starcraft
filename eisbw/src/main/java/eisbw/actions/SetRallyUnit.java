@@ -37,8 +37,9 @@ public class SetRallyUnit extends StarcraftAction {
 	@Override
 	public void execute(Unit unit, Action action) {
 		List<Parameter> parameters = action.getParameters();
-		int unitId = ((Numeral) parameters.get(0)).getValue().intValue();
-		unit.setRallyPoint(this.api.getUnit(unitId));
+		Unit target = this.api.getUnit(((Numeral) parameters.get(0)).getValue().intValue());
+
+		unit.setRallyPoint(target);
 	}
 
 	@Override

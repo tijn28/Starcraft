@@ -44,8 +44,9 @@ public class UseOnTarget extends StarcraftAction {
 	public void execute(Unit unit, Action action) {
 		List<Parameter> parameters = action.getParameters();
 		TechType techType = getTechType(((Identifier) parameters.get(0)).getValue());
+		Unit target = this.api.getUnit(((Numeral) parameters.get(1)).getValue().intValue());
 
-		unit.useTech(techType, this.api.getUnit(((Numeral) parameters.get(1)).getValue().intValue()));
+		unit.useTech(techType, target);
 	}
 
 	@Override

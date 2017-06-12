@@ -42,8 +42,9 @@ public class Morph extends StarcraftAction {
 
 	@Override
 	public void execute(Unit unit, Action action) {
-		List<Parameter> params = action.getParameters();
-		String type = ((Identifier) params.get(0)).getValue();
+		List<Parameter> parameters = action.getParameters();
+		String type = ((Identifier) parameters.get(0)).getValue();
+
 		unit.morph(getUnitType(type));
 	}
 

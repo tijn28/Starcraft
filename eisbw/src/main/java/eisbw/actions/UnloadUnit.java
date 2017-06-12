@@ -1,7 +1,10 @@
 package eisbw.actions;
 
+import java.util.List;
+
 import eis.iilang.Action;
 import eis.iilang.Numeral;
+import eis.iilang.Parameter;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Unit;
 
@@ -22,7 +25,8 @@ public class UnloadUnit extends StarcraftLoadingAction {
 
 	@Override
 	public void execute(Unit unit, Action action) {
-		Unit target = this.api.getUnit(((Numeral) action.getParameters().get(0)).getValue().intValue());
+		List<Parameter> parameters = action.getParameters();
+		Unit target = this.api.getUnit(((Numeral) parameters.get(0)).getValue().intValue());
 
 		unit.unload(target);
 	}

@@ -32,7 +32,7 @@ public class Repair extends StarcraftAction {
 		List<Parameter> parameters = action.getParameters();
 		int targetId = ((Numeral) parameters.get(0)).getValue().intValue();
 		Unit target = this.api.getUnit(targetId);
-		if (target.isCompleted()) {
+		if (target == null || target.isCompleted()) {
 			unit.repair(target, false);
 		} else {
 			unit.rightClick(target, false);
