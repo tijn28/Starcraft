@@ -423,28 +423,6 @@ This section will list all the percepts that are usable in the StarCraft environ
             \cline{2-3}
 \end{tabularx}\\
 
-\noindent
-\textbf{Region/2 percept}\\
-\\
-\begin{tabularx}{\textwidth}{lX}
- Description & Gives information about which region on the map a unit is in. \\
- Type & Send on change \\
- Syntax & \verb|region(<UnitID>,<RegionID>)| \\
- Example & \verb|region(12, 15)| \\
- \end{tabularx}
- \begin{tabularx}{\textwidth}{l | c | p{8cm}|}
- \cline{2-3}
- Parameters & \textbf{\verb|<UnitID>|} & The Id of a unit in a region. Sent for every visible unit.\\
-            & \textbf{Type} & \verb|Positive Integer| \\
-            & \textbf{Range} & [0--$\infty$] \\
-            \cline{2-3}
-            & \textbf{\verb|<RegionID>|} & The ID of the region.\\
-            & \textbf{Type} & \verb|Positive Integer| \\
-            & \textbf{Range} & [0--$\infty$] \\
-            \cline{2-3}
-            
-\end{tabularx}\\
-
 
 \subsection{Unit Percepts}
 \noindent
@@ -554,6 +532,28 @@ This section will list all the percepts that are usable in the StarCraft environ
             & \textbf{Range} & [0--$\infty$] \\
             \cline{2-3}
 \end{tabularx}
+
+\noindent
+\textbf{UnitRegion/2 percept}\\
+\\
+\begin{tabularx}{\textwidth}{lX}
+ Description & Gives information about which region on the map a unit is in. \\
+ Type & Send on change \\
+ Syntax & \verb|unitRegion(<UnitID>,<RegionID>)| \\
+ Example & \verb|unitRegion(12, 15)| \\
+ \end{tabularx}
+ \begin{tabularx}{\textwidth}{l | c | p{8cm}|}
+ \cline{2-3}
+ Parameters & \textbf{\verb|<UnitID>|} & The Id of a unit in a region. Sent for every visible unit.\\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--$\infty$] \\
+            \cline{2-3}
+            & \textbf{\verb|<RegionID>|} & The ID of the region.\\
+            & \textbf{Type} & \verb|Positive Integer| \\
+            & \textbf{Range} & [0--$\infty$] \\
+            \cline{2-3}
+            
+\end{tabularx}\\
 
 \section{Building Percepts}
 

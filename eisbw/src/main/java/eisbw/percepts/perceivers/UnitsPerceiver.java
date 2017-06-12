@@ -16,7 +16,7 @@ import eisbw.percepts.EnemyPercept;
 import eisbw.percepts.FriendlyPercept;
 import eisbw.percepts.NewUnitPercept;
 import eisbw.percepts.Percepts;
-import eisbw.percepts.RegionUnitPercept;
+import eisbw.percepts.UnitRegionPercept;
 import eisbw.units.ConditionHandler;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Region;
@@ -81,7 +81,7 @@ public class UnitsPerceiver extends Perceiver {
 			}
 			Region region = (this.api.getMap() == null) ? null : this.api.getMap().getRegion(u.getPosition());
 			if (region != null) {
-				regionpercepts.add(new RegionUnitPercept(u.getID(), region.getID()));
+				regionpercepts.add(new UnitRegionPercept(u.getID(), region.getID()));
 			} // FIXME: this should be in the UnitPerceiver for friendlies
 				// (without id parameter) and in the enemy percept for enemies
 		}
@@ -104,7 +104,7 @@ public class UnitsPerceiver extends Perceiver {
 		toReturn.put(new PerceptFilter(Percepts.ENEMY, Filter.Type.ALWAYS), enemypercepts);
 		toReturn.put(new PerceptFilter(Percepts.ATTACKING, Filter.Type.ALWAYS), attackingpercepts);
 		toReturn.put(new PerceptFilter(Percepts.NEWUNIT, Filter.Type.ON_CHANGE), newunitpercepts);
-		toReturn.put(new PerceptFilter(Percepts.REGION, Filter.Type.ON_CHANGE), regionpercepts);
+		toReturn.put(new PerceptFilter(Percepts.UNITREGION, Filter.Type.ON_CHANGE), regionpercepts);
 
 		return toReturn;
 	}
