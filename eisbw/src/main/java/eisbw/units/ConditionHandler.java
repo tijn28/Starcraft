@@ -219,7 +219,7 @@ public class ConditionHandler {
 		if (this.unit.isCloaked()) {
 			conditions.add(new Identifier("cloaked"));
 		}
-		if (this.unit.isDetected()) {
+		if (this.unit.getPlayer().getID() != this.api.getSelf().getID() && this.unit.isDetected()) {
 			conditions.add(new Identifier("detected"));
 		}
 		if (this.unit.isAttacking()) { // includes medic heal
