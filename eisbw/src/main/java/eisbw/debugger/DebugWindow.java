@@ -1,6 +1,7 @@
 package eisbw.debugger;
 
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.BoxLayout;
@@ -48,8 +49,9 @@ public class DebugWindow extends JFrame {
 	}
 
 	private List<String> getActions() {
-		List<String> result = this.cheats.getActions();
-		this.cheats.clean();
+		List<String> result = new LinkedList<>();
+		result.addAll(this.cheats.getActions());
+                this.cheats.clean();
 		return result;
 	}
 

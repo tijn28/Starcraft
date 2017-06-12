@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -66,7 +65,7 @@ public class CheatButtons extends JPanel implements ActionListener {
 	}
 
 	public List<String> getActions() {
-		return Collections.unmodifiableList(this.actions);
+		return this.actions;
 	}
 
 	/**
