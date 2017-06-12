@@ -196,6 +196,23 @@ This section will list all the percepts that are usable in the StarCraft environ
 \end{tabularx}
 \\\\
 \noindent
+\textbf{Frame percept}\\
+\\
+\begin{tabularx}{\textwidth}{lX}
+ Description & The current game frame, sent per 50 frames (which is also the interval at which construction sites are updated). For more information see Section \ref{game speed}.  \\
+ Type & Send on change \\
+ Syntax &  \verb|frame(<number>)| \\
+ Example & \verb|frame(150)|   \\
+ \end{tabularx}
+ \begin{tabularx}{\textwidth}{l | c | p{8cm}|}
+ \cline{2-3}
+  Parameters & \textbf{\verb|<number>|} & The game frame in increments of 50. \\
+             & \textbf{Type} & \verb|Positive Integer| \\
+             & \textbf{Range} & [0--$\infty$] \\
+            \cline{2-3}
+\end{tabularx}
+\\\\
+\noindent
 \textbf{Winner percept}\\
 \\
 \begin{tabularx}{\textwidth}{lX}
@@ -259,7 +276,7 @@ This section will list all the percepts that are usable in the StarCraft environ
 \begin{tabularx}{\textwidth}{lX}
  Description & All the base locations of the map. These are possible construction sites for bases. \\
  Type & Send once \\
- Syntax & \verb|base(<X>,<Y>,<IsStart>,<RegionID>)| \\
+ Syntax & \verb|base(<X>,<Y>,<IsStart>,<ResourceGroupID>)| \\
  Example & \verb|base(28, 32, true, 8)| \\
  \end{tabularx}
  \begin{tabularx}{\textwidth}{l | c | p{8cm}|}
@@ -410,7 +427,7 @@ This section will list all the percepts that are usable in the StarCraft environ
 \textbf{Region/2 percept}\\
 \\
 \begin{tabularx}{\textwidth}{lX}
- Description & All the regions on the map. Regions are connected by chokepoints and can be on high or low ground. \\
+ Description & Gives information about which region on the map a unit is in. \\
  Type & Send on change \\
  Syntax & \verb|region(<UnitID>,<RegionID>)| \\
  Example & \verb|region(12, 15)| \\
@@ -434,7 +451,7 @@ This section will list all the percepts that are usable in the StarCraft environ
 \textbf{Friendly percept}\\
 \\
 \begin{tabularx}{\textwidth}{lX}
- Description & Information about all the other (alive) units of the player. \\
+ Description & Information about all (alive) units of the player. \\
  Type & Send always \\
  Syntax & \verb|friendly(<Type>,<ID>,<Condition>)| \\
  Example & \verb|friendly(Protoss Gateway, 26, [beingConstructed])| \\
@@ -776,10 +793,10 @@ This section will list all the percepts that are usable in the StarCraft environ
 \textbf{Construction Site percept}\\
 \\
 \begin{tabularx}{\textwidth}{lX}
- Description & Shows all explored and non-obstructed construction sites where at least a Protoss Nexus, Terran Command Center or Zerg Hatchery can be placed. \\
+ Description & Shows all explored and non-obstructed construction sites where at least a Protoss Nexus, Terran Command Center or Zerg Hatchery can be placed. Updated every 50 game frames. \\
  Type & Send always \\
  Syntax & (If Protoss) \verb|constructionSite(<X>,<Y>,<InPylonRange>)| \\
-        & (If Zerg) \verb|constructionSite(<X>,<Y>,<onCreep>)|\\
+        & (If Zerg) \verb|constructionSite(<X>,<Y>,<OnCreep>)|\\
         & (If Terran) \verb|constructionSite(<X>,<Y>)| \\
  Example & \verb|constructionSite(66, 98, false)| \\
          & \verb|constructionSite(66, 98)| \\
@@ -798,7 +815,7 @@ This section will list all the percepts that are usable in the StarCraft environ
             & \textbf{Type} & \verb|Boolean| \\
             & \textbf{Range} & [True-False] \\
             \cline{2-3}
-            & \textbf{\verb|<onCreep>|} & Indicates whether the construction site is on creep (this is only for Zerg)\\
+            & \textbf{\verb|<OnCreep>|} & Indicates whether the construction site is on creep (this is only for Zerg)\\
             & \textbf{Type} & \verb|Boolean| \\
             & \textbf{Range} & [True-False] \\
             \cline{2-3}

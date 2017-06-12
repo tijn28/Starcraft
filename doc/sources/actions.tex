@@ -196,7 +196,7 @@ This section will list all the actions that are usable in the Starcraft environm
 \begin{tabularx}{\textwidth}{lX}
  Desription & Cancel the construction of the unit. \\
  Syntax & \verb|cancel(<Id>)| \\
- Parameters & \verb|<ID>|: The \textit{ID} of the building/unit to cancel upgrading/morphing etc.\\
+ Parameters & \verb|<ID>|: The \textit{ID} of the building/unit to cancel upgrading/morphing etc. Passing no argument will cancel the unit itself. \\
  Pre & The unit is morphing, beingConstructed, researching or upgrading. \\
  Post & The morphing, construction, upgrading or researching is cancelled.
 \end{tabularx}
@@ -232,7 +232,7 @@ This section will list all the actions that are usable in the Starcraft environm
 
 \section{Repair action (Terran only)}
 \begin{tabularx}{\textwidth}{lX}
- Description & Repairs a unit with less than the max amount of health. \\
+ Description & Repairs a unit with less than the max amount of health. Also works for unfinished buildings. \\
  Syntax & \verb|repair(<Id>)| \\
  Parameters & \verb|<Id>|: The Id of the unit to repair. \\
  Pre & The unit is a SCV, has the resources to repair and can reach the unit to repair. \\
@@ -246,14 +246,3 @@ This section will list all the actions that are usable in the Starcraft environm
  Pre & The game is in progress. \\
  Post & The game ends with a loss.
 \end{tabularx}
-
-
-%Kweet niet of ik deze action wil houden
-%\section{RightClick action}
-%\begin{tabularx}{\textwidth}{lX}
- %Desription & Right clicks on a unit. (This is action should not be necessary but could be used for testing %purposes) \\
- %Syntax & rightClick(<ID>) or rightClick(<X>,<Y>) \\
- %Parameters & <ID>: The ID of a unit.\\
- %           & <X>,<Y>: A position.\\
- %Effects &  The unit rightclicks
-%\end{tabularx}
