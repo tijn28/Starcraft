@@ -111,7 +111,7 @@ public class Configuration {
 	}
 
 	public boolean getInvulnerable() {
-		return this.debug.getValue();
+		return this.invulnerable.getValue();
 	}
 
 	public boolean getMapAgent() {
