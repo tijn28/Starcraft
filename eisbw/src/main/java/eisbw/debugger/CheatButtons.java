@@ -65,7 +65,7 @@ public class CheatButtons extends JPanel implements ActionListener {
 	}
 
 	public List<String> getActions() {
-		return this.actions;
+		return new LinkedList<>(this.actions);
 	}
 
 	/**
