@@ -75,9 +75,9 @@ public class TrainTest {
   
   @Test
   public void canExecute_test() {
-    when(unitType.isProduceCapable()).thenReturn(false);
+    when(unit.isBeingConstructed()).thenReturn(true);
     assertFalse(action.canExecute(unit, act));
-    when(unitType.isProduceCapable()).thenReturn(true);
+    when(unit.isBeingConstructed()).thenReturn(false);
     assertTrue(action.canExecute(unit, act));
   }
   
