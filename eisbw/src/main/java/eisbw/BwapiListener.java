@@ -120,6 +120,10 @@ public class BwapiListener extends BwapiEvents {
 		}
 
 		signalUpdateThread();
+		try {
+			Thread.sleep(1); // prevent speed 0 from going too fast
+		} catch (InterruptedException ignore) {
+		}
 	}
 
 	private void signalUpdateThread() {
