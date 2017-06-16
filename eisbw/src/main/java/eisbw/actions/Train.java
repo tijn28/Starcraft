@@ -33,7 +33,7 @@ public class Train extends StarcraftAction {
 
 	@Override
 	public boolean canExecute(Unit unit, Action action) {
-	      return true;
+	      return !unit.isBeingConstructed();
 	}
 
 	@Override
