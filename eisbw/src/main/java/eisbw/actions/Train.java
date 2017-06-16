@@ -33,17 +33,13 @@ public class Train extends StarcraftAction {
 
 	@Override
 	public boolean canExecute(Unit unit, Action action) {
-		//return unit.getType().isProduceCapable();
-		return !unit.isBeingConstructed();
+	      return true;
 	}
 
 	@Override
 	public void execute(Unit unit, Action action) {
 		List<Parameter> parameters = action.getParameters();
 		String tobuild = ((Identifier) parameters.get(0)).getValue();
-		if ("Terran Siege Tank".equals(tobuild)) {
-			tobuild = "Terran Siege Tank Tank Mode";
-		}
 		UnitType unitType = getUnitType(tobuild);
 
 		unit.train(unitType);
@@ -53,4 +49,5 @@ public class Train extends StarcraftAction {
 	public String toString() {
 		return "train(Type)";
 	}
+
 }
