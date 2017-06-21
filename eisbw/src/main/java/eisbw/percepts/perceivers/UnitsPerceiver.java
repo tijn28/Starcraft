@@ -20,7 +20,6 @@ import eisbw.percepts.ResourcesPercept;
 import eisbw.units.ConditionHandler;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Player;
-import jnibwapi.Region;
 import jnibwapi.Unit;
 import jnibwapi.types.UnitType.UnitTypes;
 
@@ -66,15 +65,15 @@ public class UnitsPerceiver extends Perceiver {
 						: BwapiUtility.getUnitType(u);
 				unitpercepts.add(new FriendlyPercept(u.getID(), unittype, conditionHandler.getConditions()));
 				if (u.isBeingConstructed()) {
-					Region region = this.api.getMap().getRegion(u.getPosition());
-					newunitpercepts.add(new NewUnitPercept(u.getID(), u.getPosition().getBX(), u.getPosition().getBY(),
-							region.getID()));
+					int region = BwapiUtility.getRegion(u, this.api.getMap());
+					newunitpercepts.add(
+							new NewUnitPercept(u.getID(), u.getPosition().getBX(), u.getPosition().getBY(), region));
 				}
 			} else {
-				Region region = this.api.getMap().getRegion(u.getPosition());
+				int region = BwapiUtility.getRegion(u, this.api.getMap());
 				unitpercepts.add(new EnemyPercept(u.getID(), BwapiUtility.getUnitType(u), u.getHitPoints(),
 						u.getShields(), u.getEnergy(), conditionHandler.getConditions(), u.getPosition().getBX(),
-						u.getPosition().getBY(), region.getID()));
+						u.getPosition().getBY(), region));
 				if (u.getType().isAttackCapable()) {
 					Unit target = (u.getTarget() == null) ? u.getOrderTarget() : u.getTarget();
 					if (target != null && !units.contains(target)) {

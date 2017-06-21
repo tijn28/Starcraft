@@ -3,6 +3,7 @@ package eisbw;
 import java.util.HashMap;
 import java.util.Map;
 
+import jnibwapi.Region;
 import jnibwapi.Unit;
 import jnibwapi.types.TechType;
 import jnibwapi.types.TechType.TechTypes;
@@ -43,6 +44,11 @@ public class BwapiUtility {
 		} else {
 			return type;
 		}
+	}
+
+	public static int getRegion(Unit unit, jnibwapi.Map map) {
+		Region region = (map == null) ? null : map.getRegion(unit.getPosition());
+		return (region == null) ? 0 : region.getID();
 	}
 
 	/**

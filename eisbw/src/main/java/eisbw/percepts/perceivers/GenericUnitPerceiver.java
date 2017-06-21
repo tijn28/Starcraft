@@ -16,7 +16,6 @@ import eisbw.percepts.UnitLoadedPercept;
 import eisbw.units.ConditionHandler;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Position;
-import jnibwapi.Region;
 import jnibwapi.Unit;
 
 /**
@@ -55,9 +54,9 @@ public class GenericUnitPerceiver extends UnitPerceiver {
 	private void statusPercept(Map<PerceptFilter, Set<Percept>> toReturn) {
 		Set<Percept> statusPercept = new HashSet<>(1);
 		Position pos = this.unit.getPosition();
-		Region region = this.api.getMap().getRegion(pos);
+		int region = BwapiUtility.getRegion(this.unit, this.api.getMap());
 		statusPercept.add(new StatusPercept(this.unit.getHitPoints(), this.unit.getShields(), this.unit.getEnergy(),
-				new ConditionHandler(this.api, this.unit).getConditions(), pos.getBX(), pos.getBY(), region.getID()));
+				new ConditionHandler(this.api, this.unit).getConditions(), pos.getBX(), pos.getBY(), region));
 		toReturn.put(new PerceptFilter(Percepts.STATUS, Filter.Type.ON_CHANGE), statusPercept);
 	}
 
