@@ -41,7 +41,7 @@ public class DrawConstructionSite extends IDraw {
 				api.drawBox(new Position(xpos, ypos, PosType.BUILD), new Position(xpos + 3, ypos + 3, PosType.BUILD),
 						BWColor.Blue, false, false);
 			} else {
-				boolean bool = translator.translate2Java(params.get(2), Boolean.class);
+				boolean bool = translator.translate2Java(params.get(3), Boolean.class);
 				if (bool) {
 					api.drawBox(new Position(xpos, ypos, PosType.BUILD),
 							new Position(xpos + 3, ypos + 3, PosType.BUILD), BWColor.Blue, false, false);
