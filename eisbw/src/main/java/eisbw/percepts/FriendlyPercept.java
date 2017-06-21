@@ -19,14 +19,14 @@ public class FriendlyPercept extends Percept {
 	/**
 	 * Constructor FriendlyPercept.
 	 *
-	 * @param type
-	 *            The unit type (TODO: maybe move type to newunit?)
 	 * @param id
 	 *            The ID of the unit
+	 * @param type
+	 *            The unit type
 	 * @param conditions
 	 *            The current conditions of the unit
 	 */
-	public FriendlyPercept(String type, int id, List<Parameter> conditions) {
-		super(Percepts.FRIENDLY, new Identifier(type), new Numeral(id), new ParameterList(conditions));
+	public FriendlyPercept(int id, String type, List<Parameter> conditions) {
+		super(Percepts.FRIENDLY, new Numeral(id), new Identifier(type), new ParameterList(conditions));
 	}
 }

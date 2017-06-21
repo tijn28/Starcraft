@@ -64,7 +64,7 @@ public class UnitsPerceiver extends Perceiver {
 			if (newunitpercepts != null) {
 				String unittype = (u.getType().getID() == UnitTypes.Zerg_Egg.getID()) ? u.getBuildType().getName()
 						: BwapiUtility.getUnitType(u);
-				unitpercepts.add(new FriendlyPercept(unittype, u.getID(), conditionHandler.getConditions()));
+				unitpercepts.add(new FriendlyPercept(u.getID(), unittype, conditionHandler.getConditions()));
 				if (u.isBeingConstructed()) {
 					Region region = this.api.getMap().getRegion(u.getPosition());
 					newunitpercepts.add(new NewUnitPercept(u.getID(), u.getPosition().getBX(), u.getPosition().getBY(),
@@ -72,7 +72,7 @@ public class UnitsPerceiver extends Perceiver {
 				}
 			} else {
 				Region region = this.api.getMap().getRegion(u.getPosition());
-				unitpercepts.add(new EnemyPercept(BwapiUtility.getUnitType(u), u.getID(), u.getHitPoints(),
+				unitpercepts.add(new EnemyPercept(u.getID(), BwapiUtility.getUnitType(u), u.getHitPoints(),
 						u.getShields(), u.getEnergy(), conditionHandler.getConditions(), u.getPosition().getBX(),
 						u.getPosition().getBY(), region.getID()));
 				if (u.getType().isAttackCapable()) {

@@ -19,10 +19,10 @@ public class EnemyPercept extends Percept {
 	/**
 	 * Constructor EnemyPercept.
 	 *
-	 * @param type
-	 *            The unit type
 	 * @param id
 	 *            The ID of the unit
+	 * @param type
+	 *            The unit type
 	 * @param health
 	 *            The amount of health of the unit
 	 * @param shields
@@ -36,9 +36,9 @@ public class EnemyPercept extends Percept {
 	 * @param y
 	 *            The Y coordinate of the location of the unit
 	 */
-	public EnemyPercept(String type, int id, int health, int shields, int energy, List<Parameter> conditions, int x,
+	public EnemyPercept(int id, String type, int health, int shields, int energy, List<Parameter> conditions, int x,
 			int y, int region) {
-		super(Percepts.ENEMY, new Identifier(type), new Numeral(id), new Numeral(health), new Numeral(energy),
+		super(Percepts.ENEMY, new Numeral(id), new Identifier(type), new Numeral(health), new Numeral(energy),
 				new Numeral(shields), new ParameterList(conditions), new Numeral(x), new Numeral(y),
 				new Numeral(region));
 	}
