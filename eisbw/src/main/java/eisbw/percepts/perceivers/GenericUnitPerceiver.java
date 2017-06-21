@@ -12,15 +12,14 @@ import eisbw.percepts.DefensiveMatrixPercept;
 import eisbw.percepts.Percepts;
 import eisbw.percepts.ResourcesPercept;
 import eisbw.percepts.SelfPercept;
-import eisbw.percepts.SpaceProvidedPercept;
 import eisbw.percepts.StatusPercept;
 import eisbw.percepts.UnitLoadedPercept;
 import eisbw.units.ConditionHandler;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Player;
 import jnibwapi.Position;
+import jnibwapi.Region;
 import jnibwapi.Unit;
-import jnibwapi.types.UnitType;
 
 /**
  * @author Danny & Harm - The perceiver which handles all the generic percepts.
@@ -46,7 +45,6 @@ public class GenericUnitPerceiver extends UnitPerceiver {
 
 		if (this.unit.getType().getSpaceProvided() > 0) {
 			List<Unit> loadedUnits = this.unit.getLoadedUnits();
-			spaceProvidedPercept(toReturn, loadedUnits);
 			unitLoadedPercept(toReturn, loadedUnits);
 		}
 
@@ -60,8 +58,9 @@ public class GenericUnitPerceiver extends UnitPerceiver {
 	private void statusPercept(Map<PerceptFilter, Set<Percept>> toReturn) {
 		Set<Percept> statusPercept = new HashSet<>(1);
 		Position pos = this.unit.getPosition();
+		Region region = this.api.getMap().getRegion(pos);
 		statusPercept.add(new StatusPercept(this.unit.getHitPoints(), this.unit.getShields(), this.unit.getEnergy(),
-				new ConditionHandler(this.api, this.unit).getConditions(), pos.getBX(), pos.getBY()));
+				new ConditionHandler(this.api, this.unit).getConditions(), pos.getBX(), pos.getBY(), region.getID()));
 		toReturn.put(new PerceptFilter(Percepts.STATUS, Filter.Type.ON_CHANGE), statusPercept);
 	}
 
@@ -71,9 +70,7 @@ public class GenericUnitPerceiver extends UnitPerceiver {
 	 */
 	private void selfPercept(Map<PerceptFilter, Set<Percept>> toReturn) {
 		Set<Percept> selfPercept = new HashSet<>(1);
-		UnitType type = this.unit.getType();
-		selfPercept.add(new SelfPercept(this.unit.getID(), BwapiUtility.getUnitType(this.unit), type.getMaxHitPoints(),
-				type.getMaxShields(), type.getMaxEnergy()));
+		selfPercept.add(new SelfPercept(this.unit.getID(), BwapiUtility.getUnitType(this.unit)));
 		toReturn.put(new PerceptFilter(Percepts.SELF, Filter.Type.ONCE), selfPercept);
 	}
 
@@ -111,23 +108,11 @@ public class GenericUnitPerceiver extends UnitPerceiver {
 		Set<Percept> unitLoadedPercept = new HashSet<>(loadedUnits.size());
 		for (Unit u : loadedUnits) {
 			if (u != null) {
-				unitLoadedPercept.add(new UnitLoadedPercept(u.getID(), u.getType().getName()));
+				unitLoadedPercept.add(new UnitLoadedPercept(u.getID()));
 			}
 		}
 		if (!unitLoadedPercept.isEmpty()) {
 			toReturn.put(new PerceptFilter(Percepts.UNITLOADED, Filter.Type.ALWAYS), unitLoadedPercept);
 		}
-	}
-
-	/**
-	 * @param toReturn
-	 *            The percept and reference of which kind of percept it is.
-	 * @param loadedUnits
-	 *            The loaded units
-	 */
-	private void spaceProvidedPercept(Map<PerceptFilter, Set<Percept>> toReturn, List<Unit> loadedUnits) {
-		Set<Percept> spaceProvidedPercept = new HashSet<>(1);
-		spaceProvidedPercept.add(new SpaceProvidedPercept(loadedUnits.size(), this.unit.getType().getSpaceProvided()));
-		toReturn.put(new PerceptFilter(Percepts.SPACEPROVIDED, Filter.Type.ON_CHANGE), spaceProvidedPercept);
 	}
 }

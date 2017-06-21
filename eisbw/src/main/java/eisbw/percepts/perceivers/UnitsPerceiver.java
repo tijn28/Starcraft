@@ -16,7 +16,6 @@ import eisbw.percepts.EnemyPercept;
 import eisbw.percepts.FriendlyPercept;
 import eisbw.percepts.NewUnitPercept;
 import eisbw.percepts.Percepts;
-import eisbw.percepts.UnitRegionPercept;
 import eisbw.units.ConditionHandler;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Region;
@@ -54,7 +53,7 @@ public class UnitsPerceiver extends Perceiver {
 	 *            - the map that will be returned
 	 */
 	private void setUnitPercepts(List<Unit> units, Set<Percept> newunitpercepts, Set<Percept> unitpercepts,
-			Set<Percept> attackingpercepts, Set<Percept> regionpercepts) {
+			Set<Percept> attackingpercepts) {
 		for (Unit u : units) {
 			if (u.isBeingConstructed() && u.isLoaded()) {
 				continue; // Fix for the phantom marines bug
@@ -65,13 +64,15 @@ public class UnitsPerceiver extends Perceiver {
 						: BwapiUtility.getUnitType(u);
 				unitpercepts.add(new FriendlyPercept(unittype, u.getID(), conditionHandler.getConditions()));
 				if (u.isBeingConstructed()) {
-					newunitpercepts
-							.add(new NewUnitPercept(u.getID(), u.getPosition().getBX(), u.getPosition().getBY()));
+					Region region = this.api.getMap().getRegion(u.getPosition());
+					newunitpercepts.add(new NewUnitPercept(u.getID(), u.getPosition().getBX(), u.getPosition().getBY(),
+							region.getID()));
 				}
 			} else {
-				unitpercepts
-						.add(new EnemyPercept(BwapiUtility.getUnitType(u), u.getID(), u.getHitPoints(), u.getShields(),
-								conditionHandler.getConditions(), u.getPosition().getBX(), u.getPosition().getBY()));
+				Region region = this.api.getMap().getRegion(u.getPosition());
+				unitpercepts.add(new EnemyPercept(BwapiUtility.getUnitType(u), u.getID(), u.getHitPoints(),
+						u.getShields(), u.getEnergy(), conditionHandler.getConditions(), u.getPosition().getBX(),
+						u.getPosition().getBY(), region.getID()));
 				if (u.getType().isAttackCapable()) {
 					Unit target = (u.getTarget() == null) ? u.getOrderTarget() : u.getTarget();
 					if (target != null && !units.contains(target)) {
@@ -79,11 +80,6 @@ public class UnitsPerceiver extends Perceiver {
 					}
 				}
 			}
-			Region region = (this.api.getMap() == null) ? null : this.api.getMap().getRegion(u.getPosition());
-			if (region != null) {
-				regionpercepts.add(new UnitRegionPercept(u.getID(), region.getID()));
-			} // FIXME: this should be in the UnitPerceiver for friendlies
-				// (without id parameter) and in the enemy percept for enemies
 		}
 	}
 
@@ -93,18 +89,16 @@ public class UnitsPerceiver extends Perceiver {
 		Set<Percept> friendlypercepts = new HashSet<>();
 		Set<Percept> enemypercepts = new HashSet<>();
 		Set<Percept> attackingpercepts = new HashSet<>();
-		Set<Percept> regionpercepts = new HashSet<>();
 
 		// perceive friendly units
-		setUnitPercepts(this.api.getMyUnits(), newunitpercepts, friendlypercepts, attackingpercepts, regionpercepts);
+		setUnitPercepts(this.api.getMyUnits(), newunitpercepts, friendlypercepts, attackingpercepts);
 		// perceive enemy units
-		setUnitPercepts(this.api.getEnemyUnits(), null, enemypercepts, attackingpercepts, regionpercepts);
+		setUnitPercepts(this.api.getEnemyUnits(), null, enemypercepts, attackingpercepts);
 
 		toReturn.put(new PerceptFilter(Percepts.FRIENDLY, Filter.Type.ALWAYS), friendlypercepts);
 		toReturn.put(new PerceptFilter(Percepts.ENEMY, Filter.Type.ALWAYS), enemypercepts);
 		toReturn.put(new PerceptFilter(Percepts.ATTACKING, Filter.Type.ALWAYS), attackingpercepts);
-		toReturn.put(new PerceptFilter(Percepts.NEWUNIT, Filter.Type.ON_CHANGE), newunitpercepts);
-		toReturn.put(new PerceptFilter(Percepts.UNITREGION, Filter.Type.ON_CHANGE), regionpercepts);
+		toReturn.put(new PerceptFilter(Percepts.NEWUNIT, Filter.Type.ALWAYS), newunitpercepts);
 
 		return toReturn;
 	}

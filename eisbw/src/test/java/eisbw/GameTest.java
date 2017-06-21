@@ -60,7 +60,7 @@ public class GameTest {
 
     percepts = new HashMap<>();
     Set<Percept> perc = new HashSet<>();
-    perc.add(new ConstructionSitePercept(1, 2));
+    perc.add(new ConstructionSitePercept(1, 2, 3));
     percepts.put(new PerceptFilter(Percepts.CONSTRUCTIONSITE, Filter.Type.ALWAYS),perc);
 
     when(scUnit.perceive()).thenReturn(percepts);

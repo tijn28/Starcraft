@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
 
 import eis.eis2java.translation.Filter;
@@ -13,8 +12,6 @@ import eis.iilang.Numeral;
 import eis.iilang.Parameter;
 import eis.iilang.Percept;
 import eisbw.percepts.BasePercept;
-import eisbw.percepts.ChokepointCenterPercept;
-import eisbw.percepts.ChokepointPercept;
 import eisbw.percepts.ChokepointRegionPercept;
 import eisbw.percepts.EnemyRacePercept;
 import eisbw.percepts.MapPercept;
@@ -70,30 +67,14 @@ public class MapPerceiver extends Perceiver {
 		}
 		Set<Percept> basePercepts = new HashSet<>(map.getBaseLocations().size());
 		for (BaseLocation location : map.getBaseLocations()) {
-			int resourcegroup = -1;
-			double distance = Integer.MAX_VALUE;
-			for (Entry<Integer, Position> resource : distanceMatrix.entrySet()) {
-				double newDist = resource.getValue().getBDistance(location.getPosition());
-				if (newDist < distance) {
-					resourcegroup = resource.getKey();
-					distance = newDist;
-				}
-			}
-
-			Percept basePercept = new BasePercept(location.getPosition().getBX(), location.getPosition().getBY(),
-					location.isStartLocation(), resourcegroup);
+			Percept basePercept = new BasePercept(location.isStartLocation(), location.getPosition().getBX(),
+					location.getPosition().getBY(), location.getRegion().getID());
 			basePercepts.add(basePercept);
 		}
 		toReturn.put(new PerceptFilter(Percepts.BASE, Filter.Type.ONCE), basePercepts);
 
 		Set<Percept> chokepointPercepts = new HashSet<>(map.getChokePoints().size());
 		for (ChokePoint cp : map.getChokePoints()) {
-			Percept chokeCenterPercept = new ChokepointCenterPercept(cp.getCenter().getBX(), cp.getCenter().getBY(),
-					(int) cp.getRadius());
-			chokepointPercepts.add(chokeCenterPercept);
-			Percept chokePercept = new ChokepointPercept(cp.getFirstSide().getBX(), cp.getFirstSide().getBY(),
-					cp.getSecondSide().getBX(), cp.getSecondSide().getBY());
-			chokepointPercepts.add(chokePercept);
 			Percept chokeRegionPercept = new ChokepointRegionPercept(cp.getFirstSide().getBX(),
 					cp.getFirstSide().getBY(), cp.getSecondSide().getBX(), cp.getSecondSide().getBY(),
 					cp.getFirstRegion().getID(), cp.getSecondRegion().getID());

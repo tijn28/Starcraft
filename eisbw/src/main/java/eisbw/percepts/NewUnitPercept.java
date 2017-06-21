@@ -21,8 +21,10 @@ public class NewUnitPercept extends Percept {
 	 *            The (initial) X coordinate of the location of the unit
 	 * @param y
 	 *            The (initial) Y coordinate of the location of the unit
+	 * @param region
+	 *            The region of the location of the unit
 	 */
-	public NewUnitPercept(int id, int x, int y) {
-		super(Percepts.NEWUNIT, new Numeral(id), new Numeral(x), new Numeral(y));
+	public NewUnitPercept(int id, int x, int y, int region) {
+		super(Percepts.NEWUNIT, new Numeral(id), new Numeral(x), new Numeral(y), new Numeral(region));
 	}
 }

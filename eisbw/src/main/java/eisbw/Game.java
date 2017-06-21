@@ -13,7 +13,6 @@ import eis.eis2java.translation.Filter;
 import eis.exceptions.ManagementException;
 import eis.iilang.Percept;
 import eisbw.percepts.FramePercept;
-import eisbw.percepts.GameSpeedPercept;
 import eisbw.percepts.NukePercept;
 import eisbw.percepts.Percepts;
 import eisbw.percepts.WinnerPercept;
@@ -103,7 +102,6 @@ public class Game {
 				if (this.framePercepts != null) {
 					thisUnitPercepts.putAll(this.framePercepts);
 				}
-				thisUnitPercepts.putAll(getGameSpeedPercept());
 			}
 			unitPerceptHolder.put(unit.getKey(), thisUnitPercepts);
 		}
@@ -121,7 +119,6 @@ public class Game {
 			if (this.framePercepts != null) {
 				thisUnitPercepts.putAll(this.framePercepts);
 			}
-			thisUnitPercepts.putAll(getGameSpeedPercept());
 			unitPerceptHolder.put("mapAgent", thisUnitPercepts);
 		}
 		this.percepts = unitPerceptHolder;
@@ -295,14 +292,6 @@ public class Game {
 
 	public StarcraftEnvironmentImpl getEnvironment() {
 		return this.env;
-	}
-
-	private Map<PerceptFilter, Set<Percept>> getGameSpeedPercept() {
-		Map<PerceptFilter, Set<Percept>> toReturn = new HashMap<>(1);
-		Set<Percept> speedpercept = new HashSet<>(1);
-		speedpercept.add(new GameSpeedPercept(this.env.getFPS()));
-		toReturn.put(new PerceptFilter(Percepts.GAMESPEED, Filter.Type.ON_CHANGE), speedpercept);
-		return toReturn;
 	}
 
 	/**

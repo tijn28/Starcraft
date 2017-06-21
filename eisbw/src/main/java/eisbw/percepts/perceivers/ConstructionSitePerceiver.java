@@ -13,6 +13,7 @@ import eisbw.percepts.ConstructionSitePercept;
 import eisbw.percepts.Percepts;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Position;
+import jnibwapi.Region;
 import jnibwapi.Unit;
 import jnibwapi.types.RaceType.RaceTypes;
 import jnibwapi.types.UnitType;
@@ -43,8 +44,8 @@ public class ConstructionSitePerceiver extends Perceiver {
 	 *            A list of illegal build places.
 	 * @return Check whether the given ConstructionSite is legal or not.
 	 */
-	private boolean checkConstructionSite(int xpos, int ypos, List<Point> illegals) {
-		Point possible = new Point(xpos, ypos);
+	private boolean checkConstructionSite(Position pos, List<Point> illegals) {
+		Point possible = new Point(pos.getBX(), pos.getBY());
 		for (Point illegal : illegals) {
 			if (illegal.distance(possible) < 3) {
 				return false;
@@ -65,10 +66,11 @@ public class ConstructionSitePerceiver extends Perceiver {
 	 * @param percepts
 	 *            The list of perceived constructionsites
 	 */
-	private void perceiveTerran(Position pos, int xpos, int ypos, List<Point> illegals, Set<Percept> percepts) {
-		if (checkConstructionSite(xpos, ypos, illegals)
+	private void perceiveTerran(Position pos, List<Point> illegals, Set<Percept> percepts) {
+		if (checkConstructionSite(pos, illegals)
 				&& this.api.canBuildHere(pos, UnitType.UnitTypes.Terran_Command_Center, true)) {
-			percepts.add(new ConstructionSitePercept(xpos, ypos));
+			Region region = this.api.getMap().getRegion(pos);
+			percepts.add(new ConstructionSitePercept(pos.getBX(), pos.getBY(), region.getID()));
 		}
 	}
 
@@ -84,11 +86,12 @@ public class ConstructionSitePerceiver extends Perceiver {
 	 * @param percepts
 	 *            The list of perceived constructionsites
 	 */
-	private void perceiveProtosss(Position pos, int xpos, int ypos, List<Point> illegals, Set<Percept> percepts) {
-		if (checkConstructionSite(xpos, ypos, illegals)
+	private void perceiveProtosss(Position pos, List<Point> illegals, Set<Percept> percepts) {
+		if (checkConstructionSite(pos, illegals)
 				&& this.api.canBuildHere(pos, UnitType.UnitTypes.Protoss_Nexus, true)) {
+			Region region = this.api.getMap().getRegion(pos);
 			boolean nearPylon = this.api.canBuildHere(pos, UnitType.UnitTypes.Protoss_Gateway, true);
-			percepts.add(new ConstructionSitePercept(xpos, ypos, nearPylon));
+			percepts.add(new ConstructionSitePercept(pos.getBX(), pos.getBY(), region.getID(), nearPylon));
 		}
 	}
 
@@ -104,10 +107,11 @@ public class ConstructionSitePerceiver extends Perceiver {
 	 * @param percepts
 	 *            The list of perceived constructionsites
 	 */
-	private void perceiveZerg(Position pos, int xpos, int ypos, List<Point> illegals, Set<Percept> percepts) {
-		if (checkConstructionSite(xpos, ypos, illegals) && this.api.canBuildHere(pos, UnitTypes.Zerg_Hatchery, true)) {
-			boolean creep = this.api.canBuildHere(pos, UnitTypes.Zerg_Defiler_Mound, true);
-			percepts.add(new ConstructionSitePercept(xpos, ypos, creep));
+	private void perceiveZerg(Position pos, List<Point> illegals, Set<Percept> percepts) {
+		if (checkConstructionSite(pos, illegals) && this.api.canBuildHere(pos, UnitTypes.Zerg_Hatchery, true)) {
+			Region region = this.api.getMap().getRegion(pos);
+			boolean onCreep = this.api.canBuildHere(pos, UnitTypes.Zerg_Defiler_Mound, true);
+			percepts.add(new ConstructionSitePercept(pos.getBX(), pos.getBY(), region.getID(), onCreep));
 		}
 	}
 
@@ -133,11 +137,11 @@ public class ConstructionSitePerceiver extends Perceiver {
 				Position pos = new Position(x, y, Position.PosType.BUILD);
 				if (map.isBuildable(pos)) {
 					if (this.api.getSelf().getRace().getID() == RaceTypes.Terran.getID()) {
-						perceiveTerran(pos, x, y, illegals, percepts);
+						perceiveTerran(pos, illegals, percepts);
 					} else if (this.api.getSelf().getRace().getID() == RaceTypes.Protoss.getID()) {
-						perceiveProtosss(pos, x, y, illegals, percepts);
+						perceiveProtosss(pos, illegals, percepts);
 					} else if (this.api.getSelf().getRace().getID() == RaceTypes.Zerg.getID()) {
-						perceiveZerg(pos, x, y, illegals, percepts);
+						perceiveZerg(pos, illegals, percepts);
 					}
 				}
 			}
