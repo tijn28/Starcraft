@@ -16,8 +16,10 @@ import eisbw.percepts.EnemyPercept;
 import eisbw.percepts.FriendlyPercept;
 import eisbw.percepts.NewUnitPercept;
 import eisbw.percepts.Percepts;
+import eisbw.percepts.ResourcesPercept;
 import eisbw.units.ConditionHandler;
 import jnibwapi.JNIBWAPI;
+import jnibwapi.Player;
 import jnibwapi.Region;
 import jnibwapi.Unit;
 import jnibwapi.types.UnitType.UnitTypes;
@@ -99,6 +101,12 @@ public class UnitsPerceiver extends Perceiver {
 		toReturn.put(new PerceptFilter(Percepts.ENEMY, Filter.Type.ALWAYS), enemypercepts);
 		toReturn.put(new PerceptFilter(Percepts.ATTACKING, Filter.Type.ALWAYS), attackingpercepts);
 		toReturn.put(new PerceptFilter(Percepts.NEWUNIT, Filter.Type.ALWAYS), newunitpercepts);
+
+		Set<Percept> resourcePercept = new HashSet<>(1);
+		Player self = this.api.getSelf();
+		resourcePercept.add(
+				new ResourcesPercept(self.getMinerals(), self.getGas(), self.getSupplyUsed(), self.getSupplyTotal()));
+		toReturn.put(new PerceptFilter(Percepts.RESOURCES, Filter.Type.ON_CHANGE), resourcePercept);
 
 		return toReturn;
 	}

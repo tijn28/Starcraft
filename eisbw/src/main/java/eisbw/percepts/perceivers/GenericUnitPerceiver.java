@@ -10,13 +10,11 @@ import eis.iilang.Percept;
 import eisbw.BwapiUtility;
 import eisbw.percepts.DefensiveMatrixPercept;
 import eisbw.percepts.Percepts;
-import eisbw.percepts.ResourcesPercept;
 import eisbw.percepts.SelfPercept;
 import eisbw.percepts.StatusPercept;
 import eisbw.percepts.UnitLoadedPercept;
 import eisbw.units.ConditionHandler;
 import jnibwapi.JNIBWAPI;
-import jnibwapi.Player;
 import jnibwapi.Position;
 import jnibwapi.Region;
 import jnibwapi.Unit;
@@ -39,7 +37,6 @@ public class GenericUnitPerceiver extends UnitPerceiver {
 	@Override
 	public Map<PerceptFilter, Set<Percept>> perceive(Map<PerceptFilter, Set<Percept>> toReturn) {
 		defensiveMatrixPercept(toReturn);
-		resourcesPercept(toReturn);
 		selfPercept(toReturn);
 		statusPercept(toReturn);
 
@@ -72,18 +69,6 @@ public class GenericUnitPerceiver extends UnitPerceiver {
 		Set<Percept> selfPercept = new HashSet<>(1);
 		selfPercept.add(new SelfPercept(this.unit.getID(), BwapiUtility.getUnitType(this.unit)));
 		toReturn.put(new PerceptFilter(Percepts.SELF, Filter.Type.ONCE), selfPercept);
-	}
-
-	/**
-	 * @param toReturn
-	 *            The percept and reference of which kind of percept it is.
-	 */
-	private void resourcesPercept(Map<PerceptFilter, Set<Percept>> toReturn) {
-		Set<Percept> resourcePercept = new HashSet<>(1);
-		Player self = this.api.getSelf();
-		resourcePercept.add(
-				new ResourcesPercept(self.getMinerals(), self.getGas(), self.getSupplyUsed(), self.getSupplyTotal()));
-		toReturn.put(new PerceptFilter(Percepts.RESOURCES, Filter.Type.ON_CHANGE), resourcePercept);
 	}
 
 	/**
