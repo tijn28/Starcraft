@@ -7,6 +7,7 @@ import eis.eis2java.translation.Translator;
 import eis.iilang.Parameter;
 import eis.iilang.Percept;
 import eisbw.Game;
+import eisbw.percepts.perceivers.ConstructionSitePerceiver;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Position;
 import jnibwapi.Position.PosType;
@@ -33,21 +34,22 @@ public class DrawConstructionSite extends IDraw {
 	protected void drawOnMap(JNIBWAPI api) throws TranslationException {
 		Translator translator = Translator.getInstance();
 		List<Percept> percepts = this.game.getConstructionSites();
+		int size = ConstructionSitePerceiver.steps;
 		for (Percept percept : percepts) {
 			List<Parameter> params = percept.getParameters();
 			int xpos = translator.translate2Java(params.get(0), Integer.class);
 			int ypos = translator.translate2Java(params.get(1), Integer.class);
 			if (api.getSelf().getRace().getID() == RaceTypes.Terran.getID()) {
-				api.drawBox(new Position(xpos, ypos, PosType.BUILD), new Position(xpos + 3, ypos + 3, PosType.BUILD),
-						BWColor.Blue, false, false);
+				api.drawBox(new Position(xpos, ypos, PosType.BUILD),
+						new Position(xpos + size, ypos + size, PosType.BUILD), BWColor.Blue, false, false);
 			} else {
 				boolean bool = translator.translate2Java(params.get(3), Boolean.class);
 				if (bool) {
 					api.drawBox(new Position(xpos, ypos, PosType.BUILD),
-							new Position(xpos + 3, ypos + 3, PosType.BUILD), BWColor.Blue, false, false);
+							new Position(xpos + size, ypos + size, PosType.BUILD), BWColor.Blue, false, false);
 				} else {
 					api.drawBox(new Position(xpos, ypos, PosType.BUILD),
-							new Position(xpos + 3, ypos + 3, PosType.BUILD), BWColor.Red, false, false);
+							new Position(xpos + size, ypos + size, PosType.BUILD), BWColor.Red, false, false);
 				}
 			}
 		}

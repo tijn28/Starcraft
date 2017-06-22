@@ -25,6 +25,8 @@ import jnibwapi.types.UnitType.UnitTypes;
  *
  */
 public class ConstructionSitePerceiver extends Perceiver {
+	public final static int steps = 2;
+
 	/**
 	 * The ConstructionSitePerceiver constructor.
 	 *
@@ -47,7 +49,7 @@ public class ConstructionSitePerceiver extends Perceiver {
 	private boolean checkConstructionSite(Position pos, List<Point> illegals) {
 		Point possible = new Point(pos.getBX(), pos.getBY());
 		for (Point illegal : illegals) {
-			if (illegal.distance(possible) < 3) {
+			if (illegal.distance(possible) < steps) {
 				return false;
 			}
 		}
@@ -68,7 +70,7 @@ public class ConstructionSitePerceiver extends Perceiver {
 	 */
 	private void perceiveTerran(Position pos, List<Point> illegals, Set<Percept> percepts) {
 		if (checkConstructionSite(pos, illegals)
-				&& this.api.canBuildHere(pos, UnitType.UnitTypes.Terran_Command_Center, true)) {
+				&& this.api.canBuildHere(pos, UnitType.UnitTypes.Terran_Bunker, true)) {
 			Region region = this.api.getMap().getRegion(pos);
 			percepts.add(new ConstructionSitePercept(pos.getBX(), pos.getBY(), region.getID()));
 		}
@@ -88,9 +90,9 @@ public class ConstructionSitePerceiver extends Perceiver {
 	 */
 	private void perceiveProtosss(Position pos, List<Point> illegals, Set<Percept> percepts) {
 		if (checkConstructionSite(pos, illegals)
-				&& this.api.canBuildHere(pos, UnitType.UnitTypes.Protoss_Nexus, true)) {
+				&& this.api.canBuildHere(pos, UnitType.UnitTypes.Terran_Bunker, true)) {
 			Region region = this.api.getMap().getRegion(pos);
-			boolean nearPylon = this.api.canBuildHere(pos, UnitType.UnitTypes.Protoss_Gateway, true);
+			boolean nearPylon = this.api.canBuildHere(pos, UnitType.UnitTypes.Protoss_Photon_Cannon, true);
 			percepts.add(new ConstructionSitePercept(pos.getBX(), pos.getBY(), region.getID(), nearPylon));
 		}
 	}
@@ -108,9 +110,9 @@ public class ConstructionSitePerceiver extends Perceiver {
 	 *            The list of perceived constructionsites
 	 */
 	private void perceiveZerg(Position pos, List<Point> illegals, Set<Percept> percepts) {
-		if (checkConstructionSite(pos, illegals) && this.api.canBuildHere(pos, UnitTypes.Zerg_Hatchery, true)) {
+		if (checkConstructionSite(pos, illegals) && this.api.canBuildHere(pos, UnitTypes.Terran_Bunker, true)) {
 			Region region = this.api.getMap().getRegion(pos);
-			boolean onCreep = this.api.canBuildHere(pos, UnitTypes.Zerg_Defiler_Mound, true);
+			boolean onCreep = this.api.canBuildHere(pos, UnitTypes.Zerg_Creep_Colony, true);
 			percepts.add(new ConstructionSitePercept(pos.getBX(), pos.getBY(), region.getID(), onCreep));
 		}
 	}
@@ -132,8 +134,8 @@ public class ConstructionSitePerceiver extends Perceiver {
 			}
 		}
 
-		for (int x = 0; x < mapWidth; x += 3) {
-			for (int y = 0; y < mapHeight; y += 3) {
+		for (int x = 0; x < mapWidth; x += steps) {
+			for (int y = 0; y < mapHeight; y += steps) {
 				Position pos = new Position(x, y, Position.PosType.BUILD);
 				if (map.isBuildable(pos)) {
 					if (this.api.getSelf().getRace().getID() == RaceTypes.Terran.getID()) {
