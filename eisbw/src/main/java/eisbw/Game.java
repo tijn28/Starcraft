@@ -85,11 +85,11 @@ public class Game {
 		Map<String, StarcraftUnit> unitList = this.units.getStarcraftUnits();
 		for (Entry<String, StarcraftUnit> unit : unitList.entrySet()) {
 			Map<PerceptFilter, Set<Percept>> thisUnitPercepts = new HashMap<>(unit.getValue().perceive());
-			if (unit.getValue().isWorker()) {
-				thisUnitPercepts.putAll(this.constructionPercepts);
-			}
 			if (!this.env.mapAgent()) {
 				thisUnitPercepts.putAll(globalPercepts); // UnitsPerceiver
+				if (unit.getValue().isWorker() && this.constructionPercepts != null) {
+					thisUnitPercepts.putAll(this.constructionPercepts);
+				}
 				if (this.nukePercepts != null) {
 					thisUnitPercepts.putAll(this.nukePercepts);
 				}
@@ -107,6 +107,9 @@ public class Game {
 		}
 		if (this.env.mapAgent()) {
 			Map<PerceptFilter, Set<Percept>> thisUnitPercepts = new HashMap<>(globalPercepts);
+			if (this.constructionPercepts != null) {
+				thisUnitPercepts.putAll(this.constructionPercepts);
+			}
 			if (this.nukePercepts != null) {
 				thisUnitPercepts.putAll(this.nukePercepts);
 			}
