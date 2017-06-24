@@ -1,9 +1,6 @@
 package eisbw.percepts.perceivers;
 
-import java.awt.Point;
 import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -14,7 +11,6 @@ import eisbw.percepts.Percepts;
 import jnibwapi.JNIBWAPI;
 import jnibwapi.Position;
 import jnibwapi.Region;
-import jnibwapi.Unit;
 import jnibwapi.types.RaceType.RaceTypes;
 import jnibwapi.types.UnitType;
 import jnibwapi.types.UnitType.UnitTypes;
@@ -38,39 +34,13 @@ public class ConstructionSitePerceiver extends Perceiver {
 	}
 
 	/**
-	 * @param xpos
-	 *            The x-coordinate.
-	 * @param ypos
-	 *            The y-coordinate.
-	 * @param illegals
-	 *            A list of illegal build places.
-	 * @return Check whether the given ConstructionSite is legal or not.
-	 */
-	private boolean checkConstructionSite(Position pos, List<Point> illegals) {
-		Point possible = new Point(pos.getBX(), pos.getBY());
-		for (Point illegal : illegals) {
-			if (illegal.distance(possible) < steps) {
-				return false;
-			}
-		}
-		return true;
-	}
-
-	/**
 	 * @param pos
 	 *            The current evaluated position
-	 * @param xpos
-	 *            The x-coordinate
-	 * @param ypos
-	 *            The y-coordinate
-	 * @param illegals
-	 *            A list of illegal build places.
 	 * @param percepts
 	 *            The list of perceived constructionsites
 	 */
-	private void perceiveTerran(Position pos, List<Point> illegals, Set<Percept> percepts) {
-		if (checkConstructionSite(pos, illegals)
-				&& this.api.canBuildHere(pos, UnitType.UnitTypes.Terran_Bunker, true)) {
+	private void perceiveTerran(Position pos, Set<Percept> percepts) {
+		if (this.api.canBuildHere(pos, UnitType.UnitTypes.Terran_Bunker, true)) {
 			Region region = this.api.getMap().getRegion(pos);
 			percepts.add(new ConstructionSitePercept(pos.getBX(), pos.getBY(), region.getID()));
 		}
@@ -79,18 +49,11 @@ public class ConstructionSitePerceiver extends Perceiver {
 	/**
 	 * @param pos
 	 *            The current evaluated position
-	 * @param xpos
-	 *            The x-coordinate
-	 * @param ypos
-	 *            The y-coordinate
-	 * @param illegals
-	 *            A list of illegal build places.
 	 * @param percepts
 	 *            The list of perceived constructionsites
 	 */
-	private void perceiveProtosss(Position pos, List<Point> illegals, Set<Percept> percepts) {
-		if (checkConstructionSite(pos, illegals)
-				&& this.api.canBuildHere(pos, UnitType.UnitTypes.Terran_Bunker, true)) {
+	private void perceiveProtosss(Position pos, Set<Percept> percepts) {
+		if (this.api.canBuildHere(pos, UnitType.UnitTypes.Terran_Bunker, true)) {
 			Region region = this.api.getMap().getRegion(pos);
 			boolean nearPylon = this.api.canBuildHere(pos, UnitType.UnitTypes.Protoss_Photon_Cannon, true);
 			percepts.add(new ConstructionSitePercept(pos.getBX(), pos.getBY(), region.getID(), nearPylon));
@@ -100,17 +63,11 @@ public class ConstructionSitePerceiver extends Perceiver {
 	/**
 	 * @param pos
 	 *            The current evaluated position
-	 * @param xpos
-	 *            The x-coordinate
-	 * @param ypos
-	 *            The y-coordinate
-	 * @param illegals
-	 *            A list of illegal build places.
 	 * @param percepts
 	 *            The list of perceived constructionsites
 	 */
-	private void perceiveZerg(Position pos, List<Point> illegals, Set<Percept> percepts) {
-		if (checkConstructionSite(pos, illegals) && this.api.canBuildHere(pos, UnitTypes.Terran_Bunker, true)) {
+	private void perceiveZerg(Position pos, Set<Percept> percepts) {
+		if (this.api.canBuildHere(pos, UnitTypes.Terran_Bunker, true)) {
 			Region region = this.api.getMap().getRegion(pos);
 			boolean onCreep = this.api.canBuildHere(pos, UnitTypes.Zerg_Creep_Colony, true);
 			percepts.add(new ConstructionSitePercept(pos.getBX(), pos.getBY(), region.getID(), onCreep));
@@ -124,26 +81,16 @@ public class ConstructionSitePerceiver extends Perceiver {
 		int mapWidth = map.getSize().getBX();
 		int mapHeight = map.getSize().getBY();
 
-		List<Point> illegals = new LinkedList<>();
-		for (Unit u : this.api.getNeutralUnits()) {
-			if (u.isExists()) {
-				UnitType type = u.getType();
-				if (type.isMineralField() || type.getID() == UnitTypes.Resource_Vespene_Geyser.getID()) {
-					illegals.add(new Point(u.getTilePosition().getBX(), u.getTilePosition().getBY()));
-				}
-			}
-		}
-
 		for (int x = 0; x < mapWidth; x += steps) {
 			for (int y = 0; y < mapHeight; y += steps) {
 				Position pos = new Position(x, y, Position.PosType.BUILD);
 				if (map.isBuildable(pos)) {
 					if (this.api.getSelf().getRace().getID() == RaceTypes.Terran.getID()) {
-						perceiveTerran(pos, illegals, percepts);
+						perceiveTerran(pos, percepts);
 					} else if (this.api.getSelf().getRace().getID() == RaceTypes.Protoss.getID()) {
-						perceiveProtosss(pos, illegals, percepts);
+						perceiveProtosss(pos, percepts);
 					} else if (this.api.getSelf().getRace().getID() == RaceTypes.Zerg.getID()) {
-						perceiveZerg(pos, illegals, percepts);
+						perceiveZerg(pos, percepts);
 					}
 				}
 			}
