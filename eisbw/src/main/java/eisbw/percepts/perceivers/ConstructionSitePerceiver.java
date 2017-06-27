@@ -40,7 +40,7 @@ public class ConstructionSitePerceiver extends Perceiver {
 	 *            The list of perceived constructionsites
 	 */
 	private void perceiveTerran(Position pos, Set<Percept> percepts) {
-		if (this.api.canBuildHere(pos, UnitType.UnitTypes.Terran_Bunker, true)) {
+		if (this.api.canBuildHere(pos, UnitType.UnitTypes.Terran_Missile_Turret, true)) {
 			Region region = this.api.getMap().getRegion(pos);
 			percepts.add(new ConstructionSitePercept(pos.getBX(), pos.getBY(), region.getID()));
 		}
@@ -53,9 +53,9 @@ public class ConstructionSitePerceiver extends Perceiver {
 	 *            The list of perceived constructionsites
 	 */
 	private void perceiveProtosss(Position pos, Set<Percept> percepts) {
-		if (this.api.canBuildHere(pos, UnitType.UnitTypes.Terran_Bunker, true)) {
+		boolean nearPylon = this.api.canBuildHere(pos, UnitType.UnitTypes.Protoss_Photon_Cannon, true);
+		if (nearPylon || this.api.canBuildHere(pos, UnitType.UnitTypes.Protoss_Pylon, true)) {
 			Region region = this.api.getMap().getRegion(pos);
-			boolean nearPylon = this.api.canBuildHere(pos, UnitType.UnitTypes.Protoss_Photon_Cannon, true);
 			percepts.add(new ConstructionSitePercept(pos.getBX(), pos.getBY(), region.getID(), nearPylon));
 		}
 	}
@@ -67,9 +67,9 @@ public class ConstructionSitePerceiver extends Perceiver {
 	 *            The list of perceived constructionsites
 	 */
 	private void perceiveZerg(Position pos, Set<Percept> percepts) {
-		if (this.api.canBuildHere(pos, UnitTypes.Terran_Bunker, true)) {
+		boolean onCreep = this.api.canBuildHere(pos, UnitTypes.Zerg_Creep_Colony, true);
+		if (onCreep || this.api.canBuildHere(pos, UnitTypes.Terran_Missile_Turret, true)) {
 			Region region = this.api.getMap().getRegion(pos);
-			boolean onCreep = this.api.canBuildHere(pos, UnitTypes.Zerg_Creep_Colony, true);
 			percepts.add(new ConstructionSitePercept(pos.getBX(), pos.getBY(), region.getID(), onCreep));
 		}
 	}
